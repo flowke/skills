@@ -1,9 +1,9 @@
 ---
-name: requirement-doc-orchestrator
+name: truth-doc-orchestrator
 description: Truth-driven documentation system for modules under docs-specs-flo. Use when Codex needs to establish facts, define active intents, express intent graphs with Mermaid, specify behavioral semantics, plan engineering rollout, define verification, settle completed intents, update current truth, or promote shared truths.
 ---
 
-# Requirement Doc Orchestrator
+# Truth Doc Orchestrator
 
 将 `docs-specs-flo/` 重构为一套 **truth-driven documentation system**：先建立事实真相，再定义意图真相，再展开行为语义、工程落地与验证闭环，最终把结果沉淀为模块当前真相与共享真相。
 
