@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Skill Linker"
+  short_description: "Link/unlink external skills via symlinks"
+  default_prompt: "Enable, disable, and list skills from an external directory by creating/removing symlinks in the Codex skills folder."

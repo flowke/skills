@@ -1,0 +1,4 @@
+interface:
+  display_name: "Requirement Doc Orchestrator"
+  short_description: "Truth-driven documentation for facts, intents, behavior, engineering, verification, and settlement"
+  default_prompt: "使用 $requirement-doc-orchestrator 为某个模块建立事实区、活跃意图链路与沉淀结果。"
