@@ -1,0 +1,4 @@
+interface:
+  display_name: "Discuss and Distill"
+  short_description: "Guide discussion and distill current truth"
+  default_prompt: "Use $discuss-and-distill to clarify a fuzzy topic, guide the discussion toward alignment, and maintain a living current-truth document."
