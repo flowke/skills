@@ -111,6 +111,19 @@ description: Facilitate structured discussion and living-document distillation f
 - 把“当前倾向”伪装成“既定事实”。
 - 为了结构而过度打断用户表达。
 
+## Document Location
+
+默认把产出的讨论文档放在固定目录：`docs-discuss-and-distill/`。
+
+默认规则：
+- **固定目录**：`docs-discuss-and-distill/`
+- **默认单位**：每个主题一份文档，而不是每天一份文档
+- **默认命名**：`YYYY-MM-DD-<中文主题>.md`，优先使用简洁明确的中文标题
+- **同主题后续讨论**：继续维护原文档
+- **明显切换新主题**：新建文档
+
+如果用户明确指定了别的目标文件或目录，优先遵循用户指定；否则使用这个固定目录。命名时优先使用中文主题；只有在用户明确要求英文文件名、项目已有英文命名约定，或文件系统/协作约束不适合中文命名时，再退回英文或 slug。需要更具体的路径规则时，读取 `references/document-location.md`。
+
 ## When to Show the Document
 
 默认以隐式维护为主，只在下面时机显式展示文档快照：
