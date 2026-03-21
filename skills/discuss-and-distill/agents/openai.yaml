@@ -1,4 +1,4 @@
 interface:
   display_name: "Discuss and Distill"
-  short_description: "Guide discussion and distill current truth"
-  default_prompt: "Use $discuss-and-distill to clarify a fuzzy topic, guide the discussion toward alignment, and maintain a living current-truth document."
+  short_description: "Align complex requirements and maintain current truth"
+  default_prompt: "Use $discuss-and-distill to align a complex requirement, reconcile conflicts and omissions, perform a pre-planning consistency review, and maintain one living current-truth document through planning and post-code regression results."
