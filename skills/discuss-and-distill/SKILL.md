@@ -71,6 +71,9 @@ description: Facilitate complex requirement discussion, alignment, planning hand
 - `references/document-structures.md`
 - `references/facilitation-patterns.md`
 
+当需要创建或维护阶段文档时，再按需读取：
+- `references/stage-document-templates.md`
+
 ## Standard Workflow Skeleton
 
 本 skill 采用**标准骨架 + 按场景裁剪**，而不是每次都要求完整经过固定全链路。
