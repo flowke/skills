@@ -200,10 +200,12 @@ description: Facilitate complex requirement discussion, alignment, planning hand
 
 默认规则：
 - **固定目录**：`docs-discuss-and-distill/`
-- **默认单位**：每个主题一份文档，而不是每天一份文档。
-- **默认命名**：`YYYY-MM-DD-<中文主题>.md`，优先使用简洁明确的中文标题。
-- **同主题后续讨论**：继续维护原文档。
-- **明显切换新主题**：新建文档。
+- **默认单位**：每个主题一个目录，而不是每个主题一个单文件。
+- **主题目录名**：`YYYY-MM-DD-<中文主题>/`，日期表示主题首次建立日期。
+- **目录内主文件**：固定为 `current-truth.md`。
+- **阶段文件**：仅在进入对应阶段后按需创建 `planning.md`、`regression.md`。
+- **同主题后续讨论**：继续维护原目录与其中的 `current-truth.md`。
+- **明显切换新主题**：新建主题目录。
 
 如果用户明确指定了别的目标文件或目录，优先遵循用户指定；否则使用这个固定目录。需要更具体的路径规则时，读取 `references/document-location.md`。
 
