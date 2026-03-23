@@ -1,6 +1,6 @@
 # Object Templates
 
-当 `discuss-and-distill` 需要创建或维护 `intake / task / module / topic / knowledge` 等对象时，优先参考这里的**轻量模板建议**。
+当 `truth-work-orchestrator`（历史别名：`discuss-and-distill`）需要创建或维护 `intake / task / module / topic / knowledge` 等对象时，优先参考这里的**轻量模板建议**。
 
 注意：
 - 这里提供的是**推荐结构**，不是强制 schema。

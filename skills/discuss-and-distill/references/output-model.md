@@ -1,10 +1,10 @@
 # Output Model
 
-`discuss-and-distill` 当前管理的产出采用“模块 + 主题 + task + 知识”模型。
+`truth-work-orchestrator`（历史别名：`discuss-and-distill`）当前管理的产出采用“模块 + 主题 + task + 知识”模型。
 
 ## 顶层结构
 
-位置：`docs-discuss-and-distill/`
+位置：`docs-discuss-and-distill/`（Phase 1 兼容保留的历史根目录）
 
 当前顶层包含五类主要产物：
 - `intake/`：待处理队列
@@ -143,7 +143,7 @@
 
 ## 7. Skill 固有 Reference 层
 
-位置：`skills/discuss-and-distill/references/`
+位置：`skills/discuss-and-distill/references/`（Phase 1 兼容保留的历史 skill 目录）
 
 用途：
 - 承接 skill 自身的操作规则、文档结构、主持模式与轻量对象模板

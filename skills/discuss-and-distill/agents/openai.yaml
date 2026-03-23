@@ -1,4 +1,4 @@
 interface:
-  display_name: "Discuss and Distill"
-  short_description: "Align complex requirements and maintain current truth"
-  default_prompt: "Use $discuss-and-distill to align a complex requirement, reconcile conflicts and omissions, perform a pre-planning consistency review, and maintain one living current-truth document through planning and post-code regression results."
+  display_name: "Truth Work Orchestrator"
+  short_description: "Truth-driven work orchestration for complex requirements"
+  default_prompt: "Use $discuss-and-distill as the historical alias of the canonical skill truth-work-orchestrator to align a complex requirement, stabilize truths, organize modules/topics/tasks/knowledge, perform a pre-execution consistency review, and maintain one evolving source of truth through execution and post-code regression."

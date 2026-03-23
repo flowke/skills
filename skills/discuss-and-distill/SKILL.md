@@ -1,43 +1,55 @@
 ---
-name: discuss-and-distill
-description: Facilitate complex requirement discussion, alignment, consistency review, task handoff, and living current-truth maintenance. Use when Codex should discuss before implementation, reconcile conflicts and omissions, stabilize requirements before execution, and keep one evolving truth through execution and post-code regression.
+name: truth-work-orchestrator
+description: Truth-driven work orchestration for complex requirements. Use when Codex should align requirements, stabilize truths, organize modules/topics/tasks/knowledge, reconcile drift after regression, and maintain one evolving source of truth through execution.
 ---
 
-# Discuss and Distill
+# Truth Work Orchestrator
 
-进入一种“先讨论、再对齐、再衔接规划与任务、再持续沉淀”的工作模式。
+> Canonical identity: `truth-work-orchestrator`
+>
+> Historical alias: `discuss-and-distill`
+>
+> Phase 1 compatibility rule: 现阶段仍保留 skill 目录 `skills/discuss-and-distill/` 与产出根目录 `docs-discuss-and-distill/`，避免把“身份迁移”和“目录迁移”绑在同一轮完成。
 
-这个 skill 面向**复杂需求**，不是为了直接实现，而是为了把需求讨论推进到“足够稳，可以衔接执行”，并在代码完成后的回归阶段继续维护同一份 current truth。
+进入一种“以 truth 为核心，编排 intake / modules / topics / tasks / knowledge，并在执行后回写 truth”的工作模式。
+
+这个 skill 面向**复杂需求与复杂工作对象**。它不再只是“先讨论、再沉淀文档”的 skill，而是一个**truth-driven work orchestrator**：
+- 讨论只是入口动作之一
+- current truth 仍是核心锚点
+- 真正的主体职责是：**对象化、编排、承接执行、回写结果、处理漂移**
 
 ## Quick Trigger Test
 
 优先在下面场景使用本 skill：
 
 1. 用户讨论的是复杂需求，而不是一个直接执行的小任务。
-2. 在实现前，需要先把目标、范围、约束、冲突或遗漏聊清楚。
-3. 用户希望边聊边沉淀，持续维护一份 current-truth 文档。
-4. 需求后续会衔接到代码规划、task 创建，或在代码完成后的回归阶段继续回写结论。
+2. 当前不仅要“聊清楚”，还要决定资料、稳定对象、执行对象和共享知识应该落到哪里。
+3. 用户希望维护一个持续演化的 truth，而不是只要一份单次结论文档。
+4. 需求后续会衔接到 task 创建、执行承接、回归检查或 drift handling。
+5. 当前工作需要在 `intake / modules / topics / tasks / knowledge` 之间建立关系或完成回写闭环。
 
 典型触发语：
 - “先别写代码，我们先把需求对齐。”
 - “帮我进入讨论模式，边聊边整理。”
-- “这个需求比较复杂，先收敛一下再规划。”
-- “先把目标、范围和边界讲清楚。”
+- “这些资料先收着，后面再处理。”
+- “这个模块先沉淀 truth，再拆 task。”
+- “代码和 truth 对不上了，帮我判断怎么回写。”
 
 默认不要在下面场景使用本 skill：
 - 用户已经给出足够明确的任务，只需要直接执行。
 - 用户只要单次回答、单次文案或直接代码。
-- 用户只是泛泛聊天或头脑风暴，没有明显对齐、收敛或沉淀意图。
+- 用户只是泛泛聊天或头脑风暴，没有明显对齐、编排、沉淀或回写意图。
 - 任务明显轻量，更适合直接走 plan / execution 流。
 
 ## Core Outcome
 
-始终同时维护两类输出：
+始终同时维护三类结果：
 
-1. **讨论推进**：帮助用户逐步收敛目标、范围、约束、冲突、遗漏和关键决策。
-2. **当前真相文档**：把稳定信息沉淀为一份可在后续规划、task 承接、回归和多轮会话中继续沿用的工作文档。
+1. **对齐与收敛**：帮助用户逐步收敛目标、范围、约束、冲突、遗漏和关键决策。
+2. **truth 稳定化**：把稳定信息沉淀为可持续演化的 `current-truth.md` 或其他稳定对象 truth。
+3. **工作对象编排**：把资料、稳定对象、执行对象和共享知识放入合适层级，并在执行后完成回写闭环。
 
-默认把文档看作“当前正在维护的这一份”；除非对象明显切换，否则不要每轮新建。
+默认把 truth 看作“当前正在维护的核心锚点”；除非对象明显切换，否则不要每轮新建。
 
 ## Scope and Boundaries
 
@@ -46,12 +58,13 @@ description: Facilitate complex requirement discussion, alignment, consistency r
 - 引导需求对齐，明确目标、范围、约束、非目标与关键定义。
 - 主动补遗漏、查冲突、看相互影响。
 - 在进入代码落地规划前做一致性复盘。
+- 根据当前内容性质，编排到 `intake / modules / topics / tasks / knowledge` 的合适层级。
 - 在需求稳定后衔接到代码落地规划与 task 承接。
-- 覆盖到**代码完成后的回归阶段**，把回归结果、问题和偏差回写到同一份 current truth。
-- 在多轮会话中维护同一份 current-truth 文档。
+- 覆盖到**代码完成后的回归阶段**，把回归结果、问题和偏差回写到同一份 truth。
+- 在多轮会话中维护同一份 truth 与对象层关系。
 
 ### 本 skill 不负责
-- 轻重分流本身。只要进入本 skill，就默认当前已经值得讨论、对齐和沉淀；分流属于 skill 外部判断。
+- 轻重分流本身。只要进入本 skill，就默认当前已经值得对齐、编排和沉淀；分流属于 skill 外部判断。
 - 直接执行编码实现。
 - 回归执行本身。
 - 测试 / 验收动作本身。
@@ -89,12 +102,12 @@ description: Facilitate complex requirement discussion, alignment, consistency r
    - 明确目标、范围、约束、非目标、关键定义。
 2. **一致性复盘**
    - 在进入代码落地规划前，检查冲突、影响、遗漏和待决策点。
-3. **代码落地规划 / task 衔接**
-   - 将已稳定需求衔接为可执行的实现规划，并在需要时落成 task。
+3. **对象编排 / task 衔接**
+   - 判断资料、稳定对象、执行对象和知识内容应落到哪一层，并在需要时落成 task。
 4. **回归结果沉淀 / 漂移处理**
-   - 在代码完成后的回归阶段记录结果、问题与偏差，并回写 current truth。
+   - 在代码完成后的回归阶段记录结果、问题与偏差，并回写 truth。
 5. **持续沉淀**
-   - 在多轮会话中继续维护同一份 current truth。
+   - 在多轮会话中继续维护同一份 truth 与对象层关系。
 
 ### 按需动作
 - **背景资料补充**
@@ -106,10 +119,10 @@ description: Facilitate complex requirement discussion, alignment, consistency r
 
 按下面顺序循环推进：
 
-1. **先定焦**：判断当前更像在聊目标、范围、约束、方案、优先级、定义，还是在为规划做稳定化准备。
+1. **先定焦**：判断当前更像在聊目标、范围、约束、方案、优先级、定义，还是在决定对象落点、task 关系、knowledge 边界。
 2. **再推进一个关键问题**：一次只推进最有杠杆的一个点，避免问卷式连环提问。
 3. **做阶段总结**：在自然节点收一下“已确认 / 待确认 / 未决”。
-4. **更新文档状态**：把稳定内容写入当前真相，把临时倾向放入待确认项。
+4. **更新 truth 与对象状态**：把稳定内容写入 truth，把临时倾向放入待确认项，并在需要时更新对象层落点。
 5. **给出下一步聚焦**：指出下一轮最值得继续推进的问题，并在每一项下面附 1–3 条具体建议。
 
 如果对话明显发散，主动拉回主线；如果对话明显卡住，主动给一个更易切入的讨论框架。
@@ -129,7 +142,7 @@ description: Facilitate complex requirement discussion, alignment, consistency r
 - 遗漏项检查
 - 待决策点检查
 
-目标是把“看起来讲清楚了”变成“已经足够稳，可以规划了”。
+目标是把“看起来讲清楚了”变成“已经足够稳，可以规划、可以承接执行了”。
 
 ## Regression Boundary
 
@@ -143,11 +156,11 @@ description: Facilitate complex requirement discussion, alignment, consistency r
 - 泛化的阶段回看
 
 本 skill 在回归阶段的职责是：
-- 接回同一份 current truth
+- 接回同一份 truth
 - 记录回归结果
 - 回写问题与偏差
 - 更新后续待决项
-- 在需要时提示是否应重新开启对齐或规划
+- 在需要时提示是否应重新开启对齐、task 调整或知识更新
 
 本 skill 在回归阶段**不负责**：
 - 回归执行本身
@@ -169,11 +182,12 @@ description: Facilitate complex requirement discussion, alignment, consistency r
 - 当前明显有倾向、但还没拍板的方向。
 - 基于上下文提炼出的中间结论。
 - 两个或多个方案之间的临时偏向。
-- 回归后暴露出的、可能影响需求或规划但尚未定性的事项。
+- 回归后暴露出的、可能影响 truth 或对象编排但尚未定性的事项。
 
 ### 先确认，再进入“当前真相”
 遇到以下内容时，先口头确认，再写成稳定结论：
 - 产品定位、核心目标、技术路线、方案选型、优先级原则等高影响决策。
+- 对象边界、命名策略、落点规则、回写规则等会改变后续工作系统行为的判断。
 - 带明显推断色彩的归纳。
 - 会显著改变后续讨论方向的判断。
 
@@ -194,7 +208,7 @@ description: Facilitate complex requirement discussion, alignment, consistency r
 - 一次只推动一个关键问题。
 - 在必要时轻微打断发散并拉回主线。
 - 在卡住时给出结构化切入方式。
-- 在收敛足够时主动建议切换到规划、文档定稿、task 创建或实现准备。
+- 在收敛足够时主动建议切换到对象定稿、task 创建、truth 回写或实现准备。
 
 避免这样做：
 - 把对话变成问卷或审讯。
@@ -205,7 +219,7 @@ description: Facilitate complex requirement discussion, alignment, consistency r
 
 ## Document Location
 
-默认把 `discuss-and-distill` 的产出放在固定目录：`docs-discuss-and-distill/`。
+Phase 1 中，`truth-work-orchestrator` 仍沿用历史产出根目录：`docs-discuss-and-distill/`。
 
 默认规则：
 - **固定目录**：`docs-discuss-and-distill/`
@@ -261,10 +275,10 @@ description: Facilitate complex requirement discussion, alignment, consistency r
 ## Exit Criteria
 
 满足下面任一条件时，主动建议结束本轮讨论或切换阶段：
-- 当前真相已经足够支持实现、写作、拆解任务或正式成稿。
-- 当前真相已经足够稳定，可以进入代码落地规划或 task 创建。
+- 当前 truth 已经足够支持实现、写作、拆解任务或正式成稿。
+- 当前 truth 已经足够稳定，可以进入 task 创建、执行承接或回归回写。
+- 对象层关系已经稳定，继续泛聊收益不高。
 - 回归结果已经被沉淀，后续只剩执行层动作。
-- 剩余问题已收缩为少量明确未决项，继续泛聊收益不高。
 - 当前主题已经完成，适合转入新的更聚焦讨论。
 
 常见下一阶段包括：
@@ -280,7 +294,7 @@ description: Facilitate complex requirement discussion, alignment, consistency r
 优先遵守下面几条简单启发式：
 
 1. **先收敛问题，再扩写答案。**
-2. **先维护当前真相，再保留少量必要的不确定性。**
+2. **先维护 truth，再维护少量必要的不确定性。**
 3. **先推进最有杠杆的问题，再处理细枝末节。**
 4. **先帮用户看见“已经确定了什么”，再讨论“还差什么”。**
 5. **当讨论已经够清楚时，主动结束讨论模式或切换阶段。**

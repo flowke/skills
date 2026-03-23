@@ -1,6 +1,6 @@
 # Document Location
 
-默认把 `discuss-and-distill` 的产出放到固定目录：`docs-discuss-and-distill/`。
+Phase 1 中，`truth-work-orchestrator`（历史别名：`discuss-and-distill`）仍沿用产出根目录：`docs-discuss-and-distill/`。
 
 ## Default Rules
 

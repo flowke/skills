@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-- 旧模型中的 `planning.md` 与 `regression.md` 已不再作为 `discuss-and-distill` 的默认核心产物。
+- 旧模型中的 `planning.md` 与 `regression.md` 已不再作为 `truth-work-orchestrator`（历史别名：`discuss-and-distill`）的默认核心产物。
 - 当前默认产物模型已切换为：`intake/`、`modules/`、`topics/`、`tasks/`、`knowledge/`。
 - 新使用场景下，不再从这个文件创建新的阶段文档。
 

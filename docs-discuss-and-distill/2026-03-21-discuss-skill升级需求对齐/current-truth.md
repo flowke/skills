@@ -3,11 +3,12 @@
 ## 当前阶段
 - 产物模型已基本收敛
 - 规则层收口已完成第一轮
+- canonical identity 迁移已完成第一轮
 
 ## 当前真相
-- 讨论主题：升级 `discuss-and-distill` skill 的职责范围与主流程。
-- 当前目标：把它从偏“模糊话题讨论收敛”的 skill，升级为可承接复杂需求讨论、对齐、规划衔接与沉淀的 skill。
-- 核心定位：`discuss-and-distill` 升级后，不是普通讨论 skill，而是一个**复杂需求讨论与沉淀编排器**。
+- 讨论主题：把 `discuss-and-distill` 升级并迁移为新的 canonical skill identity。
+- 当前目标：把它从偏“模糊话题讨论收敛”的 skill，升级为一个以 truth 为核心、可编排 `intake / modules / topics / tasks / knowledge` 的工作编排 skill。
+- 核心定位：新的 canonical identity 是 `truth-work-orchestrator`；`discuss-and-distill` 降级为历史别名与兼容入口。
 - 职责范围（当前已确认）：
   - 接收复杂需求
   - 引导对齐
@@ -179,6 +180,11 @@
   - 但推荐补充轻量元信息：`来源`、`更新时间`、`适用范围`、`相关对象`
   - 这些元信息属于**推荐项**而不是**必填项**
   - 理由：既保留知识表达的异质性与灵活性，也降低后续追溯与复用成本
+- 已确认 canonical identity 迁移策略：
+  - 新 canonical name：`truth-work-orchestrator`
+  - `discuss-and-distill` 保留为历史别名与兼容入口
+  - Phase 1 只迁移 skill 身份与文案，不立即迁移 `skills/discuss-and-distill/` 与 `docs-discuss-and-distill/` 路径
+  - 理由：先完成“身份迁移”，再决定是否进行“目录迁移”，避免一次改动过宽
 - 已确认旧的“主题目录 + planning/regression”规则已被**新模型替代**。
   - 理由：新的核心单位已经切换为模块，代码落地流程也已抽离到 task 层
 - 已出现新的 task 体系想法，说明 task 不应只被理解为“代码落地目录”，而应被理解为**可承接不同执行意图的任务对象**。
@@ -317,9 +323,9 @@
   - 在交互上默认显式保留，但允许按场景轻量化，以兼顾稳定性与自然度。
 
 ## 下一步聚焦
-1. 用真实样例验证新模型是否顺手。
-   - 建议：优先跑一条 `intake → task → module/topic/knowledge` 的真实链路，检查落点与命名是否顺手。
-   - 建议：如果真实使用中暴露出 task 字段不足，再只做轻量补充，不回到重模板。
-2. 用真实样例验证共享知识层是否顺手。
-   - 建议：在一次真实链路中实际创建一份共享 knowledge 文档，确认推荐元信息是否够用。
-   - 建议：如果真实使用中发现字段不足，再补轻量建议，不升级成强制模板。
+1. 用真实样例验证 `truth-work-orchestrator` 的新身份是否顺手。
+   - 建议：优先跑一条 `intake → task → module/topic/knowledge` 的真实链路，检查新身份下的触发、落点与回写是否自然。
+   - 建议：如果真实使用中暴露出“讨论 skill 心智”与“工作编排 skill 心智”的冲突，再继续收口主文案。
+2. 评估是否进入 Phase 2 目录迁移。
+   - 建议：先观察一段时间是否真的需要把 `skills/discuss-and-distill/` 与 `docs-discuss-and-distill/` 迁到新名字。
+   - 建议：如果迁移收益不足，允许长期保留历史路径，只把 canonical identity 保持为新名字。
