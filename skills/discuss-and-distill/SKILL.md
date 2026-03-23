@@ -1,13 +1,13 @@
 ---
 name: discuss-and-distill
-description: Facilitate complex requirement discussion, alignment, planning handoff, and living current-truth maintenance. Use when Codex should discuss before implementation, reconcile conflicts and omissions, perform a pre-planning consistency review, and keep one evolving document through planning and post-code regression results.
+description: Facilitate complex requirement discussion, alignment, consistency review, task handoff, and living current-truth maintenance. Use when Codex should discuss before implementation, reconcile conflicts and omissions, stabilize requirements before execution, and keep one evolving truth through execution and post-code regression.
 ---
 
 # Discuss and Distill
 
-进入一种“先讨论、再对齐、再衔接规划、再持续沉淀”的工作模式。
+进入一种“先讨论、再对齐、再衔接规划与任务、再持续沉淀”的工作模式。
 
-这个 skill 面向**复杂需求**，不是为了直接实现，而是为了把需求讨论推进到“足够稳，可以规划”，并在代码完成后的回归阶段继续维护同一份 current truth。
+这个 skill 面向**复杂需求**，不是为了直接实现，而是为了把需求讨论推进到“足够稳，可以衔接执行”，并在代码完成后的回归阶段继续维护同一份 current truth。
 
 ## Quick Trigger Test
 
@@ -16,7 +16,7 @@ description: Facilitate complex requirement discussion, alignment, planning hand
 1. 用户讨论的是复杂需求，而不是一个直接执行的小任务。
 2. 在实现前，需要先把目标、范围、约束、冲突或遗漏聊清楚。
 3. 用户希望边聊边沉淀，持续维护一份 current-truth 文档。
-4. 需求后续会衔接到代码规划，或在代码完成后的回归阶段继续回写结论。
+4. 需求后续会衔接到代码规划、task 创建，或在代码完成后的回归阶段继续回写结论。
 
 典型触发语：
 - “先别写代码，我们先把需求对齐。”
@@ -35,9 +35,9 @@ description: Facilitate complex requirement discussion, alignment, planning hand
 始终同时维护两类输出：
 
 1. **讨论推进**：帮助用户逐步收敛目标、范围、约束、冲突、遗漏和关键决策。
-2. **当前真相文档**：把稳定信息沉淀为一份可在后续规划、回归和多轮会话中继续沿用的工作文档。
+2. **当前真相文档**：把稳定信息沉淀为一份可在后续规划、task 承接、回归和多轮会话中继续沿用的工作文档。
 
-默认把文档看作“当前正在维护的这一份”；除非主题明显切换，否则不要每轮新建。
+默认把文档看作“当前正在维护的这一份”；除非对象明显切换，否则不要每轮新建。
 
 ## Scope and Boundaries
 
@@ -46,7 +46,7 @@ description: Facilitate complex requirement discussion, alignment, planning hand
 - 引导需求对齐，明确目标、范围、约束、非目标与关键定义。
 - 主动补遗漏、查冲突、看相互影响。
 - 在进入代码落地规划前做一致性复盘。
-- 在需求稳定后衔接到代码落地规划。
+- 在需求稳定后衔接到代码落地规划与 task 承接。
 - 覆盖到**代码完成后的回归阶段**，把回归结果、问题和偏差回写到同一份 current truth。
 - 在多轮会话中维护同一份 current-truth 文档。
 
@@ -71,11 +71,14 @@ description: Facilitate complex requirement discussion, alignment, planning hand
 - `references/document-structures.md`
 - `references/facilitation-patterns.md`
 
-当需要创建或维护阶段文档时，再按需读取：
-- `references/stage-document-templates.md`
+当需要创建或维护 `intake / task / module / topic / knowledge` 等产物时，再按需读取：
+- `references/object-templates.md`
 
-当需要讨论或维护产出分层、主题知识与共享知识的存放关系时，再按需读取：
+当需要讨论或维护产出分层、对象层级、知识存放关系与边界时，再按需读取：
 - `references/output-model.md`
+
+当需要判断产物落点、命名、复用已有对象还是新建对象时，再按需读取：
+- `references/document-location.md`
 
 ## Standard Workflow Skeleton
 
@@ -86,9 +89,9 @@ description: Facilitate complex requirement discussion, alignment, planning hand
    - 明确目标、范围、约束、非目标、关键定义。
 2. **一致性复盘**
    - 在进入代码落地规划前，检查冲突、影响、遗漏和待决策点。
-3. **代码落地规划**
-   - 将已稳定需求衔接为可执行的实现规划。
-4. **回归结果沉淀**
+3. **代码落地规划 / task 衔接**
+   - 将已稳定需求衔接为可执行的实现规划，并在需要时落成 task。
+4. **回归结果沉淀 / 漂移处理**
    - 在代码完成后的回归阶段记录结果、问题与偏差，并回写 current truth。
 5. **持续沉淀**
    - 在多轮会话中继续维护同一份 current truth。
@@ -191,7 +194,7 @@ description: Facilitate complex requirement discussion, alignment, planning hand
 - 一次只推动一个关键问题。
 - 在必要时轻微打断发散并拉回主线。
 - 在卡住时给出结构化切入方式。
-- 在收敛足够时主动建议切换到规划、文档定稿或实现准备。
+- 在收敛足够时主动建议切换到规划、文档定稿、task 创建或实现准备。
 
 避免这样做：
 - 把对话变成问卷或审讯。
@@ -202,18 +205,22 @@ description: Facilitate complex requirement discussion, alignment, planning hand
 
 ## Document Location
 
-默认把产出的讨论文档放在固定目录：`docs-discuss-and-distill/`。
+默认把 `discuss-and-distill` 的产出放在固定目录：`docs-discuss-and-distill/`。
 
 默认规则：
 - **固定目录**：`docs-discuss-and-distill/`
-- **默认单位**：每个主题一个目录，而不是每个主题一个单文件。
-- **主题目录名**：`YYYY-MM-DD-<中文主题>/`，日期表示主题首次建立日期。
-- **目录内主文件**：固定为 `current-truth.md`。
-- **阶段文件**：仅在进入对应阶段后按需创建 `planning.md`、`regression.md`。
-- **同主题后续讨论**：继续维护原目录与其中的 `current-truth.md`。
-- **明显切换新主题**：新建主题目录。
+- **顶层结构**：`intake/`、`modules/`、`topics/`、`tasks/`、`knowledge/`
+- **默认按对象落点**，而不是按会话轮次落点
+- **稳定对象优先**：软件结构对象进入 `modules/`，非软件模块型讨论对象进入 `topics/`
+- **执行对象单列**：围绕稳定对象发起的一次执行活动进入 `tasks/`
+- **前置资料单列**：尚未正式进入 task 的原始资料进入 `intake/`
+- **共享知识单列**：可跨对象复用的知识进入 `knowledge/`
+- **稳定对象入口文件**：统一使用 `current-truth.md`
+- **task 入口文件**：统一使用 `task.md`
+- **子任务文件**：统一使用 `subtask-*.md`
+- **子模块 truth 文件**：统一使用 `submodule-*.md`
 
-如果用户明确指定了别的目标文件或目录，优先遵循用户指定；否则使用这个固定目录。需要更具体的路径规则时，读取 `references/document-location.md`。
+如果用户明确指定了别的目标文件或目录，优先遵循用户指定；否则使用这个固定目录。需要更具体的落点与命名规则时，读取 `references/document-location.md`。
 
 ## When to Show the Document
 
@@ -255,7 +262,7 @@ description: Facilitate complex requirement discussion, alignment, planning hand
 
 满足下面任一条件时，主动建议结束本轮讨论或切换阶段：
 - 当前真相已经足够支持实现、写作、拆解任务或正式成稿。
-- 当前真相已经足够稳定，可以进入代码落地规划。
+- 当前真相已经足够稳定，可以进入代码落地规划或 task 创建。
 - 回归结果已经被沉淀，后续只剩执行层动作。
 - 剩余问题已收缩为少量明确未决项，继续泛聊收益不高。
 - 当前主题已经完成，适合转入新的更聚焦讨论。
@@ -264,6 +271,7 @@ description: Facilitate complex requirement discussion, alignment, planning hand
 - 转成正式文档。
 - 转成实现规划。
 - 转成任务拆解。
+- 创建或更新 task。
 - 进入实际改写或编码。
 - 在回归结果基础上重新开启一轮更聚焦讨论。
 

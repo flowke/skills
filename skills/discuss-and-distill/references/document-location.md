@@ -1,81 +1,161 @@
 # Document Location
 
-默认把 `discuss-and-distill` 产出的讨论文档放到固定目录：`docs-discuss-and-distill/`。
+默认把 `discuss-and-distill` 的产出放到固定目录：`docs-discuss-and-distill/`。
 
 ## Default Rules
 
 - 固定目录：`docs-discuss-and-distill/`
-- 默认单位：每个主题一个目录，而不是每个主题一个单文件
-- 主题目录名：`YYYY-MM-DD-<中文主题>/`
-- 日期含义：主题首次建立日期，而不是最后更新时间
-- 主文件名：`current-truth.md`
-- 阶段文件名：按需创建 `planning.md`、`regression.md`
-- 同主题后续讨论：继续维护原目录与原 `current-truth.md`
-- 明显切换新主题：新建主题目录
+- 顶层结构：`intake/`、`modules/`、`topics/`、`tasks/`、`knowledge/`
+- 默认按**对象性质**落点，而不是按对话轮次落点
+- 默认先判断当前内容属于：待处理资料、稳定对象、执行对象，还是共享知识
+- 用户明确指定路径时，优先遵循用户指定
 
-## File Set Rule
+## Top-Level Placement Rule
 
-默认最小文件集合如下：
+### 1. `intake/`
 
-- 必有：`current-truth.md`
-- 按需：`planning.md`
-- 按需：`regression.md`
+位置：`docs-discuss-and-distill/intake/`
 
-规则说明：
-- 新主题默认创建主题目录与 `current-truth.md`。
-- 只有在进入代码落地规划阶段后，才创建 `planning.md`。
-- 只有在进入代码完成后的回归阶段后，才创建 `regression.md`。
-- 不要为尚未进入的阶段预建空文件。
+适用场景：
+- 用户只是把资料交给 agent，尚未正式开始处理
+- 当前内容主要是原始文字描述、文件、URL、截图、表格等待处理输入
+- 用户表达的是“先收一下 / 先放进去 / 之后再处理”
+
+默认形态：
+- 每个 intake 项是目录级对象
+- 最小包含：`note.md`、`attachments/`
+
+命名建议：
+- 目录名采用：`YYYY-MM-DD-<中文待处理项名>/`
+- 名称优先描述资料主题，而不是“待办 1”“稍后处理”这类弱语义名字
+
+### 2. `modules/`
+
+位置：`docs-discuss-and-distill/modules/`
+
+适用场景：
+- 当前讨论对象是稳定的软件模块
+- 后续会持续承接 truth、模块内知识或围绕该对象的 task
+- 该对象更像系统中的结构单元，而不是一次性话题
+
+默认形态：
+- 模块目录最小包含：`current-truth.md`、`knowledge/`、`submodule-*.md`
+- 模块目录中的主入口固定为 `current-truth.md`
+
+命名建议：
+- 模块目录名优先使用简洁明确的中文标题
+- 目录名优先体现模块本体，而不是本次会话的动作
+- 如果已有稳定英文命名约定，可改用英文或 slug
+
+### 3. `topics/`
+
+位置：`docs-discuss-and-distill/topics/`
+
+适用场景：
+- 当前讨论对象不明确属于某个软件模块
+- 它是一个稳定话题，但不需要模块式的内部结构
+- 后续可能从该主题派生 task，或接收 task 的沉淀结果
+
+默认形态：
+- 每个主题目录最小包含：`current-truth.md`
+
+命名建议：
+- 目录名采用：`YYYY-MM-DD-<中文主题>/`
+- 日期表示该主题首次建立日期，而不是最后更新时间
+
+### 4. `tasks/`
+
+位置：`docs-discuss-and-distill/tasks/`
+
+适用场景：
+- 当前需要承接一次执行活动，而不是继续只停留在稳定对象 truth
+- 任务可能来自 intake，也可能直接独立创建
+- 任务可能挂接模块、主题或子模块，也可能暂时不挂接任何对象
+
+默认形态：
+- 每个 task 是目录级对象
+- 目录至少包含：`task.md`
+- 子任务不单独建目录，统一以 `subtask-*.md` 形式放在父 task 目录内
+
+命名建议：
+- task 目录名采用：`YYYY-MM-DD-<中文任务名>/`
+- 不把任务类型或挂接方式编码进目录名
+- 任务类型、挂接对象、当前状态写入 `task.md`
+
+### 5. `knowledge/`
+
+位置：`docs-discuss-and-distill/knowledge/`
+
+适用场景：
+- 当前内容可被多个模块或主题直接引用
+- 内容更像协议说明、技术机制、系统约束、长期约定等共享知识
+- 该内容不适合混入单个模块 / 主题的 `current-truth.md`
+
+默认形态：
+- 当前只固定目录位置与角色
+- 正文格式默认开放；如需轻量建议结构，可参考 `references/object-templates.md`
+
+## Stable Object vs Execution Object
+
+优先用下面的判断来区分应该落到哪里：
+
+- 如果是在描述“这个对象目前成立的结论、边界、判断与未决” → 优先落到 `modules/` 或 `topics/`
+- 如果是在承接“围绕某对象发起的一次执行活动” → 优先落到 `tasks/`
+- 如果只是“先接收资料，稍后再决定是否处理” → 优先落到 `intake/`
+- 如果是在记录“可跨对象复用的依据型知识” → 优先落到 `knowledge/`
+
+## Reuse Rule
+
+满足下面条件时，优先复用已有对象，而不是新建：
+- 讨论对象没有变化，只是在继续收敛
+- 现有 `current-truth.md` 仍然是本轮讨论的主入口
+- 当前只是为已有模块 / 主题补知识、补边界、补未决项
+- 当前只是继续推进已有 task，而不是发起新的一次执行活动
+
+## New Object Rule
+
+满足下面条件时，优先新建对象：
+- 讨论对象明显切换，已不属于原模块 / 主题
+- 需要承接一次新的执行活动，且不应混入旧 task
+- 用户明确要求新开一份
+- 当前输入只是待处理资料，还不适合直接转入已有 task
 
 ## Naming Guidance
 
-### 主题目录名
+### 目录命名
 
-目录名优先体现主题，而不是会话本身；**优先使用简洁明确的中文标题**。
-
-推荐示例：
-- `2026-03-19-内部工具范围收敛/`
-- `2026-03-19-认证重构方向/`
-- `2026-03-19-产品定位讨论/`
-
-避免过于宽泛或无信息量的名字，例如：
+默认优先使用简洁明确的中文标题，避免下面这类弱语义命名：
 - `notes/`
 - `discussion/`
 - `today/`
-- `2026-03-19-聊聊这个/`
+- `temp/`
+- `misc/`
+- `先这样/`
 
-### 目录内文件名
+### 固定文件名
 
-目录内文件名默认固定，不重复主题名：
-- `current-truth.md`
-- `planning.md`
-- `regression.md`
+默认固定文件名如下：
+- 稳定对象入口：`current-truth.md`
+- task 入口：`task.md`
+- 子任务：`subtask-*.md`
+- 子模块 truth：`submodule-*.md`
+- intake 说明：`note.md`
 
-不要使用下面这类冗余命名：
-- `2026-03-19-认证重构方向-current-truth.md`
-- `当前真相.md`
-- `回归记录.md`
+不要重复把主题名或模块名塞进固定文件名里。
 
 ## Fallback Rule
 
-满足下面情况时，可以不用中文主题目录名，改用英文或 slug：
+满足下面情况时，可以不用中文目录名，改用英文或 slug：
 - 用户明确要求英文命名
 - 当前项目已有稳定的英文命名约定
 - 文件系统、工具链或协作环境对中文命名不友好
 
-## Reuse Rule
+## Deprecated Rule
 
-满足下面条件时，优先复用已有主题目录，而不是新建：
-- 讨论主题没有变化，只是在继续收敛
-- 当前目录中的 `current-truth.md` 仍然是本轮讨论的主入口
-- 用户明确表示“继续上次那个”
-
-## New Directory Rule
-
-满足下面条件时，优先新建主题目录：
-- 讨论目标明显切换
-- 原主题已经收敛完成，当前是在开新主题
-- 用户明确要求新开一份
+下面这组旧规则当前已退役，不再作为默认落点模型：
+- 每个主题目录按阶段创建 `planning.md`
+- 每个主题目录按阶段创建 `regression.md`
+- 把“主题目录 + planning/regression”当作默认核心结构
 
 ## Override Rule
 
