@@ -1,6 +1,6 @@
 # Stage Document Templates (Deprecated)
 
-这个 reference 已退役，仅作为兼容说明保留。
+这个 reference 已退役，仅作为历史说明保留。
 
 ## 当前状态
 
@@ -14,9 +14,9 @@
 - 落点、命名、复用或新建规则：`references/document-location.md`
 - intake / task / module / topic / knowledge 的轻量模板建议：`references/object-templates.md`
 
-## 兼容说明
+## 历史文件处理
 
 如果历史文档中仍存在 `planning.md` 或 `regression.md`：
-- 可继续保留其历史内容，不必为了迁移立即删除
+- 可继续保留其历史内容
 - 但它们不再作为新的默认创建目标
 - 新的流程与产物应优先按照新模型落到对应对象层

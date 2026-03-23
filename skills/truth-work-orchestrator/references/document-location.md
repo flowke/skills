@@ -1,10 +1,10 @@
 # Document Location
 
-默认把 `truth-work-orchestrator` 的产出放到固定目录：`docs-truth-work-orchestrator/`。
+默认把 `truth-work-orchestrator` 的产出放到固定目录：`docs-TWO/`。
 
 ## Default Rules
 
-- 固定目录：`docs-truth-work-orchestrator/`
+- 固定目录：`docs-TWO/`
 - 顶层结构：`intake/`、`modules/`、`topics/`、`tasks/`、`knowledge/`
 - 默认按**对象性质**落点，而不是按对话轮次落点
 - 默认先判断当前内容属于：待处理资料、稳定对象、执行对象，还是共享知识
@@ -14,7 +14,7 @@
 
 ### 1. `intake/`
 
-位置：`docs-truth-work-orchestrator/intake/`
+位置：`docs-TWO/intake/`
 
 适用场景：
 - 用户只是把资料交给 agent，尚未正式开始处理
@@ -31,7 +31,7 @@
 
 ### 2. `modules/`
 
-位置：`docs-truth-work-orchestrator/modules/`
+位置：`docs-TWO/modules/`
 
 适用场景：
 - 当前讨论对象是稳定的软件模块
@@ -49,7 +49,7 @@
 
 ### 3. `topics/`
 
-位置：`docs-truth-work-orchestrator/topics/`
+位置：`docs-TWO/topics/`
 
 适用场景：
 - 当前讨论对象不明确属于某个软件模块
@@ -65,7 +65,7 @@
 
 ### 4. `tasks/`
 
-位置：`docs-truth-work-orchestrator/tasks/`
+位置：`docs-TWO/tasks/`
 
 适用场景：
 - 当前需要承接一次执行活动，而不是继续只停留在稳定对象 truth
@@ -84,7 +84,7 @@
 
 ### 5. `knowledge/`
 
-位置：`docs-truth-work-orchestrator/knowledge/`
+位置：`docs-TWO/knowledge/`
 
 适用场景：
 - 当前内容可被多个模块或主题直接引用
@@ -159,4 +159,4 @@
 
 ## Override Rule
 
-如果用户明确指定了目标路径、目标目录名或项目内既有文档位置，优先遵循用户指定，不强制写入 `docs-truth-work-orchestrator/`。
+如果用户明确指定了目标路径、目标目录名或项目内既有文档位置，优先遵循用户指定，不强制写入 `docs-TWO/`。

@@ -135,7 +135,7 @@
   - **主题内知识 / 共享知识**：承接支撑这些判断的资料、协议说明、机制说明、上下文材料等可被引用的知识内容
   - 理由：避免把结论与依据混写，导致 `current-truth.md` 过厚、主题知识无处安放
 - 已确认主题内知识与共享知识之间的流转关系：
-  - 当主题内知识被确认可跨主题复用时，**允许晋升 / 复制**到 `docs-truth-work-orchestrator/knowledge/`
+  - 当主题内知识被确认可跨主题复用时，**允许晋升 / 复制**到 `docs-TWO/knowledge/`
   - 当前只确认“允许流转”，**不强制规定固定流程**
   - 当前也不强制要求在晋升后删除原主题目录中的知识副本
 - 已出现一轮新的结构改造提案，且它**会实质性改写之前的“主题 + planning/regression”模型**：
@@ -145,13 +145,13 @@
   - 已确认：子模块 truth 采用**方案 B**，即独立轻文件，并统一使用 `submodule-` 前缀命名
   - 这意味着“子模块”是模块目录内的文件级单元，而不是目录级递归单元
   - 当前倾向把 `planning` 与 `regression` 从核心产物结构中移除，不再作为模块目录下的默认阶段文件
-  - 当前倾向新增 `task` 概念：当基于某个模块发起一次代码落地时，抽离出一个独立 task，在 `docs-truth-work-orchestrator/` 下用 task 目录组织该次代码落地需要的流程与相关文件
+  - 当前倾向新增 `task` 概念：当基于某个模块发起一次代码落地时，抽离出一个独立 task，在 `docs-TWO/` 下用 task 目录组织该次代码落地需要的流程与相关文件
   - 已限定当前第一类 task：**代码落地 task**
 - 已确认新的顶层骨架采用四类顶层产物：
-  - **模块树**：`docs-truth-work-orchestrator/modules/`
-  - **主题树**：`docs-truth-work-orchestrator/topics/`
-  - **task 树**：`docs-truth-work-orchestrator/tasks/`
-  - **共享知识层**：`docs-truth-work-orchestrator/knowledge/`
+  - **模块树**：`docs-TWO/modules/`
+  - **主题树**：`docs-TWO/topics/`
+  - **task 树**：`docs-TWO/tasks/`
+  - **共享知识层**：`docs-TWO/knowledge/`
   - 理由：模块承接软件模块型稳定对象，主题承接非软件模块型稳定对象，task 承接围绕对象发起的一次执行活动，共享知识层承接跨对象复用知识
 - 已确认主题目录的最小形态：
   - `current-truth.md`
@@ -183,7 +183,7 @@
 - 已完成 canonical identity 与目录迁移：
   - canonical name：`truth-work-orchestrator`
   - skill 目录已迁移到 `skills/truth-work-orchestrator/`
-  - 产出根目录已迁移到 `docs-truth-work-orchestrator/`
+  - 产出根目录已迁移到 `docs-TWO/`
   - 已通过 `codex-skill-linker` 关闭旧 skill 并重新安装新 skill
   - 理由：既消除名实不符，也让后续引用、安装与维护回到同一套命名体系
 - 已确认旧的“主题目录 + planning/regression”规则已被**新模型替代**。

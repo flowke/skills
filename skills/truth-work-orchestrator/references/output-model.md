@@ -4,7 +4,7 @@
 
 ## 顶层结构
 
-位置：`docs-truth-work-orchestrator/`
+位置：`docs-TWO/`
 
 当前顶层包含五类主要产物：
 - `intake/`：待处理队列
@@ -15,7 +15,7 @@
 
 ## 0. 待处理队列
 
-位置：`docs-truth-work-orchestrator/intake/`
+位置：`docs-TWO/intake/`
 
 用途：
 - 承接尚未正式进入 task 的原始资料
@@ -32,7 +32,7 @@
 
 ## 1. 模块树
 
-位置：`docs-truth-work-orchestrator/modules/`
+位置：`docs-TWO/modules/`
 
 用途：
 - 承接稳定的软件模块对象
@@ -54,7 +54,7 @@
 ## 2. 子模块 Truth
 
 位置：模块目录内部，例如：
-- `docs-truth-work-orchestrator/modules/<module>/submodule-xxx.md`
+- `docs-TWO/modules/<module>/submodule-xxx.md`
 
 规则：
 - 子模块 **不是目录级对象**。
@@ -63,7 +63,7 @@
 
 ## 3. 主题树
 
-位置：`docs-truth-work-orchestrator/topics/`
+位置：`docs-TWO/topics/`
 
 用途：
 - 承接不明确属于某个软件模块的讨论对象
@@ -81,7 +81,7 @@
 
 ## 4. 共享知识层
 
-位置：`docs-truth-work-orchestrator/knowledge/`
+位置：`docs-TWO/knowledge/`
 
 用途：
 - 承接可被多个模块或主题直接引用的共享知识
@@ -94,7 +94,7 @@
 
 ## 5. Task 树
 
-位置：`docs-truth-work-orchestrator/tasks/`
+位置：`docs-TWO/tasks/`
 
 用途：
 - 承接围绕模块或主题发起的一次执行活动

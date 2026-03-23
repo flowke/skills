@@ -5,12 +5,6 @@ description: Truth-driven work orchestration for complex requirements. Use when 
 
 # Truth Work Orchestrator
 
-> Canonical identity: `truth-work-orchestrator`
->
-> Formerly known as: `discuss-and-distill`
->
-> Migration status: canonical name, skill directory, and docs root have all been migrated to `truth-work-orchestrator`.
-
 进入一种“以 truth 为核心，编排 intake / modules / topics / tasks / knowledge，并在执行后回写 truth”的工作模式。
 
 这个 skill 面向**复杂需求与复杂工作对象**。它不再只是“先讨论、再沉淀文档”的 skill，而是一个**truth-driven work orchestrator**：
@@ -219,10 +213,10 @@ description: Truth-driven work orchestration for complex requirements. Use when 
 
 ## Document Location
 
-默认把 `truth-work-orchestrator` 的产出放在固定目录：`docs-truth-work-orchestrator/`。
+默认把 `truth-work-orchestrator` 的产出放在固定目录：`docs-TWO/`。
 
 默认规则：
-- **固定目录**：`docs-truth-work-orchestrator/`
+- **固定目录**：`docs-TWO/`
 - **顶层结构**：`intake/`、`modules/`、`topics/`、`tasks/`、`knowledge/`
 - **默认按对象落点**，而不是按会话轮次落点
 - **稳定对象优先**：软件结构对象进入 `modules/`，非软件模块型讨论对象进入 `topics/`
