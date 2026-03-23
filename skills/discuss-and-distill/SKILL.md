@@ -74,6 +74,9 @@ description: Facilitate complex requirement discussion, alignment, planning hand
 当需要创建或维护阶段文档时，再按需读取：
 - `references/stage-document-templates.md`
 
+当需要讨论或维护产出分层、主题知识与共享知识的存放关系时，再按需读取：
+- `references/output-model.md`
+
 ## Standard Workflow Skeleton
 
 本 skill 采用**标准骨架 + 按场景裁剪**，而不是每次都要求完整经过固定全链路。
