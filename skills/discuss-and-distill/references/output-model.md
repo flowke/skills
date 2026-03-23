@@ -92,6 +92,22 @@
 - 第一版 task 类型集合至少包含：直接创建任务、基于子模块的代码落地任务、面向模块的回归测试任务。
 - task 的更具体命名规则与内部结构仍待后续收敛。
 
+## 7. 回归测试 Task 的 Drift Handling
+
+当回归测试 task 发现“代码与 truth 不一致”时，当前采用轻量三分法：
+- `truth 过时`：代码合理，但 truth 没有同步更新
+- `code 偏离`：truth 仍然成立，但代码跑偏了
+- `暂时无法判断`：当前证据不足，不能立即判断该改 truth 还是改 code
+
+默认动作：
+- `truth 过时` → 更新 truth，不直接改代码
+- `code 偏离` → 修正代码，不直接改 truth
+- `暂时无法判断` → 挂起为待确认冲突，不自动改 truth，也不自动宣判代码错误
+
+鲁棒性原则：
+- 先分类，再动作
+- 在证据不足时，不自动回写 truth，也不自动修正代码
+
 ## 6. Skill 固有 Reference 层
 
 位置：`skills/discuss-and-distill/references/`
