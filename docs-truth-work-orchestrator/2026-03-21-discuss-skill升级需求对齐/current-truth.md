@@ -3,12 +3,12 @@
 ## 当前阶段
 - 产物模型已基本收敛
 - 规则层收口已完成第一轮
-- canonical identity 迁移已完成第一轮
+- canonical identity 与目录迁移已完成
 
 ## 当前真相
 - 讨论主题：把 `discuss-and-distill` 升级并迁移为新的 canonical skill identity。
 - 当前目标：把它从偏“模糊话题讨论收敛”的 skill，升级为一个以 truth 为核心、可编排 `intake / modules / topics / tasks / knowledge` 的工作编排 skill。
-- 核心定位：新的 canonical identity 是 `truth-work-orchestrator`；`discuss-and-distill` 降级为历史别名与兼容入口。
+- 核心定位：新的 canonical identity 是 `truth-work-orchestrator`；旧名 `discuss-and-distill` 已完成历史迁移。
 - 职责范围（当前已确认）：
   - 接收复杂需求
   - 引导对齐
@@ -135,7 +135,7 @@
   - **主题内知识 / 共享知识**：承接支撑这些判断的资料、协议说明、机制说明、上下文材料等可被引用的知识内容
   - 理由：避免把结论与依据混写，导致 `current-truth.md` 过厚、主题知识无处安放
 - 已确认主题内知识与共享知识之间的流转关系：
-  - 当主题内知识被确认可跨主题复用时，**允许晋升 / 复制**到 `docs-discuss-and-distill/knowledge/`
+  - 当主题内知识被确认可跨主题复用时，**允许晋升 / 复制**到 `docs-truth-work-orchestrator/knowledge/`
   - 当前只确认“允许流转”，**不强制规定固定流程**
   - 当前也不强制要求在晋升后删除原主题目录中的知识副本
 - 已出现一轮新的结构改造提案，且它**会实质性改写之前的“主题 + planning/regression”模型**：
@@ -145,13 +145,13 @@
   - 已确认：子模块 truth 采用**方案 B**，即独立轻文件，并统一使用 `submodule-` 前缀命名
   - 这意味着“子模块”是模块目录内的文件级单元，而不是目录级递归单元
   - 当前倾向把 `planning` 与 `regression` 从核心产物结构中移除，不再作为模块目录下的默认阶段文件
-  - 当前倾向新增 `task` 概念：当基于某个模块发起一次代码落地时，抽离出一个独立 task，在 `docs-discuss-and-distill/` 下用 task 目录组织该次代码落地需要的流程与相关文件
+  - 当前倾向新增 `task` 概念：当基于某个模块发起一次代码落地时，抽离出一个独立 task，在 `docs-truth-work-orchestrator/` 下用 task 目录组织该次代码落地需要的流程与相关文件
   - 已限定当前第一类 task：**代码落地 task**
 - 已确认新的顶层骨架采用四类顶层产物：
-  - **模块树**：`docs-discuss-and-distill/modules/`
-  - **主题树**：`docs-discuss-and-distill/topics/`
-  - **task 树**：`docs-discuss-and-distill/tasks/`
-  - **共享知识层**：`docs-discuss-and-distill/knowledge/`
+  - **模块树**：`docs-truth-work-orchestrator/modules/`
+  - **主题树**：`docs-truth-work-orchestrator/topics/`
+  - **task 树**：`docs-truth-work-orchestrator/tasks/`
+  - **共享知识层**：`docs-truth-work-orchestrator/knowledge/`
   - 理由：模块承接软件模块型稳定对象，主题承接非软件模块型稳定对象，task 承接围绕对象发起的一次执行活动，共享知识层承接跨对象复用知识
 - 已确认主题目录的最小形态：
   - `current-truth.md`
@@ -180,11 +180,12 @@
   - 但推荐补充轻量元信息：`来源`、`更新时间`、`适用范围`、`相关对象`
   - 这些元信息属于**推荐项**而不是**必填项**
   - 理由：既保留知识表达的异质性与灵活性，也降低后续追溯与复用成本
-- 已确认 canonical identity 迁移策略：
-  - 新 canonical name：`truth-work-orchestrator`
-  - `discuss-and-distill` 保留为历史别名与兼容入口
-  - Phase 1 只迁移 skill 身份与文案，不立即迁移 `skills/discuss-and-distill/` 与 `docs-discuss-and-distill/` 路径
-  - 理由：先完成“身份迁移”，再决定是否进行“目录迁移”，避免一次改动过宽
+- 已完成 canonical identity 与目录迁移：
+  - canonical name：`truth-work-orchestrator`
+  - skill 目录已迁移到 `skills/truth-work-orchestrator/`
+  - 产出根目录已迁移到 `docs-truth-work-orchestrator/`
+  - 已通过 `codex-skill-linker` 关闭旧 skill 并重新安装新 skill
+  - 理由：既消除名实不符，也让后续引用、安装与维护回到同一套命名体系
 - 已确认旧的“主题目录 + planning/regression”规则已被**新模型替代**。
   - 理由：新的核心单位已经切换为模块，代码落地流程也已抽离到 task 层
 - 已出现新的 task 体系想法，说明 task 不应只被理解为“代码落地目录”，而应被理解为**可承接不同执行意图的任务对象**。
@@ -323,9 +324,9 @@
   - 在交互上默认显式保留，但允许按场景轻量化，以兼顾稳定性与自然度。
 
 ## 下一步聚焦
-1. 用真实样例验证 `truth-work-orchestrator` 的新身份是否顺手。
-   - 建议：优先跑一条 `intake → task → module/topic/knowledge` 的真实链路，检查新身份下的触发、落点与回写是否自然。
-   - 建议：如果真实使用中暴露出“讨论 skill 心智”与“工作编排 skill 心智”的冲突，再继续收口主文案。
-2. 评估是否进入 Phase 2 目录迁移。
-   - 建议：先观察一段时间是否真的需要把 `skills/discuss-and-distill/` 与 `docs-discuss-and-distill/` 迁到新名字。
-   - 建议：如果迁移收益不足，允许长期保留历史路径，只把 canonical identity 保持为新名字。
+1. 用真实样例验证新 skill 的工作闭环是否顺手。
+   - 建议：优先跑一条 `intake → task → module/topic/knowledge` 的真实链路，检查触发、落点、回写与 drift handling 是否自然。
+   - 建议：如果真实使用中暴露出字段或命名问题，再做轻量修正，不回到重模板。
+2. 观察迁移后的安装与调用体验。
+   - 建议：如果 Codex 没有立即识别新 skill，重启会话或应用后再验证。
+   - 建议：后续统一使用 `truth-work-orchestrator` 作为名称，避免新旧名字并行使用。

@@ -1,10 +1,10 @@
 # Output Model
 
-`truth-work-orchestrator`（历史别名：`discuss-and-distill`）当前管理的产出采用“模块 + 主题 + task + 知识”模型。
+`truth-work-orchestrator` 当前管理的产出采用“模块 + 主题 + task + 知识”模型。
 
 ## 顶层结构
 
-位置：`docs-discuss-and-distill/`（Phase 1 兼容保留的历史根目录）
+位置：`docs-truth-work-orchestrator/`
 
 当前顶层包含五类主要产物：
 - `intake/`：待处理队列
@@ -15,7 +15,7 @@
 
 ## 0. 待处理队列
 
-位置：`docs-discuss-and-distill/intake/`
+位置：`docs-truth-work-orchestrator/intake/`
 
 用途：
 - 承接尚未正式进入 task 的原始资料
@@ -32,7 +32,7 @@
 
 ## 1. 模块树
 
-位置：`docs-discuss-and-distill/modules/`
+位置：`docs-truth-work-orchestrator/modules/`
 
 用途：
 - 承接稳定的软件模块对象
@@ -54,7 +54,7 @@
 ## 2. 子模块 Truth
 
 位置：模块目录内部，例如：
-- `docs-discuss-and-distill/modules/<module>/submodule-xxx.md`
+- `docs-truth-work-orchestrator/modules/<module>/submodule-xxx.md`
 
 规则：
 - 子模块 **不是目录级对象**。
@@ -63,7 +63,7 @@
 
 ## 3. 主题树
 
-位置：`docs-discuss-and-distill/topics/`
+位置：`docs-truth-work-orchestrator/topics/`
 
 用途：
 - 承接不明确属于某个软件模块的讨论对象
@@ -81,7 +81,7 @@
 
 ## 4. 共享知识层
 
-位置：`docs-discuss-and-distill/knowledge/`
+位置：`docs-truth-work-orchestrator/knowledge/`
 
 用途：
 - 承接可被多个模块或主题直接引用的共享知识
@@ -94,7 +94,7 @@
 
 ## 5. Task 树
 
-位置：`docs-discuss-and-distill/tasks/`
+位置：`docs-truth-work-orchestrator/tasks/`
 
 用途：
 - 承接围绕模块或主题发起的一次执行活动
@@ -143,7 +143,7 @@
 
 ## 7. Skill 固有 Reference 层
 
-位置：`skills/discuss-and-distill/references/`（Phase 1 兼容保留的历史 skill 目录）
+位置：`skills/truth-work-orchestrator/references/`
 
 用途：
 - 承接 skill 自身的操作规则、文档结构、主持模式与轻量对象模板

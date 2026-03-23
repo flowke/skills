@@ -7,9 +7,9 @@ description: Truth-driven work orchestration for complex requirements. Use when 
 
 > Canonical identity: `truth-work-orchestrator`
 >
-> Historical alias: `discuss-and-distill`
+> Formerly known as: `discuss-and-distill`
 >
-> Phase 1 compatibility rule: 现阶段仍保留 skill 目录 `skills/discuss-and-distill/` 与产出根目录 `docs-discuss-and-distill/`，避免把“身份迁移”和“目录迁移”绑在同一轮完成。
+> Migration status: canonical name, skill directory, and docs root have all been migrated to `truth-work-orchestrator`.
 
 进入一种“以 truth 为核心，编排 intake / modules / topics / tasks / knowledge，并在执行后回写 truth”的工作模式。
 
@@ -30,7 +30,7 @@ description: Truth-driven work orchestration for complex requirements. Use when 
 
 典型触发语：
 - “先别写代码，我们先把需求对齐。”
-- “帮我进入讨论模式，边聊边整理。”
+- “帮我进入 truth-work-orchestrator 模式。”
 - “这些资料先收着，后面再处理。”
 - “这个模块先沉淀 truth，再拆 task。”
 - “代码和 truth 对不上了，帮我判断怎么回写。”
@@ -219,10 +219,10 @@ description: Truth-driven work orchestration for complex requirements. Use when 
 
 ## Document Location
 
-Phase 1 中，`truth-work-orchestrator` 仍沿用历史产出根目录：`docs-discuss-and-distill/`。
+默认把 `truth-work-orchestrator` 的产出放在固定目录：`docs-truth-work-orchestrator/`。
 
 默认规则：
-- **固定目录**：`docs-discuss-and-distill/`
+- **固定目录**：`docs-truth-work-orchestrator/`
 - **顶层结构**：`intake/`、`modules/`、`topics/`、`tasks/`、`knowledge/`
 - **默认按对象落点**，而不是按会话轮次落点
 - **稳定对象优先**：软件结构对象进入 `modules/`，非软件模块型讨论对象进入 `topics/`
