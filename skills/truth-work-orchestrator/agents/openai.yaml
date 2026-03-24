@@ -1,4 +1,4 @@
 interface:
   display_name: "Truth Work Orchestrator"
-  short_description: "Truth-driven work orchestration for complex requirements"
-  default_prompt: "Use $truth-work-orchestrator to align a complex requirement, stabilize truths, organize modules/topics/tasks/knowledge, perform a pre-execution consistency review, and maintain one evolving source of truth through execution and post-code regression."
+  short_description: "Truth-driven orchestration for closed-loop work"
+  default_prompt: "Use $truth-work-orchestrator to align a work item that needs ongoing truth/task/knowledge maintenance, stabilize truths, organize modules/topics/tasks/knowledge, perform a pre-execution consistency review, and maintain one evolving source of truth through execution and post-code regression."

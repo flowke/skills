@@ -1,13 +1,13 @@
 ---
 name: truth-work-orchestrator
-description: Truth-driven work orchestration for complex requirements. Use when Codex should align requirements, stabilize truths, organize modules/topics/tasks/knowledge, reconcile drift after regression, and maintain one evolving source of truth through execution.
+description: Truth-driven work orchestration for work that needs ongoing truth/task/knowledge alignment. Use when Codex should align requirements, stabilize truths, organize modules/topics/tasks/knowledge, reconcile drift after regression, and maintain one evolving source of truth through execution.
 ---
 
 # Truth Work Orchestrator
 
 进入一种“以 truth 为核心，编排 intake / modules / topics / tasks / knowledge，并在执行后回写 truth”的工作模式。
 
-这个 skill 面向**复杂需求与复杂工作对象**。它不再只是“先讨论、再沉淀文档”的 skill，而是一个**truth-driven work orchestrator**：
+这个 skill 面向**需要维护 truth / task / knowledge / recovery 闭环的工作对象**。它不再只是“先讨论、再沉淀文档”的 skill，而是一个**truth-driven work orchestrator**：
 - 讨论只是入口动作之一
 - current truth 仍是核心锚点
 - 真正的主体职责是：**对象化、编排、承接执行、回写结果、处理漂移**
@@ -48,7 +48,7 @@ description: Truth-driven work orchestration for complex requirements. Use when 
 ## Scope and Boundaries
 
 ### 本 skill 负责
-- 接收复杂需求或需要闭环承接的工作对象，并判断当前最该推进的焦点。
+- 接收需要闭环承接的工作对象，并判断当前最该推进的焦点。
 - 引导需求对齐，明确目标、范围、约束、非目标与关键定义。
 - 主动补遗漏、查冲突、看相互影响，并在进入实施前做一致性复盘。
 - 根据当前内容性质，编排到 `intake / modules / topics / tasks / knowledge` 的合适层级。
@@ -124,10 +124,16 @@ description: Truth-driven work orchestration for complex requirements. Use when 
 按下面顺序循环推进：
 
 1. **先定焦**：判断当前更像在聊目标、范围、约束、方案、优先级、定义，还是在决定对象落点、task 关系、knowledge 边界。
-2. **再推进一个关键问题**：一次只推进最有杠杆的一个点，避免问卷式连环提问。
+2. **再推进 1–3 个关键问题**：默认优先推进 1 个问题；当多个问题高度相关、一起推进更高效时，可在同一轮推进 2–3 个问题。避免问卷式连环提问，也避免把不相关问题硬塞进同一轮。
 3. **做阶段总结**：在自然节点收一下“已确认 / 待确认 / 未决”。
 4. **更新 truth 与对象状态**：把稳定内容写入 truth，把临时倾向放入待确认项，并在需要时更新对象层落点。
 5. **给出下一步聚焦**：指出下一轮最值得继续推进的问题，并在每一项下面附 1–3 条具体建议。
+
+同一轮推进多个问题时，优先满足以下条件：
+- 问题属于同一层次。
+- 问题之间存在明显依赖或对照关系。
+- 用户在一轮内回答的认知负担可控。
+- 本轮结束后仍能形成清晰的“已确认 / 待确认 / 未决”沉淀。
 
 如果对话明显发散，主动拉回主线；如果对话明显卡住，主动给一个更易切入的讨论框架。
 
@@ -210,7 +216,7 @@ description: Truth-driven work orchestration for complex requirements. Use when 
 
 优先这样做：
 - 主动判断当前最该聊的层次。
-- 一次只推动一个关键问题。
+- 默认一次推动 1 个关键问题；当多个问题高度相关且一起推进更高效时，可在同一轮推动 2–3 个相关问题。
 - 在必要时轻微打断发散并拉回主线。
 - 在卡住时给出结构化切入方式。
 - 在收敛足够时主动建议切换到对象定稿、task 创建、truth 回写或实现准备。
@@ -300,7 +306,7 @@ description: Truth-driven work orchestration for complex requirements. Use when 
 
 1. **先收敛问题，再扩写答案。**
 2. **先维护 truth，再维护少量必要的不确定性。**
-3. **先推进最有杠杆的问题，再处理细枝末节。**
+3. **先推进最有杠杆的问题，再处理细枝末节；当多个问题紧密相关时，允许以小批量方式推进 2–3 个问题。**
 4. **先帮用户看见“已经确定了什么”，再讨论“还差什么”。**
 5. **当讨论已经够清楚时，主动结束讨论模式或切换阶段。**
 6. **只要写了下一步，就把建议推进方案直接附在该条目下面。**
