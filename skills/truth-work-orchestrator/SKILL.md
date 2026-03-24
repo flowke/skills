@@ -93,6 +93,9 @@ description: Truth-driven work orchestration for complex requirements. Use when 
 当需要创建、维护或收口**独立回归任务** 的流程与相关文档时，再按需读取：
 - `references/regression-task-flow.md`
 
+当需要把 skill 外发生的实现 / 修复 / 技术判断回填成后续可复用上下文时，再按需读取：
+- `references/memory-backfill-flow.md`
+
 ## Standard Workflow Skeleton
 
 本 skill 采用**标准骨架 + 按场景裁剪**，而不是每次都要求完整经过固定全链路。

@@ -146,6 +146,19 @@
 - 先分类，再动作
 - 在证据不足时，不自动回写 truth，也不自动修正代码
 
+## 6.1 记忆回填（Memory Backfill）
+
+默认理解：
+- 记忆回填是一条流程，不是新的顶层对象类型
+- 它用于把 skill 外发生的实现 / 修复 / 技术判断，回填到现有 truth / knowledge 体系中
+
+默认落点规则：
+- 目标模块明确 → 优先回填模块 `current-truth.md` 或模块 `knowledge/`
+- 可跨对象复用 → 优先回填顶层 `knowledge/`
+- 暂时无法判断归属 → 先进入 `intake/` 作为待归类记忆项
+
+如需完整流程规则，见 `references/memory-backfill-flow.md`。
+
 ## 7. Skill 固有 Reference 层
 
 位置：`skills/truth-work-orchestrator/references/`

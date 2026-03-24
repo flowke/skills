@@ -356,6 +356,21 @@
 - 已补充代码落地 task 的验证文档位：
   - `task.md` 主入口中新增 `验证与回归` 区块
   - 当验证 / 回归记录较复杂时，可按需新增 `verification.md`
+- 已确认需要引入一条新的“记忆回填流程”：
+  - 适用于某些代码修复 / 需求实现没有走 skill，但其中产生了值得长期保留的上下文
+  - 目标是在下次开发或改功能时，能先把这些上下文提供给大模型
+- 已确认记忆回填流程的对象模型定位：
+  - 它是**一条新流程**，不是新的顶层对象类型
+  - 理由：其本质是把 skill 外发生的有效信息，回填到现有 truth / knowledge 体系，而不是再发明一类新的宿主对象
+- 已确认记忆回填流程的默认落点规则：
+  - 目标模块明确 → 优先回填模块 `current-truth.md` 或模块 `knowledge/`
+  - 可跨对象复用 → 优先回填顶层 `knowledge/`
+  - 暂时无法判断归属 → 先进入 `intake/`，作为待归类记忆项
+- 已新增 `references/memory-backfill-flow.md`：
+  - 用于定义记忆回填的触发、分类、落点判断与回填方式
+- 已同步补齐模板与落点规则：
+  - `references/object-templates.md` 已新增“待归类记忆”的 intake note 骨架
+  - `references/document-location.md` 已明确：值得记住但尚未确定归属的内容，可以先进入 `intake/`
 - 已确认需要为独立 `回归测试` task 单独补一份专项 flow reference：
   - 理由：当前它虽然已有对象类型与 drift handling，但还缺少“何时起、怎么做、维护哪些文档、如何恢复”的成体系规则
 - 已新增 `references/regression-task-flow.md`：
