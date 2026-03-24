@@ -14,6 +14,7 @@
 - 共享知识优先写清“这是什么、适用于哪里”，不要强制统一所有知识文档格式。
 - 模板应默认轻量；只有当场景明确需要时，再补更重章节。
 - 代码落地 task 的流程与文档关系，优先结合 `references/code-delivery-task-flow.md` 一起使用。
+- 独立回归任务的流程与文档关系，优先结合 `references/regression-task-flow.md` 一起使用。
 
 ## 1. intake / note.md
 
@@ -290,6 +291,60 @@
 - 
 ```
 
+## 7. 回归测试 task / task.md（推荐扩展骨架）
+
+适用场景：
+- 当前需要一个独立的 `回归测试` task
+- 当前重点是检查代码与 truth 是否一致，而不是继续实施代码
+
+### 推荐字段
+- `任务类型：回归测试`
+- `挂接对象`
+- `当前状态`
+- `当前判断倾向`（可选）
+- `当前阻塞`（可选）
+
+### Recommended Template
+
+```md
+# Task
+
+- 任务类型：回归测试
+- 挂接对象：
+- 当前状态：待回归
+- 当前判断倾向：
+- 当前阻塞：
+
+## 当前目标
+- 
+
+## truth 基线
+- 
+
+## 回归范围
+- 本轮覆盖：
+- 本轮不覆盖：
+
+## 回归方式
+- 
+
+## 当前发现
+- 
+
+## 漂移分类
+- 
+
+## 推荐动作
+- 
+
+## 下一步动作
+- 
+```
+
+说明：
+- 简单回归任务可以只维护这一份 `task.md`
+- 较复杂回归任务再配 `verification.md` 或 `handoff.md`
+
 ## 7. tasks / subtask-*.md
 
 适用场景：
@@ -324,7 +379,7 @@
 - 
 ```
 
-## 8. modules / topics / current-truth.md
+## 9. modules / topics / current-truth.md
 
 适用场景：
 - 记录稳定对象的当前真相
@@ -341,7 +396,7 @@
 - 模块如果存在局部职责拆分，可把局部真相写到 `submodule-*.md`。
 - 不要把 task 执行流水直接堆进 `current-truth.md`。
 
-## 9. modules / submodule-*.md
+## 10. modules / submodule-*.md
 
 适用场景：
 - 模块内部需要独立维护一个子模块 truth
@@ -373,7 +428,7 @@
 - 
 ```
 
-## 10. knowledge /
+## 11. knowledge /
 
 适用场景：
 - 记录可跨对象复用的协议、机制、约束、长期约定等知识
@@ -403,7 +458,7 @@
 - 
 ```
 
-## 11. Drift Handling Notes
+## 12. Drift Handling Notes
 
 适用场景：
 - 回归测试 task 发现 code 与 truth 不一致

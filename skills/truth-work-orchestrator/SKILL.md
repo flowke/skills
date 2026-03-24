@@ -90,6 +90,9 @@ description: Truth-driven work orchestration for complex requirements. Use when 
 当需要创建、维护或收口**代码落地 task** 的流程与相关文档时，再按需读取：
 - `references/code-delivery-task-flow.md`
 
+当需要创建、维护或收口**独立回归任务** 的流程与相关文档时，再按需读取：
+- `references/regression-task-flow.md`
+
 ## Standard Workflow Skeleton
 
 本 skill 采用**标准骨架 + 按场景裁剪**，而不是每次都要求完整经过固定全链路。

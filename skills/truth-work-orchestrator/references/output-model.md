@@ -128,6 +128,7 @@
 - 对代码落地 task 而言，规划文档如果需要保留，应放在 task 目录内，例如 `implementation-plan.md`；不要把模块 / 主题层的 `planning.md` 当作默认结构恢复。
 - 对代码落地 task 而言，代码完成后的验证与必要回归，默认应在同一个 task 内闭环完成；不再默认外拆独立回归测试 task。
 - 对代码落地 task 而言，task 文档需要支持中断后重启；至少应能从文档中恢复当前路径选择、当前进展与下一步动作。
+- 对独立 `回归测试` task 而言，其流程、文档集合与恢复规则，见 `references/regression-task-flow.md`。
 
 ## 6. 回归测试 Task 的 Drift Handling
 
