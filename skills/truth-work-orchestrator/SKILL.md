@@ -1,6 +1,6 @@
 ---
 name: truth-work-orchestrator
-description: Truth-driven work orchestration for work that needs ongoing truth/task/knowledge alignment. Use when Codex should align requirements, stabilize truths, organize modules/topics/tasks/knowledge, reconcile drift after regression, and maintain one evolving source of truth through execution.
+description: Truth-driven orchestration skill for explicit work modes including intake, truth stabilization, companion development, task delivery, regression, and memory backfill. Prefer explicit invocation when using this skill.
 ---
 
 # Truth Work Orchestrator
@@ -12,25 +12,38 @@ description: Truth-driven work orchestration for work that needs ongoing truth/t
 - current truth 仍是核心锚点
 - 真正的主体职责是：**对象化、编排、承接执行、回写结果、处理漂移**
 
+## Supported Work Modes
+
+默认把这个 skill 看成一组可显式切换的工作模式，而不是单一路径流程。
+
+当前支持的工作模式：
+1. **Intake 模式**：接住原始资料、链接、文件和待处理输入，判断是否进入正式对象层。
+2. **Truth 对齐模式**：对齐目标、范围、约束、定义和当前基线，稳定 `current-truth.md`。
+3. **陪伴开发模式**：skill 先提供当前 truth / knowledge 上下文，再直接陪伴开发；修改确认完成后直接回填，不默认创建 task。
+4. **代码落地 task 模式**：当需要编排、恢复、交接或多步实施时，创建并推进代码落地 task。
+5. **回归模式**：基于 truth 检查当前代码是否一致，并判断是 `truth 过时`、`code 偏离` 还是 `暂时无法判断`。
+6. **记忆沉淀模式**：把 skill 外或陪伴开发后形成的稳定结论、机制、经验与约束回填到 truth / knowledge 体系。
+
+如果用户显式点名某个模式，优先直接进入该模式；只有在用户没有点名、且当前工作模式已经很清楚时，才做自动判断。
+
 ## Quick Trigger Test
+
+默认优先**显式触发**本 skill；自动判断只作为补充，不追求用大量自然语言变体去覆盖触发。
 
 优先在下面场景使用本 skill：
 
 1. 当前工作不只是一次性回答，而需要维护 **truth / task / knowledge / recovery** 闭环。
-2. 当前不仅要“聊清楚”，还要决定资料、稳定对象、执行对象和共享知识应该落到哪里。
-3. 当前需要规划代码实施路径、减少返工，并把实施过程持续回写到文档。
-4. 当前需要承接代码落地 task、独立回归任务，或在多轮会话 / 多台设备之间续推工作。
-5. 当前需要把 skill 外发生的实现 / 修复 / 技术判断回填成后续可复用上下文。
-6. 当前需要在已有 truth / knowledge 上下文支持下直接开发，并在完成后回填记忆，但不需要单独创建 task。
+2. 当前需要在 `intake / modules / topics / tasks / knowledge` 之间判断对象落点。
+3. 当前需要进入 intake、truth 对齐、陪伴开发、代码落地 task、回归或记忆沉淀中的某一种工作模式。
+4. 当前需要规划代码实施路径、减少返工，并把实施结果持续回写到文档或知识层。
+5. 当前需要在已有 truth / knowledge 上下文支持下直接开发，并在完成后回填记忆，但不需要单独创建 task。
 
-典型触发语：
-- “先别写代码，我们先把需求对齐。”
-- “帮我进入 truth-work-orchestrator 模式。”
-- “这个模块先沉淀 truth，再拆 task。”
-- “按最小返工路径把这个功能落下去。”
-- “代码和 truth 对不上了，帮我做一轮回归判断。”
-- “把这次改动记住，回填到模块里。”
-- “先给我这个模块的上下文，我直接改，改完再帮我沉淀。”
+推荐的显式触发方式是直接点名模式，例如：
+- “进入 intake 模式”
+- “进入 truth 对齐模式”
+- “进入陪伴开发模式”
+- “进入回归模式”
+- “进入记忆沉淀模式”
 
 默认不要在下面场景使用本 skill：
 - 用户只要一次性答案、单次文案、单次代码片段，且不需要 truth / task / memory / recovery 闭环。
@@ -50,7 +63,7 @@ description: Truth-driven work orchestration for work that needs ongoing truth/t
 ## Scope and Boundaries
 
 ### 本 skill 负责
-- 接收需要闭环承接的工作对象，并判断当前最该推进的焦点。
+- 接收需要闭环承接的工作对象，并判断当前应进入哪一种工作模式，以及当前最该推进的焦点。
 - 引导需求对齐，明确目标、范围、约束、非目标与关键定义。
 - 主动补遗漏、查冲突、看相互影响，并在进入实施前做一致性复盘。
 - 根据当前内容性质，编排到 `intake / modules / topics / tasks / knowledge` 的合适层级。
