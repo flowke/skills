@@ -124,8 +124,9 @@
 - `挂接方式` 当前不作为最小必选字段；多数场景下可由 `挂接对象` 推导。
 - `来源 intake 项` 不作为必选字段，但正式作为可选字段保留，用于承接从 intake 到 task 的追溯链。
 - task 的更具体内容字段与内部结构，按类型继续细化；代码落地 task 的流程与推荐文档集合，见 `references/code-delivery-task-flow.md`。
+- 对代码落地 task 而言，除 `task.md` 外，可按需补 `implementation-plan.md`、`subtask-*.md`、`handoff.md`、`verification.md` 等内部文档。
 - 对代码落地 task 而言，规划文档如果需要保留，应放在 task 目录内，例如 `implementation-plan.md`；不要把模块 / 主题层的 `planning.md` 当作默认结构恢复。
-- 对代码落地 task 而言，代码完成后的验证应优先衔接独立的回归测试 task，而不是在同一个 task 中混写回归结论。
+- 对代码落地 task 而言，代码完成后的验证与必要回归，默认应在同一个 task 内闭环完成；不再默认外拆独立回归测试 task。
 - 对代码落地 task 而言，task 文档需要支持中断后重启；至少应能从文档中恢复当前路径选择、当前进展与下一步动作。
 
 ## 6. 回归测试 Task 的 Drift Handling

@@ -143,6 +143,11 @@
 ## 相关子任务
 - 
 
+## 验证与回归
+- 验证范围：
+- 验证方式：
+- 当前结论：
+
 ## 输出去向
 - 
 
@@ -204,7 +209,7 @@
 ## 5. tasks / handoff.md
 
 适用场景：
-- 代码落地 task 需要显式交接给执行人 / 执行 agent / 回归测试 task
+- 代码落地 task 需要显式交接给执行人 / 执行 agent / 后续接手者
 
 ### 推荐最小字段
 - `交接目标`
@@ -241,7 +246,51 @@
 - 
 ```
 
-## 6. tasks / subtask-*.md
+## 6. tasks / verification.md
+
+适用场景：
+- 代码落地 task 内的验证 / 回归记录较复杂
+- 需要独立记录验证范围、验证证据、多轮复测与结论
+
+### 推荐最小字段
+- `验证范围`
+- `验证方式`
+- `验证结果`
+- `结论`
+
+### 可选字段
+- `发现的问题`
+- `修正记录`
+- `后续动作`
+
+### Minimal Template
+
+```md
+# Verification
+
+## 验证范围
+- 
+
+## 验证方式
+- 
+
+## 验证结果
+- 
+
+## 发现的问题
+- 
+
+## 修正记录
+- 
+
+## 结论
+- 
+
+## 后续动作
+- 
+```
+
+## 7. tasks / subtask-*.md
 
 适用场景：
 - 父 task 需要拆分多个轻量子任务
@@ -275,7 +324,7 @@
 - 
 ```
 
-## 7. modules / topics / current-truth.md
+## 8. modules / topics / current-truth.md
 
 适用场景：
 - 记录稳定对象的当前真相
@@ -292,7 +341,7 @@
 - 模块如果存在局部职责拆分，可把局部真相写到 `submodule-*.md`。
 - 不要把 task 执行流水直接堆进 `current-truth.md`。
 
-## 8. modules / submodule-*.md
+## 9. modules / submodule-*.md
 
 适用场景：
 - 模块内部需要独立维护一个子模块 truth
@@ -324,7 +373,7 @@
 - 
 ```
 
-## 9. knowledge /
+## 10. knowledge /
 
 适用场景：
 - 记录可跨对象复用的协议、机制、约束、长期约定等知识
@@ -354,7 +403,7 @@
 - 
 ```
 
-## 10. Drift Handling Notes
+## 11. Drift Handling Notes
 
 适用场景：
 - 回归测试 task 发现 code 与 truth 不一致
