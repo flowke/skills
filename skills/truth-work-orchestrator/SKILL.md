@@ -21,6 +21,7 @@ description: Truth-driven work orchestration for work that needs ongoing truth/t
 3. 当前需要规划代码实施路径、减少返工，并把实施过程持续回写到文档。
 4. 当前需要承接代码落地 task、独立回归任务，或在多轮会话 / 多台设备之间续推工作。
 5. 当前需要把 skill 外发生的实现 / 修复 / 技术判断回填成后续可复用上下文。
+6. 当前需要在已有 truth / knowledge 上下文支持下直接开发，并在完成后回填记忆，但不需要单独创建 task。
 
 典型触发语：
 - “先别写代码，我们先把需求对齐。”
@@ -29,6 +30,7 @@ description: Truth-driven work orchestration for work that needs ongoing truth/t
 - “按最小返工路径把这个功能落下去。”
 - “代码和 truth 对不上了，帮我做一轮回归判断。”
 - “把这次改动记住，回填到模块里。”
+- “先给我这个模块的上下文，我直接改，改完再帮我沉淀。”
 
 默认不要在下面场景使用本 skill：
 - 用户只要一次性答案、单次文案、单次代码片段，且不需要 truth / task / memory / recovery 闭环。
@@ -55,6 +57,7 @@ description: Truth-driven work orchestration for work that needs ongoing truth/t
 - 承接代码落地 task：包含实施路径选择、实施、必要验证 / 回归、结果回写与中断恢复。
 - 承接独立回归任务：包含 truth 基线读取、回归检查、drift handling 分类与后续动作建议。
 - 承接记忆回填：把 skill 外发生的实现 / 修复 / 技术判断回填为可复用上下文。
+- 承接陪伴开发模式：先提供当前 truth / knowledge 上下文，支持直接开发，并在修改确认完成后直接回填记忆，而不默认创建 task。
 - 在多轮会话中维护同一份 truth 与对象层关系，并让工作可以跨设备 / 跨会话续推。
 
 ### 本 skill 不负责
@@ -89,7 +92,7 @@ description: Truth-driven work orchestration for work that needs ongoing truth/t
 2. **做一致性复盘并选择路径**
    - 在进入实施前，检查冲突、影响、遗漏和待决策点，并选择更稳妥的推进路径。
 3. **判断对象落点并按需承接 task**
-   - 判断资料、稳定对象、执行对象和知识内容应落到哪一层，并在需要时落成 task。
+   - 判断资料、稳定对象、执行对象和知识内容应落到哪一层；对象落点不等于必须创建 task，当工作适合在当前会话内直接完成时，可跳过 task，直接走陪伴开发闭环。
 4. **进入实施、验证或独立回归**
    - 对代码落地 task，默认承接实现、验证、修正与回写。
    - 对独立回归任务，默认承接检查、分类、建议动作与续推恢复。
@@ -100,6 +103,40 @@ description: Truth-driven work orchestration for work that needs ongoing truth/t
 - **背景资料补充**
   - 可发生在对齐前，也可发生在对齐过程中。
   - 当信息不足以支撑有效推进时，先补资料，再继续。
+
+## Companion Development Mode
+
+当当前工作已经有足够上下文、改动范围相对明确，且目标是在当前会话内直接完成代码修改时，可进入**陪伴开发模式**。
+
+这个模式下：
+- 默认**不创建 task**
+- 优先由 skill 提供当前 truth / knowledge / 约束 / 边界上下文
+- 在必要时只做轻量对齐
+- 直接进入开发
+- 在修改确认完成后，直接执行记忆回填 / truth 回写
+
+适合场景：
+- 局部 bug 修复
+- 小范围功能调整
+- 边改边确认的模块内开发
+- 已经明确改动目标，不需要额外任务编排的工作
+
+默认流程：
+1. 读取当前 truth / knowledge，并提炼本轮开发所需上下文
+2. 轻量确认本轮目标、边界、非目标与关键风险
+3. 直接进入开发，不默认创建 task
+4. 在开发过程中持续补充必要上下文与边界提醒
+5. 当修改确认完成后，直接回填到 `current-truth.md`、模块 `knowledge/`、顶层 `knowledge/` 或 `intake/`
+
+以下情况优先改用 task：
+- 改动范围明显外扩
+- 需要跨会话 / 跨设备续推
+- 需要显式 handoff
+- 需要独立回归检查
+- 需要多步实施规划
+- truth 本身仍明显不稳
+
+如果陪伴开发过程中出现范围外扩、依赖增多、需要中断恢复、需要多人交接，或需要独立验证，则应及时切换到 task 模式，而不是继续用轻模式硬撑。
 
 ## Default Discussion Loop
 
@@ -178,7 +215,7 @@ description: Truth-driven work orchestration for work that needs ongoing truth/t
 - 默认一次推动 1 个关键问题；当多个问题高度相关且一起推进更高效时，可在同一轮推动 2–3 个相关问题。
 - 在必要时轻微打断发散并拉回主线。
 - 在卡住时给出结构化切入方式。
-- 在收敛足够时主动建议切换到对象定稿、task 创建、truth 回写或实现准备。
+- 在收敛足够时主动建议切换到对象定稿、task 创建、陪伴开发、truth 回写或实现准备。
 
 避免这样做：
 - 把对话变成问卷或审讯。
@@ -235,7 +272,7 @@ description: Truth-driven work orchestration for work that needs ongoing truth/t
 
 满足下面任一条件时，主动建议结束本轮讨论或切换阶段：
 - 当前 truth 已经足够支持实现、写作、拆解任务或正式成稿
-- 当前 truth 已经足够稳定，可以进入 task 创建、执行承接或回归回写
+- 当前 truth 已经足够稳定，可以进入 task 创建、陪伴开发、执行承接或回归回写
 - 对象层关系已经稳定，继续泛聊收益不高
 - 回归结果已经被沉淀，后续只剩执行层动作
 - 当前主题已经完成，适合转入新的更聚焦讨论
@@ -245,7 +282,7 @@ description: Truth-driven work orchestration for work that needs ongoing truth/t
 - 转成实现规划
 - 转成任务拆解
 - 创建或更新 task
-- 进入实际改写或编码
+- 进入陪伴开发或实际编码
 - 在回归结果基础上重新开启一轮更聚焦讨论
 
 ## Working Heuristics
@@ -259,3 +296,4 @@ description: Truth-driven work orchestration for work that needs ongoing truth/t
 5. **当讨论已经够清楚时，主动结束讨论模式或切换阶段。**
 6. **只要写了下一步，就把建议推进方案直接附在该条目下面。**
 7. **进入规划前，默认做一致性复盘；进入回归后，默认回写结果与偏差。**
+8. **能直接完成的小范围开发，优先考虑陪伴开发模式；只有在需要编排、恢复或交接时再升级为 task。**
