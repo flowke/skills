@@ -52,11 +52,12 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 ## Core Outcome
 
-始终同时维护三类结果：
+始终同时维护四类结果：
 
 1. **对齐与收敛**：帮助用户逐步收敛目标、范围、约束、冲突、遗漏和关键决策。
 2. **truth 稳定化**：把稳定信息沉淀为可持续演化的 `current-truth.md` 或其他稳定对象 truth。
 3. **工作对象编排**：把资料、稳定对象、执行对象和共享知识放入合适层级，并在执行后完成回写闭环。
+4. **恢复与防误判**：让工作对象在跨设备、跨会话、跨时间中断后仍可恢复，并显式区分“意图 / 已声明结论 / 部分实现 / 已实现未验证 / 已验证事实”，避免把目标、半成品或推断误写成当前已成立真相。
 
 默认把 truth 看作“当前正在维护的核心锚点”；除非对象明显切换，否则不要每轮新建。
 
@@ -72,6 +73,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 承接记忆回填：把 skill 外发生的实现 / 修复 / 技术判断回填为可复用上下文。
 - 承接陪伴开发模式：先提供当前 truth / knowledge 上下文，支持直接开发，并在修改确认完成后直接回填记忆，而不默认创建 task。
 - 在多轮会话中维护同一份 truth 与对象层关系，并让工作可以跨设备 / 跨会话续推。
+- 显式维护对象当前状态、关键 truth items 的实现度 / 验证度、最近一次检查结果与恢复入口，避免把意图、部分实现或未验证结果误判为当前已成立事实。
 
 ### 本 skill 不负责
 - 代替用户做最终业务目标、优先级或取舍拍板。
@@ -80,15 +82,67 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 完整的人类项目管理工作，例如排期、汇报、跨团队协调、绩效式跟踪。
 - 代替最终业务验收、最终上线决策或最终发布责任归属。
 
+## Recovery-First and Truth Integrity Rule
+
+**默认把“恢复能力”和“防误判”看作对象编排的一等职责，而不是附属说明。**
+
+必须遵守下面规则：
+- 未经实现证据或验证证据支持的内容，**不得**写成“当前已成立真相”。
+- **意图（intent）**、**已确认设计/声明（declared）**、**部分实现（partial）**、**已实现未验证（implemented_unverified）**、**已验证事实（verified）** 必须显式区分。
+- 只要无法明确指出“哪些已完成、哪些未完成、证据是什么”，就**不能**把某条 truth 写成“已实现”。
+- 只要无法明确指出“回归范围、基线、结果和结论是否仍有效”，就**不能**把对象写成“已回归”。
+- 只要证据不足，优先标记为 `unknown` / `inconclusive` / `partial`，不要靠记忆或顺滑叙述补成“应该已经完成”。
+- 每次回写都要考虑未来恢复场景：换电脑、跨会话、过一段时间后，也应能迅速看出当前状态、实现进度、验证情况与下一步。
+
+## Truth Realization and Verification Model
+
+当需要判断某个 module / topic / task 当前到底“成立到什么程度”时，默认使用下面两层视角：
+
+### 1. 对象推进状态
+回答“当前这个对象推进到哪里了”：
+- `intake_only`
+- `truth_unstable`
+- `truth_stable`
+- `ready_for_companion_dev`
+- `ready_for_task`
+- `in_task`
+- `in_regression`
+- `pending_backfill`
+- `stable`
+- `blocked`
+
+### 2. 关键 truth item 的实现 / 验证状态
+回答“这条 truth 现在只是目标，还是已经真正成立”：
+- `intent`：希望成立的目标或预期，不代表当前系统已经如此。
+- `declared`：已确认的定义、方案、约束或决策，不代表已经落地。
+- `partial`：只实现了一部分，必须明确已完成 / 未完成边界。
+- `implemented_unverified`：代码层面已落地，但尚未完成有效检查或回归。
+- `verified`：已经在明确范围和基线下完成验证，可作为当前已成立事实依赖。
+- `drifted`：曾经成立，但后来代码或 truth 变化导致结论可能失效。
+- `unknown`：当前无法可靠判断，禁止脑补成“已完成”。
+
+默认不要只写笼统的“已支持”“已实现”“已回归”；优先把关键 truth item 拆开写清楚。
+
 ## Current-Truth Document Model
 
 默认维护以下最小结构：
 
 1. **讨论主题**：一句话说明当前在收敛什么。
-2. **当前真相**：已稳定内容，例如背景、目标、非目标、范围、约束、定义、已确认决策。
-3. **待确认项**：已出现明显倾向、但还没拍板的判断。
-4. **未决问题**：会影响后续推进的关键问题，并区分当前最关键的问题。
-5. **下一步聚焦**：保留 1–2 个最值得继续推进的点，并把建议推进方式挂在对应条目下面。
+2. **对象状态**：记录当前对象推进状态、当前工作模式、下一允许动作与当前阻塞。
+3. **当前真相**：已稳定内容，例如背景、目标、非目标、范围、约束、定义、已确认决策。这里仍要注意区分“已确认设计”与“当前已成立事实”。
+4. **关键 Truth Items**：按条记录关键 truth claim，并显式标注每条的 `intent / declared / partial / implemented_unverified / verified / drifted / unknown` 状态；对 `partial` 必须写明已完成 / 未完成边界。
+5. **待确认项**：已出现明显倾向、但还没拍板的判断。
+6. **未决问题**：会影响后续推进的关键问题，并区分当前最关键的问题。
+7. **最近一次检查 / 回归**：记录最近一次 consistency review、regression 或其他关键检查的日期、范围、基线、结论、未覆盖范围与后续动作。
+8. **恢复入口**：记录上次停在什么位置、如果现在恢复应先做什么、哪些项不要误判为已完成、建议先读哪些对象。
+9. **下一步聚焦**：保留 1–2 个最值得继续推进的点，并把建议推进方式挂在对应条目下面。
+
+默认目标不是把文档写厚，而是让未来恢复时能快速回答五件事：
+- 我们想让什么成立？
+- 现在真正已经成立了什么？
+- 哪些只做了一半？
+- 哪些已经验证、哪些还没验证？
+- 如果现在继续，第一步该做什么？
 
 当需要细化文档结构、对象模板、落点规则、代码落地 task、独立回归任务或记忆回填时，按需读取 `references/` 下对应文件；不要一次性加载全部 references。
 
@@ -111,6 +165,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
    - 对独立回归任务，默认承接检查、分类、建议动作与续推恢复。
 5. **回写稳定结果与可复用上下文**
    - 把稳定结果写回 truth / knowledge，并把 skill 外发生的有效上下文补回体系中。
+   - 回写时同步更新对象状态、关键 truth items 的实现度 / 验证度、最近一次检查结果与恢复入口；不要只更新 prose，而让恢复状态失真。
 
 ### 按需动作
 - **背景资料补充**
@@ -225,6 +280,14 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 多轮对话中反复出现且保持稳定的边界条件。
 - 阶段总结后被用户接受并继续沿用的内容。
 - 回归阶段中已被确认的问题、偏差和后续影响。
+- 已有明确实现证据或验证证据支持、能够说明适用范围的事实。
+
+### 沉淀到“关键 Truth Items”
+优先把下面内容按条写入 `关键 Truth Items`，而不是混成一段 prose：
+- 会影响开发、回归、恢复或交接的关键能力、约束或机制。
+- 容易出现“只实现了一半”风险的功能点。
+- 容易被误记成“已经完成”的目标项。
+- 需要明确区分 `intent / declared / partial / implemented_unverified / verified / drifted / unknown` 的 claim。
 
 ### 沉淀到“待确认项”
 优先放入待确认项：
@@ -232,6 +295,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 基于上下文提炼出的中间结论。
 - 两个或多个方案之间的临时偏向。
 - 回归后暴露出的、可能影响 truth 或对象编排但尚未定性的事项。
+- 当前只能初步判断为 `partial`、`drifted` 或 `unknown`，但还缺少最终定性的事项。
 
 ### 先确认，再进入“当前真相”
 遇到以下内容时，先口头确认，再写成稳定结论：
@@ -239,6 +303,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 对象边界、命名策略、落点规则、回写规则等会改变后续工作系统行为的判断。
 - 带明显推断色彩的归纳。
 - 会显著改变后续讨论方向的判断。
+- 将某条 truth 从 `intent / declared / partial / implemented_unverified` 升格为 `verified` 的判断。
 
 ### 不要沉淀
 不要把下面内容直接写成文档结论：
@@ -247,6 +312,15 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 情绪性表达。
 - 只是为了举例而说的话。
 - 你自己补出的、但用户没有接住的判断。
+- 没有明确证据支撑的“应该已经做完 / 应该已经回归 / 应该已经支持”。
+
+### 升格与降级规则
+- `intent` 不是当前系统事实；不要把目标直接升格成真相。
+- `declared` 不是已实现；不要把方案或决策写成已落地事实。
+- `partial` 不是整体成立；必须显式写出已完成 / 未完成边界。
+- `implemented_unverified` 不是 `verified`；未验证前不能当成已确认现状。
+- 曾经 `verified` 的事项，如果代码、范围或 truth 基线变化，必要时降级为 `drifted` 或 `unknown`。
+- 只要当前无法可靠判断，优先写 `unknown`，不要用顺滑叙述掩盖不确定性。
 
 ## Facilitation Style
 
@@ -300,6 +374,8 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 展示时优先给“增量快照”或“简版快照”，不要反复贴全文。
 
+如果当前对象存在恢复风险，展示时优先包含以下最小信息：对象状态、关键 Truth Items 变化、最近一次检查 / 回归结论、恢复入口。
+
 记录已确认决策时，优先附上一句简短理由；解释要足够帮助后续理解，但不要扩写成完整讨论档案。
 
 当你记录“下一步聚焦”时，默认同时记录“建议方案”，并把建议直接挂在对应条目的下一级，而不是单独拆成平级章节。
@@ -329,6 +405,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 对象层关系已经稳定，继续泛聊收益不高
 - 回归结果已经被沉淀，后续只剩执行层动作
 - 当前主题已经完成，适合转入新的更聚焦讨论
+- 当前对象的状态、关键 Truth Items、最近一次检查结果与恢复入口已经足够清晰，继续补写 prose 的收益不高
 
 常见下一阶段包括：
 - 转成正式文档
@@ -351,3 +428,5 @@ description: Truth-driven orchestration skill for explicit work modes including 
 7. **进入规划前，默认做一致性复盘；进入回归后，默认回写结果与偏差。**
 8. **能直接完成的小范围开发，优先考虑陪伴开发模式；只有在需要编排、恢复或交接时再升级为 task。**
 9. **当前 task / truth 默认与其他 task、其他 truth 隔离；只有被明确授权时，才可参考其他 truth 或引入别的 task 待办。**
+10. **不要依赖短期记忆维持进度感；凡是会影响恢复、回归或下一步判断的内容，优先落成显式状态、truth item 或恢复入口。**
+11. **宁可把对象写成 `partial` / `unknown`，也不要把意图、半成品或未验证结果写成“已经成立”。**
