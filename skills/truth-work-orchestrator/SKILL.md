@@ -151,6 +151,35 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 如果陪伴开发过程中出现范围外扩、依赖增多、需要中断恢复、需要多人交接，或需要独立验证，则应及时切换到 task 模式，而不是继续用轻模式硬撑。
 
+## Task / Truth Isolation Rule
+
+**当前正在推进的 task / truth 默认必须与其他 task、其他 truth 的待处理事项和未授权上下文隔离，不能相互串用、相互偷带需求。**
+
+默认规则：
+- 当前 task 只能基于**当前 task 自己的目标、范围、truth、已确认输入和显式依赖**来推进。
+- 默认**不要参考其他 truth**；除非用户或当前上下文**明确说明**“可以参考某个 truth”或“可以参考其他 truth”，才允许引入。
+- 其他 task 的 `todo`、`next step`、`待处理事项`、`顺手一起做`，默认都**不是**当前 task 的实现依据。
+- 即使两个 task 处于同一模块、同一会话或同一轮开发里，也不要因为“看起来顺手”就把另一个 task 的需求一起实现。
+- 陪伴开发模式下同样遵守隔离原则；不能因为不创建 task，就默认把别处未完成事项或其他 truth 的内容当作当前目标的一部分。
+- 如果确实存在跨 task / cross-truth 依赖，必须先显式说明关系：例如“当前 task 可以参考 truth B 的某个结论”“当前 task 依赖 task B 的某个前置结论”或“用户明确要求把 task A 和 task B 合并处理”，再继续推进。
+
+发现可能串线时，默认这样处理：
+1. 先停下来，重新声明**当前正在服务的是哪个 task / truth**。
+2. 区分“当前 task 的明确范围”与“另一个 task / truth 的内容”。
+3. 如果另一个 truth 只是潜在相关背景，但没有获得明确授权，则**不要引用它作为当前判断或实现依据**。
+4. 如果另一个 task / truth 的内容确实应该处理或参考，先征得用户确认，并把它显式转成：
+   - 当前 task 的新增范围，或
+   - 一个单独 task，或
+   - 一个明确的跨 task 依赖 / 阻塞关系，或
+   - 一个被授权可引用的 truth 依赖。
+5. 在未完成上述显式确认前，不要把其他 task / truth 的需求混入代码实现、回写结论或验收口径。
+
+简单判断标准：
+- **能做** 不等于 **应该在这个 task 里做**。
+- **相关** 不等于 **属于当前范围**。
+- **另一个 task 还没做**，不等于 **当前 task 可以顺手补上**。
+- **另一个 truth 看起来有帮助**，不等于 **当前 task 可以直接引用它**。
+
 ## Default Discussion Loop
 
 按下面顺序循环推进：
@@ -249,6 +278,17 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 如果用户明确指定了目标文件或目录，优先遵循用户指定。更具体的命名与文件规则见 `references/document-location.md`。
 
+## Project Path Rule
+
+**必须声明：如果引用的是项目内文件或目录，一律使用相对于项目根目录的路径，不要使用绝对路径。**
+
+默认规则：
+- 项目内路径统一写成相对项目根目录的形式，例如 `src/app/page.tsx`、`docs-TWO/tasks/xxx.md`。
+- 不要把项目内文件写成 `/Users/...` 这类绝对路径，因为项目可能在不同电脑、不同用户名或不同挂载目录下运行。
+- 只有在引用**项目外**的本机资源时，才使用绝对路径；例如用户主目录下的 skill、系统临时文件或明确依赖本机环境的位置。
+- 如果当前还没完全确认项目根目录，先根据仓库 / workspace 上下文判断根目录，再输出相对路径；不要在未确认时退化为绝对路径。
+- 在 truth、task、knowledge、handoff、recovery 等文档里，只要目标是项目内文件，都继续遵守这条规则。
+
 ## Document Display and Handoff
 
 默认以隐式维护为主，只在下面时机显式展示文档快照：
@@ -310,3 +350,4 @@ description: Truth-driven orchestration skill for explicit work modes including 
 6. **只要写了下一步，就把建议推进方案直接附在该条目下面。**
 7. **进入规划前，默认做一致性复盘；进入回归后，默认回写结果与偏差。**
 8. **能直接完成的小范围开发，优先考虑陪伴开发模式；只有在需要编排、恢复或交接时再升级为 task。**
+9. **当前 task / truth 默认与其他 task、其他 truth 隔离；只有被明确授权时，才可参考其他 truth 或引入别的 task 待办。**
