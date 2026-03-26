@@ -1,0 +1,12 @@
+{
+  "name": "yach-scan-helper",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local helper page for Yach QR login to resolve userid/from_user_id",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "yach.open.yylogin": "1.3.1"
+  }
+}

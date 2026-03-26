@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yach 扫码 helper</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="card hero">
+      <h1>Yach 扫码登录 helper</h1>
+      <p class="muted">
+        用于通过“扫码登录第三方网站”流程拿到当前登录用户的 <code>userid</code>，从而验证它是否可作为 <code>from_user_id</code>。
+      </p>
+      <ul class="muted">
+        <li>这个页面依赖单独申请的扫码登录 <code>appId/appSecret</code></li>
+        <li>当前消息发送用的 <code>appkey/appsecret</code> 通常不是这套</li>
+        <li>回调地址必须和申请时登记的一致</li>
+      </ul>
+    </section>
+
+    <section class="card status-card">
+      <h2>当前配置状态</h2>
+      <pre id="bootstrap">加载中...</pre>
+    </section>
+
+    <section class="card qr-card">
+      <h2>扫码区域</h2>
+      <div id="login_container" class="qr-shell"></div>
+      <div class="actions">
+        <button id="renderBtn">渲染二维码</button>
+      </div>
+      <p class="muted small">
+        若上方出现红色提示，可点击二维码区域下方的刷新按钮；若扫码后没有自动跳转，本页会尝试根据 postMessage 收到的 <code>loginTmpCode</code> 主动发起授权跳转。
+      </p>
+      <pre id="events">等待事件...</pre>
+    </section>
+  </main>
+
+  <script src="/yyLogin.browser.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

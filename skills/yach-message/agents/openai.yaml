@@ -1,0 +1,4 @@
+interface:
+  display_name: "Yach Message"
+  short_description: "Send Zhiyinlou/Yach private or group robot messages with text, markdown, @mentions, or raw message JSON"
+  default_prompt: "Use $yach-message to send a Zhiyinlou/Yach robot message to a person or a group, usually with text or markdown, and prefer a dry run before actual send when the target may be risky."
