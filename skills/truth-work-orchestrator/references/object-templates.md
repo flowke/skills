@@ -86,6 +86,7 @@
 
 适用场景：
 - 承接一次执行活动
+- 默认对应当前工作区中的 task，即放在 `docs-TWO/tasks/`
 
 ### 强必有
 - `任务类型`
@@ -106,6 +107,10 @@
 - `相关子任务`
 
 ### Minimal Template
+
+默认位置：
+- 当前 task：`docs-TWO/tasks/YYMMDD-<中文任务名>/task.md`
+- 完成归档后：`docs-TWO/archive/tasks/YYMMDD-<中文任务名>/task.md`
 
 ```md
 # Task
@@ -222,6 +227,7 @@
 - 稍复杂任务再拆出 `implementation-plan.md`、`subtask-*.md`；只有主入口文档不足以承载复杂交接上下文时，才补 `handoff.md`
 - 如果使用 checkbox，建议优先勾掉“有状态意义的执行检查点”，而不是记录过细的动作痕迹
 - 默认把 `task.md` 当成可续推主入口，而不是任务说明 + 另一个交接文档的前置索引
+- 挂接了模块 / 子模块 / 主题的 task，回补完成前不能标记为 `已完成`；完成后应移入 `docs-TWO/archive/tasks/`
 
 ## 4. tasks / implementation-plan.md
 
@@ -385,6 +391,7 @@
 适用场景：
 - 当前需要一个独立的 `回归测试` task
 - 当前重点是检查代码与 truth 是否一致，而不是继续实施代码
+- 默认对应当前工作区中的 task，即放在 `docs-TWO/tasks/`
 
 ### 推荐字段
 - `任务类型：回归测试`
@@ -394,6 +401,10 @@
 - `当前阻塞`（可选）
 
 ### Recommended Template
+
+默认位置：
+- 当前 task：`docs-TWO/tasks/YYMMDD-<中文任务名>/task.md`
+- 完成归档后：`docs-TWO/archive/tasks/YYMMDD-<中文任务名>/task.md`
 
 ```md
 # Task
@@ -443,6 +454,7 @@
 说明：
 - 简单回归任务可以只维护这一份 `task.md`
 - 较复杂回归任务再配 `verification.md`；只有主入口文档不足以承载复杂交接上下文时，才补 `handoff.md`
+- 如果回归 task 挂接了模块 / 子模块 / 主题，且结论需要回补对象，则回补完成前不能标记为 `已完成`；完成后应移入 `docs-TWO/archive/tasks/`
 
 ## 7. tasks / subtask-*.md
 

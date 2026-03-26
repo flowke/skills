@@ -6,12 +6,13 @@
 
 位置：`docs-TWO/`
 
-当前顶层包含五类主要产物：
+当前顶层包含六类主要产物：
 - `intake/`：待处理队列
 - `modules/`：模块树
 - `topics/`：主题树
-- `tasks/`：task 树（内部再分 `active/` 与 `archive/`）
+- `tasks/`：当前仍在推进、挂起或待回写的 task
 - `knowledge/`：共享知识层
+- `archive/`：归档层（当前主要承接已完成 task）
 
 ## 0. 待处理队列
 
@@ -104,9 +105,9 @@
 
 位置：`docs-TWO/tasks/`
 
-内部结构：
-- `docs-TWO/tasks/active/`：当前仍在推进、挂起或待回写的 task
-- `docs-TWO/tasks/archive/`：已经完成并退出 active 工作区的 task
+默认理解：
+- `docs-TWO/tasks/` 只承接当前仍在推进、挂起或待回写的 task
+- 已完成 task 转入 `docs-TWO/archive/tasks/`
 
 用途：
 - 承接围绕模块或主题发起的一次执行活动
@@ -118,7 +119,7 @@
 - task 后续可以挂接到模块或主题
 - task 完成后可以把结果沉淀到模块 / 主题 / 知识层
 - 对挂接对象的 task 而言，只有在回补对象完成后，才可视为真正完成
-- 已完成 task 不继续留在 `active/`，而应转入 `archive/`
+- 已完成 task 不继续留在 `tasks/`，而应转入 `archive/tasks/`
 - 不是所有执行活动都必须先创建 task；当工作适合在当前会话内直接完成时，可直接走陪伴开发模式，并在完成后回填到模块 / 主题 / 知识层
 
 说明：
@@ -133,8 +134,8 @@
 - 子任务使用 `subtask-` 前缀命名，以保持可读性与轻量性。
 - `subtask-*.md` 沿用与 `task.md` 相同的最小字段集合：`任务类型`、`挂接对象`、`当前状态`。
 - task 目录命名规则采用：`YYMMDD-<中文任务名>/`。
-- 新创建 task 默认放在 `docs-TWO/tasks/active/`。
-- 任务完成并收口后，目录移动到 `docs-TWO/tasks/archive/`。
+- 新创建 task 默认放在 `docs-TWO/tasks/`。
+- 任务完成并收口后，目录移动到 `docs-TWO/archive/tasks/`。
 - `任务类型` 与 `挂接方式` 不编码进目录名，而放入 task 内容字段中。
 - 每个 task 目录至少包含一个入口文件：`task.md`。
 - `task.md` 的最小字段包括：`任务类型`、`挂接对象`、`当前状态`。
@@ -146,6 +147,18 @@
 - 对代码落地 task 而言，代码完成后的验证与必要回归，默认应在同一个 task 内闭环完成；不再默认外拆独立回归测试 task。
 - 对代码落地 task 而言，`task.md` 及按需存在的 `subtask-*.md` 默认都需要支持中断后续推；至少应能从主入口文档中恢复当前路径选择、当前进展、接力入口与下一步动作。
 - 对独立 `回归测试` task 而言，其流程、文档集合与恢复规则，见 `references/regression-task-flow.md`。
+
+## 5.1 Archive 归档层
+
+位置：`docs-TWO/archive/`
+
+当前默认结构：
+- `docs-TWO/archive/tasks/`：已完成并退出当前工作区的 task
+
+说明：
+- archive 是顶层归档分类，不再把归档层塞在 `tasks/` 内部。
+- 当前默认只归档 task；未来如果出现其他稳定的归档需求，再按对象类型扩展子目录。
+- archive 表示退出当前工作区，不表示删除。
 
 ## 6. 回归测试 Task 的 Drift Handling
 

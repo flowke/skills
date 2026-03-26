@@ -7,7 +7,7 @@
 - 明确它与代码落地 task 的边界
 - 让回归任务在中断后也能依靠主入口文档恢复进度
 - 稳定承接 drift handling：判断该更新 truth、修正 code，还是继续补证据
-- 让 active task 区保持可读：完成回归任务退出 active，进入 archive
+- 让当前 task 区保持可读：完成回归任务退出 `tasks/`，进入顶层 `archive/tasks/`
 
 ## 1. 核心定位
 
@@ -142,7 +142,7 @@
 说明：
 - 回归任务的状态机应服务于“检查 → 判断 → 处置建议”
 - `待回写` 对挂接对象的回归 task 很重要：对象尚未回补前，不应跳到 `已完成`
-- `已完成` 是终态，默认应很快转入 archive，而不是长期停留在 active
+- `已完成` 是终态，默认应很快转入 `archive/tasks/`，而不是长期停留在 `tasks/`
 
 ## 5. 独立回归任务的推荐文档集合
 
@@ -197,31 +197,31 @@
 2. `verification.md` 应尽量记录：**已检查范围、未检查范围、当前发现、当前证据**。
 3. 如果准备中断，优先更新 `当前状态`、`当前发现`、`当前判断倾向`、`接力入口`、`下一步动作`。
 4. 默认先依靠 `task.md` 与 `verification.md` 完成续推；只有主入口明显承载不下时，才补 `handoff.md`。
-5. task 一旦完成收口，应退出 `active/` 并转入 `archive/`，不要让已完成 task 混在当前工作区里。
+5. task 一旦完成收口，应退出 `tasks/` 并转入 `archive/tasks/`，不要让已完成 task 混在当前工作区里。
 6. 恢复时默认顺序：先读 `task.md`，再读 `verification.md`；如果存在复杂交接补充，再读 `handoff.md`。
 
 ## 7. 推荐目录形态
 
-### active 最小形态
+### 当前 task 最小形态
 
 ```text
-docs-TWO/tasks/active/YYMMDD-<中文任务名>/
+docs-TWO/tasks/YYMMDD-<中文任务名>/
 ├── task.md
 ```
 
-### active 常见扩展形态
+### 当前 task 常见扩展形态
 
 ```text
-docs-TWO/tasks/active/YYMMDD-<中文任务名>/
+docs-TWO/tasks/YYMMDD-<中文任务名>/
 ├── task.md
 ├── verification.md
 └── attachments/
 ```
 
-### active 按需增强交接形态
+### 当前 task 按需增强交接形态
 
 ```text
-docs-TWO/tasks/active/YYMMDD-<中文任务名>/
+docs-TWO/tasks/YYMMDD-<中文任务名>/
 ├── task.md
 ├── verification.md
 ├── handoff.md
@@ -231,7 +231,7 @@ docs-TWO/tasks/active/YYMMDD-<中文任务名>/
 ### archive 归档形态
 
 ```text
-docs-TWO/tasks/archive/YYMMDD-<中文任务名>/
+docs-TWO/archive/tasks/YYMMDD-<中文任务名>/
 ├── task.md
 ├── verification.md
 └── ...

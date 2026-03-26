@@ -5,8 +5,8 @@
 ## Default Rules
 
 - 固定目录：`docs-TWO/`
-- 顶层结构：`intake/`、`modules/`、`topics/`、`tasks/`、`knowledge/`
-- `tasks/` 内部分为：`active/`、`archive/`
+- 顶层结构：`intake/`、`modules/`、`topics/`、`tasks/`、`knowledge/`、`archive/`
+- `archive/` 当前默认承接已完成 task，即 `archive/tasks/`
 - 默认按**对象性质**落点，而不是按对话轮次落点
 - 默认先判断当前内容属于：待处理资料、稳定对象、执行对象，还是共享知识
 - 用户明确指定路径时，优先遵循用户指定
@@ -74,9 +74,9 @@
 
 位置：`docs-TWO/tasks/`
 
-内部结构：
-- `docs-TWO/tasks/active/`：当前仍在推进、挂起或待回写的 task
-- `docs-TWO/tasks/archive/`：已经完成并退出 active 工作区的 task
+默认理解：
+- `docs-TWO/tasks/` 只承接当前仍在推进、挂起或待回写的 task
+- 已完成 task 转入 `docs-TWO/archive/tasks/`
 
 适用场景：
 - 当前需要承接一次执行活动，而不是继续只停留在稳定对象 truth
@@ -84,16 +84,31 @@
 - 任务可能挂接模块、主题或子模块，也可能暂时不挂接任何对象
 
 默认形态：
-- 新 task 默认创建在 `docs-TWO/tasks/active/` 下
+- 新 task 默认创建在 `docs-TWO/tasks/` 下
 - 每个 task 是目录级对象
 - 目录至少包含：`task.md`
 - 子任务不单独建目录，统一以 `subtask-*.md` 形式放在父 task 目录内
-- 已完成 task 立即从 `active/` 移到 `archive/`，不继续留在 active 原位置
+- 已完成 task 立即从 `tasks/` 移到 `archive/tasks/`，不继续留在当前 task 区
 
 命名建议：
 - task 目录名采用：`YYMMDD-<中文任务名>/`
 - 不把任务类型或挂接方式编码进目录名
 - 任务类型、挂接对象、当前状态写入 `task.md`
+
+### 4.1 `archive/`
+
+位置：`docs-TWO/archive/`
+
+当前默认结构：
+- `docs-TWO/archive/tasks/`：已完成并退出当前工作区的 task
+
+适用场景：
+- 某个 task 已经完成收口，不希望继续与当前 task 混放
+- 需要保留 task 以支持追溯、恢复与证据链查看，但不希望它留在当前工作区
+
+默认形态：
+- 当前顶层归档分类先收敛为 `archive/tasks/`
+- archive 表示归档，不表示删除
 
 ### 5. `knowledge/`
 
@@ -113,7 +128,7 @@
 优先用下面的判断来区分应该落到哪里：
 
 - 如果是在描述“这个对象目前成立的结论、边界、判断与未决” → 优先落到 `modules/` 或 `topics/`
-- 如果是在承接“围绕某对象发起的一次执行活动” → 优先落到 `tasks/active/`
+- 如果是在承接“围绕某对象发起的一次执行活动” → 优先落到 `tasks/`
 - 如果只是“先接收资料，稍后再决定是否处理” → 优先落到 `intake/`
 - 如果是在记录“可跨对象复用的依据型知识” → 优先落到 `knowledge/`
 
