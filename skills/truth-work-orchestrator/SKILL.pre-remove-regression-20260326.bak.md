@@ -1,6 +1,6 @@
 ---
 name: truth-work-orchestrator
-description: Truth-driven orchestration skill for explicit work modes including intake, truth stabilization, companion development, work-item delivery, and memory backfill. Prefer explicit invocation when using this skill.
+description: Truth-driven orchestration skill for explicit work modes including intake, truth stabilization, companion development, work-item delivery, regression, and memory backfill. Prefer explicit invocation when using this skill.
 ---
 
 # Truth Work Orchestrator
@@ -19,7 +19,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 默认情况下，它围绕四件事展开：
 - **维护 truth**：让当前系统中真正成立的内容与“只是目标 / 方案 / 半成品 / 未验证实现”显式区分。
 - **编排对象**：把资料、稳定对象、执行对象和共享知识放到正确层级，而不是混在同一份文档里。
-- **承接执行**：在需要时进入陪伴开发、Work-item 承接等工作方式，继续推进而不丢上下文。
+- **承接执行**：在需要时进入陪伴开发、Delivery Work-item 或 Regression 等工作模式，继续推进而不丢上下文。
 - **支持恢复**：让工作在跨设备、跨会话、跨时间中断后仍能续推，不依赖短期记忆维持进度感。
 
 本 skill 负责：
@@ -41,7 +41,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 优先在下面场景使用本 skill：
 1. 当前工作不只是一次性回答，而需要维护 `truth / work-item / knowledge` 体系，并支持恢复与续推闭环。
 2. 当前需要在 `intake / modules / topics / work-items / knowledge` 之间判断对象落点。
-3. 当前需要在 Intake、Truth 对齐、陪伴开发、Work-item 承接或记忆沉淀之间选择工作模式。
+3. 当前需要在 Intake、Truth 对齐、陪伴开发、Delivery Work-item、Regression 或记忆沉淀之间选择工作模式。
 4. 当前需要规划实施路径、减少返工，并把实施结果持续回写到文档或知识层。
 5. 当前需要基于已有 truth / knowledge 直接开发，并在完成后补回稳定结论，但不一定要单独创建 work-item。
 
@@ -59,7 +59,8 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - “进入 intake 模式”
 - “进入 truth 对齐模式”
 - “进入陪伴开发模式”
-- “进入 work-item 承接模式”
+- “进入 delivery work-item 模式”
+- “进入回归模式”
 - “进入记忆沉淀模式”
 
 ### 2.4 默认不适用的场景
@@ -92,7 +93,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 当前对象状态
 - 当前可依赖的稳定结论
 - 关键 truth items 的成立状态
-- 最近一次检查结论
+- 最近一次检查 / 回归结论
 - 恢复入口与下一步聚焦
 
 默认把 `current-truth.md` 视为当前工作对象的主入口；除非对象明显切换，否则不要每轮都新建 truth。
@@ -134,7 +135,8 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - Intake
 - Truth 对齐
 - 陪伴开发
-- Work-item 承接
+- Delivery Work-item
+- Regression
 - 记忆沉淀
 
 每个模式都回答四件事：它解决什么问题、什么时候进入、默认做什么、什么时候切换或升级。
@@ -172,7 +174,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 稳定 truth 与关键 truth items
 
 **什么时候切换**：
-- 当 truth 足够稳定、边界足够清楚时，可切到陪伴开发或 work-item 承接。
+- 当 truth 足够稳定、边界足够清楚时，可切到陪伴开发或 Delivery Work-item。
 - 当只是需要继续补资料时，可回到 Intake。
 
 ### 4.4 陪伴开发模式
@@ -195,32 +197,50 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 改动范围明显外扩
 - 需要跨会话 / 跨设备续推
 - 需要多人 / 多轮接力
-- 需要独立检查
+- 需要独立回归检查
 - 需要多步实施规划
 - truth 本身仍明显不稳
 
-出现上述信号时，应升级为 work-item 承接，而不是继续用轻模式硬撑。
+出现上述信号时，应升级为 Delivery Work-item，而不是继续用轻模式硬撑。
 
-### 4.5 Work-item 承接
+### 4.5 Delivery Work-item 模式
 
-**解决什么问题**：承接需要明确对象、需要恢复能力、需要多步推进或需要正式记录阶段状态的工作。
+**解决什么问题**：承接需要编排、恢复、多人 / 多轮续推或多步实施的正式工作。
 
 **什么时候进入**：
 - 需要明确承接对象
-- 需要规划、实施、检查、回写与归档的完整链条
+- 需要规划、实施、验证、回写与归档的完整链条
 - 需要较强恢复能力或跨轮续推能力
-- 当前工作已经不适合继续只靠陪伴开发承接
 
 **默认做什么**：
 - 创建并推进正式 `work-item`
-- 承接规划、实施、必要检查、结果回写与归档
+- 承接规划、实施、必要验证 / 回归、结果回写与归档
 - 显式维护对象状态、最近进展、下一步与恢复入口
 
 **什么时候切换**：
-- 当主要工作回到 truth 稳定化时，可切回 Truth 对齐。
+- 当主要工作转为独立一致性检查时，可切到 Regression。
 - 当实现已经完成、只剩稳定结论回补时，可切到记忆沉淀。
 
-### 4.6 记忆沉淀模式
+### 4.6 Regression 模式
+
+**解决什么问题**：用工程语义上的回归与一致性检查来判断 truth 与 code 当前是否一致。
+
+**什么时候进入**：
+- 当前最重要的问题是“实际代码和当前 truth 是否一致”
+- 需要判断是 `truth 过时`、`code 偏离`，还是 `暂时无法判断`
+- 需要独立承接技术验证与检查
+
+**默认做什么**：
+- 读取 truth 基线
+- 明确回归范围和检查对象
+- 分类 drift handling
+- 给出后续动作建议
+
+**什么时候切换**：
+- 如果结果说明 truth 需要调整，切回 Truth 对齐或对应 work-item。
+- 如果回归目标本身已独立、范围明显外扩，可形成独立承接对象。
+
+### 4.7 记忆沉淀模式
 
 **解决什么问题**：把 skill 外或陪伴开发后形成的稳定结论、机制、经验与约束回填到 truth / knowledge 体系。
 
@@ -236,15 +256,15 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 **什么时候切换**：
 - 如果回填过程中发现 truth 仍不稳，切回 Truth 对齐。
-- 如果回填时发现需要继续实施或检查，切回相应模式或 work-item。
+- 如果回填时发现需要继续实施或验证，切回相应模式。
 
-### 4.7 模式切换原则
+### 4.8 模式切换原则
 
 默认遵守下面原则：
 - 用户显式点名某个模式时，优先直接进入。
 - 用户未点名、但当前 mode 已经明显时，可做自动判断。
-- 陪伴开发不是“轻量版 work-item 承接”，而是**边界明确时的直接开发模式**。
-- 一旦出现恢复需求、范围外扩、多人接力、多步规划或需要正式承接对象的信号，就应该切换 mode，而不是继续用当前 mode 勉强承接。
+- 陪伴开发不是“轻量版 Delivery Work-item”，而是**边界明确时的直接开发模式**。
+- 一旦出现恢复需求、范围外扩、多人接力、独立验证或多步规划信号，就应该切换 mode，而不是继续用当前 mode 勉强承接。
 
 ## 5. Truth Discipline
 
@@ -274,7 +294,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 默认**不按轮次记录**，而是按**状态变化与恢复风险**记录。优先在下面时机进行记录：
 1. **对象第一次成形时**：从散输入进入正式对象层，开始有明确承接对象时。
 2. **stable truth 形成时**：目标、范围、约束、定义或关键 truth item 已经稳定时。
-3. **状态 / mode 切换时**：例如 Intake → Truth 对齐、陪伴开发 → work-item 承接、work-item 承接 → 检查。
+3. **状态 / mode 切换时**：例如 Intake → Truth 对齐、陪伴开发 → Delivery Work-item、Delivery Work-item → Regression。
 4. **实现 / 验证状态变化时**：某项能力进入 `partial`、`implemented_unverified`、`verified`、`drifted` 或 `unknown` 的关键变化时。
 5. **暂停 / 结束 / 交接前**：准备跨会话、跨设备、多人接力或本轮结束前。
 
@@ -313,6 +333,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - `ready_for_companion_dev`
 - `ready_for_work-item`
 - `in_work-item`
+- `in_regression`
 - `pending_backfill`
 - `stable`
 - `blocked`
@@ -322,12 +343,12 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - `intent`：希望成立的目标或预期，不代表当前系统已经如此。
 - `declared`：已确认的定义、方案、约束或决策，不代表已经落地。
 - `partial`：只实现了一部分，必须明确已完成 / 未完成边界。
-- `implemented_unverified`：代码层面已落地，但尚未完成有效检查或验证。
+- `implemented_unverified`：代码层面已落地，但尚未完成有效检查或回归。
 - `verified`：已经在明确范围和基线下完成验证，可作为当前已成立事实依赖。
 - `drifted`：曾经成立，但后来代码或 truth 变化导致结论可能失效。
 - `unknown`：当前无法可靠判断，禁止脑补成“已完成”。
 
-默认不要只写笼统的“已支持”“已实现”“已检查”；优先把关键 truth item 拆开写清楚。
+默认不要只写笼统的“已支持”“已实现”“已回归”；优先把关键 truth item 拆开写清楚。
 
 ### 5.5 升格与降级规则
 
@@ -344,9 +365,9 @@ description: Truth-driven orchestration skill for explicit work modes including 
 必须遵守下面底线：
 - 未经实现证据或验证证据支持的内容，**不得**写成“当前已成立真相”。
 - 只要无法明确指出“哪些已完成、哪些未完成、证据是什么”，就**不能**把某条 truth 写成“已实现”。
-- 只要无法明确指出“检查范围、基线、结果和结论是否仍有效”，就**不能**把对象写成“已验证”或“已确认一致”。
+- 只要无法明确指出“回归范围、基线、结果和结论是否仍有效”，就**不能**把对象写成“已回归”。
 - 只要证据不足，优先标记为 `unknown` / `inconclusive` / `partial`，不要靠记忆或顺滑叙述补成“应该已经完成”。
-- 每次回写都要考虑未来恢复场景：换电脑、跨会话、过一段时间后，也应能迅速看出当前状态、实现进度、检查情况与下一步。
+- 每次回写都要考虑未来恢复场景：换电脑、跨会话、过一段时间后，也应能迅速看出当前状态、实现进度、验证情况与下一步。
 
 ## 6. 默认操作循环
 
@@ -359,7 +380,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 2. **稳定 truth**：把已确认内容从聊天里拉出来，沉淀到 `current-truth.md` 或其他稳定对象。
 3. **做一致性复盘**：检查冲突、相互影响、明显遗漏和阻塞执行的待决策点。
 4. **判断对象落点与工作 mode**：决定资料、稳定对象、执行对象和知识内容应落到哪一层，以及当前该进入哪个模式。
-5. **进入实施 / 检查 / 回填**：按当前 mode 推进工作，而不是继续泛聊。
+5. **进入实施 / 回归 / 回填**：按当前 mode 推进工作，而不是继续泛聊。
 6. **回写状态、结果与恢复入口**：更新对象状态、关键 truth items、最近一次检查结果与下一步动作。
 
 ### 6.2 默认讨论循环
@@ -384,7 +405,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 ### 6.3 一致性复盘
 
-进入 work-item 承接 规划前，默认先做一轮一致性复盘；可以轻量，但不要省略到完全没有检查。
+进入 Delivery Work-item 规划前，默认先做一轮一致性复盘；可以轻量，但不要省略到完全没有检查。
 
 至少看四件事：
 - 有没有冲突
@@ -399,7 +420,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 每次推进后，默认同步回写：
 - 对象当前状态
 - 关键 truth items 的实现度 / 验证度
-- 最近一次检查的范围、基线、结论与未覆盖范围
+- 最近一次检查 / 回归的范围、基线、结论与未覆盖范围
 - 恢复入口与下一步聚焦
 
 不要只更新 prose，而让恢复状态失真。
@@ -429,7 +450,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 4. **关键 Truth Items**：按条记录关键 truth claim，并显式标注每条的 `intent / declared / partial / implemented_unverified / verified / drifted / unknown` 状态；对 `partial` 必须写明已完成 / 未完成边界。
 5. **待确认项**：已出现明显倾向、但还没拍板的判断。
 6. **未决问题**：会影响后续推进的关键问题，并区分当前最关键的问题。
-7. **最近一次检查**：记录最近一次 consistency review、验证或其他关键检查的日期、范围、基线、结论、未覆盖范围与后续动作。
+7. **最近一次检查 / 回归**：记录最近一次 consistency review、regression 或其他关键检查的日期、范围、基线、结论、未覆盖范围与后续动作。
 8. **恢复入口**：记录上次停在什么位置、如果现在恢复应先做什么、哪些项不要误判为已完成、建议先读哪些对象。
 9. **下一步聚焦**：保留 1–2 个最值得继续推进的点，并把建议推进方式挂在对应条目下面。
 
@@ -437,7 +458,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 我们想让什么成立？
 - 现在真正已经成立了什么？
 - 哪些只做了一半？
-- 哪些已经检查、哪些还没检查？
+- 哪些已经验证、哪些还没验证？
 - 如果现在继续，第一步该做什么？
 
 当记录“下一步聚焦”时，默认同时记录“建议方案”，并把建议直接挂在对应条目的下一级，而不是单独拆成平级章节。
@@ -460,14 +481,14 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 讨论准备切换到下一层
 - 用户显式要求查看当前沉淀结果
 - 你判断展示后能明显帮助推进
-- 检查阶段出现了足够影响后续判断的问题或偏差
+- 回归阶段出现了足够影响后续判断的问题或偏差
 
 展示时优先给“增量快照”或“简版快照”，不要反复贴全文。
 
 如果当前对象存在恢复风险，展示时优先包含以下最小信息：
 - 对象状态
 - 关键 Truth Items 变化
-- 最近一次检查结论
+- 最近一次检查 / 回归结论
 - 恢复入口
 
 记录已确认决策时，优先附上一句简短理由；解释要足够帮助后续理解，但不要扩写成完整讨论档案。
@@ -500,17 +521,19 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 满足下面任一条件时，主动建议结束本轮讨论或切换阶段：
 - 当前 truth 已经足够支持实现、写作、拆解任务或正式成稿。
-- 当前 truth 已经足够稳定，可以进入 work-item 创建、陪伴开发、执行承接或结果回写。
+- 当前 truth 已经足够稳定，可以进入 work-item 创建、陪伴开发、执行承接或回归回写。
 - 对象层关系已经稳定，继续泛聊收益不高。
+- 回归结果已经被沉淀，后续只剩执行层动作。
 - 当前主题已经完成，适合转入新的更聚焦讨论。
 - 当前对象的状态、关键 Truth Items、最近一次检查结果与恢复入口已经足够清晰，继续补写 prose 的收益不高。
 
 ### 8.2 什么时候切模式
 
 常见切换信号包括：
-- **Truth 对齐 → 陪伴开发 / work-item 承接**：truth 已足够稳定，下一步重点已转为实施。
-- **陪伴开发 → work-item 承接**：范围外扩、依赖增多、需要中断恢复、需要多人 / 多轮接力，或需要独立验证。
-- **Work-item 承接 → Truth 对齐**：检查结果暴露出 truth 过时、边界不稳或需要重新对齐。
+- **Truth 对齐 → 陪伴开发 / Delivery Work-item**：truth 已足够稳定，下一步重点已转为实施。
+- **陪伴开发 → Delivery Work-item**：范围外扩、依赖增多、需要中断恢复、需要多人 / 多轮接力，或需要独立验证。
+- **Delivery Work-item → Regression**：当前主要工作变成独立的一致性检查与技术验证。
+- **Regression → Truth 对齐 / Delivery Work-item**：回归结果暴露出 truth 过时、code 偏离或需要进一步实施修复。
 - **实施完成 → 记忆沉淀**：当前最重要的动作只剩稳定结论回填与知识补全。
 
 ### 8.3 什么时候不该继续补写 prose
@@ -531,14 +554,14 @@ description: Truth-driven orchestration skill for explicit work modes including 
 3. **先推进最有杠杆的问题，再处理细枝末节；当多个问题紧密相关时，允许以小批量方式推进 2–3 个问题。**
 4. **先帮用户看见“已经确定了什么”，再讨论“还差什么”。**
 5. **能直接完成的小范围开发，优先考虑陪伴开发模式；只有在需要编排、恢复、多人 / 多轮续推或复杂交接时再升级为 work-item。**
-6. **不要依赖短期记忆维持进度感；凡是会影响恢复、检查或下一步判断的内容，优先落成显式状态、truth item 或恢复入口。**
+6. **不要依赖短期记忆维持进度感；凡是会影响恢复、回归或下一步判断的内容，优先落成显式状态、truth item 或恢复入口。**
 7. **宁可把对象写成 `partial` / `unknown`，也不要把意图、半成品或未验证结果写成“已经成立”。**
 
 ## 9. References 使用说明
 
 ### 9.1 何时读取 references
 
-当需要细化文档结构、对象模板、落点规则、work-item 承接或记忆回填时，按需读取 `references/` 下对应文件；不要一次性加载全部 references。
+当需要细化文档结构、对象模板、落点规则、Delivery Work-item、Regression 或记忆回填时，按需读取 `references/` 下对应文件；不要一次性加载全部 references。
 
 ### 9.2 常用 references
 
@@ -549,6 +572,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - `output-model.md`
 - `document-location.md`
 - `delivery-work-item-flow.md`
+- `regression-work-item-flow.md`
 - `memory-backfill-flow.md`
 
 ### 9.3 主文档与 references 的职责分工
