@@ -44,22 +44,30 @@
 每个模块目录当前最小包含：
 - `current-truth.md`
 - `knowledge/`
-- `submodule-*.md`
+- 按需包含 `submodule-*`（可以是 `submodule-*.md` 文件，也可以是 `submodule-*/` 目录）
 
 说明：
 - `current-truth.md` 记录模块本身当前已经确认的结论、边界、判断与待决状态。
 - `knowledge/` 承接只服务当前模块或主要服务当前模块的知识资料。
-- `submodule-*.md` 是模块内部的子模块 truth 文件。
+- 子模块支持轻量文件形态与复杂目录形态，两者都统一使用 `submodule-` 前缀命名。
 
 ## 2. 子模块 Truth
 
 位置：模块目录内部，例如：
 - `docs-TWO/modules/<module>/submodule-xxx.md`
+- `docs-TWO/modules/<module>/submodule-xxx/current-truth.md`
 
 规则：
-- 子模块 **不是目录级对象**。
-- 子模块只作为模块目录内部的独立轻文件存在。
-- 子模块 truth 统一使用 `submodule-` 前缀命名。
+- 子模块支持两种形态：
+  - **轻量子模块**：`submodule-xxx.md`
+  - **目录子模块**：`submodule-xxx/` 目录
+- **默认子模块一律按轻量子模块处理。**
+- 只有在当前上下文中被显式说明为 **“目录子模块”** 时，才创建目录结构子模块。
+- 轻量子模块适合局部 truth 较少、暂时不需要独立知识层或下一层拆分的场景。
+- 目录子模块适合已经需要独立 `knowledge/`、需要继续拆下一层子模块，或需要长期演化的场景。
+- 目录子模块最小包含 `current-truth.md`；按需可继续包含 `knowledge/` 与下一层 `submodule-*`。
+- 目录子模块支持分形展开：目录子模块内部可以继续出现轻量子模块或目录子模块。
+- 子模块 truth 统一使用 `submodule-` 前缀命名，无论是文件还是目录。
 
 ## 3. 主题树
 
@@ -77,7 +85,7 @@
 
 说明：
 - 主题当前只承接一个 truth 文件。
-- 主题不引入模块式的 `knowledge/` 与 `submodule-*.md` 结构。
+- 主题不引入模块式的 `knowledge/` 与 `submodule-*` 分形结构。
 
 ## 4. 共享知识层
 
@@ -125,10 +133,10 @@
 - `挂接方式` 当前不作为最小必选字段；多数场景下可由 `挂接对象` 推导。
 - `来源 intake 项` 不作为必选字段，但正式作为可选字段保留，用于承接从 intake 到 task 的追溯链。
 - task 的更具体内容字段与内部结构，按类型继续细化；代码落地 task 的流程与推荐文档集合，见 `references/code-delivery-task-flow.md`。
-- 对代码落地 task 而言，除 `task.md` 外，可按需补 `implementation-plan.md`、`subtask-*.md`、`handoff.md`、`verification.md` 等内部文档。
+- 对代码落地 task 而言，除 `task.md` 外，可按需补 `implementation-plan.md`、`subtask-*.md`、`verification.md` 等内部文档；`handoff.md` 仅在主入口文档不足以承载复杂交接上下文时，作为增强件按需补充。
 - 对代码落地 task 而言，规划文档如果需要保留，应放在 task 目录内，例如 `implementation-plan.md`；不要把模块 / 主题层的 `planning.md` 当作默认结构恢复。
 - 对代码落地 task 而言，代码完成后的验证与必要回归，默认应在同一个 task 内闭环完成；不再默认外拆独立回归测试 task。
-- 对代码落地 task 而言，task 文档需要支持中断后重启；至少应能从文档中恢复当前路径选择、当前进展与下一步动作。
+- 对代码落地 task 而言，`task.md` 及按需存在的 `subtask-*.md` 默认都需要支持中断后续推；至少应能从主入口文档中恢复当前路径选择、当前进展、接力入口与下一步动作。
 - 对独立 `回归测试` task 而言，其流程、文档集合与恢复规则，见 `references/regression-task-flow.md`。
 
 ## 6. 回归测试 Task 的 Drift Handling
@@ -179,5 +187,7 @@
 - 模块与主题都是稳定对象，但前者偏软件模块，后者偏非软件模块型讨论对象。
 - task 层承接围绕对象发起的一次执行活动；共享知识层承接跨对象复用知识。
 - `current-truth.md` 放结论；`knowledge/` 放支撑这些结论的知识资料。
-- `submodule-*.md` 放模块内部的子模块 truth；不要把子模块扩展成目录级递归结构。
+- 子模块支持轻量文件与目录两种形态：默认使用 `submodule-*.md`。
+- 只有被显式说明为 **目录子模块** 时，才使用 `submodule-*/current-truth.md`。
+- 目录子模块支持继续嵌套下一层 `submodule-*`，形成分形结构；但默认不为了结构而递归。
 - 当前只定义产物的**位置、职责与边界**，不预设固定正文格式。

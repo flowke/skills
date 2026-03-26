@@ -20,7 +20,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 1. **Intake 模式**：接住原始资料、链接、文件和待处理输入，判断是否进入正式对象层。
 2. **Truth 对齐模式**：对齐目标、范围、约束、定义和当前基线，稳定 `current-truth.md`。
 3. **陪伴开发模式**：skill 先提供当前 truth / knowledge 上下文，再直接陪伴开发；修改确认完成后直接回填，不默认创建 task。
-4. **代码落地 task 模式**：当需要编排、恢复、交接或多步实施时，创建并推进代码落地 task。
+4. **代码落地 task 模式**：当需要编排、恢复、多人 / 多轮续推或多步实施时，创建并推进代码落地 task。
 5. **回归模式**：基于 truth 检查当前代码是否一致，并判断是 `truth 过时`、`code 偏离` 还是 `暂时无法判断`。
 6. **记忆沉淀模式**：把 skill 外或陪伴开发后形成的稳定结论、机制、经验与约束回填到 truth / knowledge 体系。
 
@@ -85,6 +85,39 @@ description: Truth-driven orchestration skill for explicit work modes including 
 ## Recovery-First and Truth Integrity Rule
 
 **默认把“恢复能力”和“防误判”看作对象编排的一等职责，而不是附属说明。**
+
+### Continuity-by-Default Rule
+
+**接力不是一个单独步骤，而是整个 skill 的底层哲学。**
+
+默认规则：
+- `intake`、`current-truth`、`task`、`subtask`、`verification` 等对象，主入口都应足以支持中断后续推。
+- 接力信息默认内嵌在对象主文档中，而不是依赖额外的交接文件。
+- 暂停、切换会话、切换设备或切换执行者时，默认动作是更新对象状态、当前进展、下一步动作与恢复入口，而不是进入新的 handoff 阶段。
+- `handoff.md` 不是默认流程步骤；只有当主入口文档不足以承载复杂交接上下文时，才作为增强件按需创建。
+
+### Continuity Checklist
+
+当你更新任何对象主入口（例如 `current-truth.md`、`task.md`、`subtask-*.md`、`verification.md`）时，默认快速过一遍下面检查项：
+
+1. **当前状态是否清楚**
+   - 现在到底处于哪个阶段？
+   - 当前是继续推进、待验证、待回写，还是已挂起？
+2. **当前进展是否可恢复**
+   - 最近完成了什么？
+   - 当前停留点是什么？
+3. **接力入口是否可执行**
+   - 如果现在换一个人、换一轮会话或换一台电脑继续，第一步该做什么？
+   - 有没有把关键相关文件、入口位置或对象依赖指出来？
+4. **哪些事项不要误判为已完成**
+   - 哪些只是 intent / declared？
+   - 哪些只是 partial / implemented_unverified？
+   - 哪些还没有有效验证？
+5. **下一步动作是否明确且足够小**
+   - 下一步是不是可以直接执行，而不是一句空泛口号？
+   - 是否已经避免把多个未确认事项混成一个模糊的“继续推进”？
+
+如果以上 5 项里有 2 项以上回答不清，默认不要把对象视为“可顺畅续推”；优先先补主入口文档，而不是继续把关键上下文留在聊天里。
 
 必须遵守下面规则：
 - 未经实现证据或验证证据支持的内容，**不得**写成“当前已成立真相”。
@@ -199,12 +232,12 @@ description: Truth-driven orchestration skill for explicit work modes including 
 以下情况优先改用 task：
 - 改动范围明显外扩
 - 需要跨会话 / 跨设备续推
-- 需要显式 handoff
+- 需要多人 / 多轮续推，且仅靠当前主对象更新难以承载
 - 需要独立回归检查
 - 需要多步实施规划
 - truth 本身仍明显不稳
 
-如果陪伴开发过程中出现范围外扩、依赖增多、需要中断恢复、需要多人交接，或需要独立验证，则应及时切换到 task 模式，而不是继续用轻模式硬撑。
+如果陪伴开发过程中出现范围外扩、依赖增多、需要中断恢复、需要多人 / 多轮接力续推，或需要独立验证，则应及时切换到 task 模式，而不是继续用轻模式硬撑。
 
 ## Task / Truth Isolation Rule
 
@@ -284,7 +317,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 ### 沉淀到“关键 Truth Items”
 优先把下面内容按条写入 `关键 Truth Items`，而不是混成一段 prose：
-- 会影响开发、回归、恢复或交接的关键能力、约束或机制。
+- 会影响开发、回归、恢复、续推或复杂交接的关键能力、约束或机制。
 - 容易出现“只实现了一半”风险的功能点。
 - 容易被误记成“已经完成”的目标项。
 - 需要明确区分 `intent / declared / partial / implemented_unverified / verified / drifted / unknown` 的 claim。
@@ -361,9 +394,9 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 不要把项目内文件写成 `/Users/...` 这类绝对路径，因为项目可能在不同电脑、不同用户名或不同挂载目录下运行。
 - 只有在引用**项目外**的本机资源时，才使用绝对路径；例如用户主目录下的 skill、系统临时文件或明确依赖本机环境的位置。
 - 如果当前还没完全确认项目根目录，先根据仓库 / workspace 上下文判断根目录，再输出相对路径；不要在未确认时退化为绝对路径。
-- 在 truth、task、knowledge、handoff、recovery 等文档里，只要目标是项目内文件，都继续遵守这条规则。
+- 在 truth、task、subtask、verification、knowledge、recovery 等对象文档里，只要目标是项目内文件，都继续遵守这条规则；如果按需存在 `handoff.md`，也同样遵守。
 
-## Document Display and Handoff
+## Document Display and Continuity
 
 默认以隐式维护为主，只在下面时机显式展示文档快照：
 - 某个关键点刚刚收敛
@@ -373,6 +406,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 回归阶段出现了足够影响后续判断的问题或偏差
 
 展示时优先给“增量快照”或“简版快照”，不要反复贴全文。
+默认优先展示对象主入口中的最新状态，而不是额外生成只服务本轮对话的临时交接摘要。
 
 如果当前对象存在恢复风险，展示时优先包含以下最小信息：对象状态、关键 Truth Items 变化、最近一次检查 / 回归结论、恢复入口。
 
@@ -426,7 +460,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 5. **当讨论已经够清楚时，主动结束讨论模式或切换阶段。**
 6. **只要写了下一步，就把建议推进方案直接附在该条目下面。**
 7. **进入规划前，默认做一致性复盘；进入回归后，默认回写结果与偏差。**
-8. **能直接完成的小范围开发，优先考虑陪伴开发模式；只有在需要编排、恢复或交接时再升级为 task。**
+8. **能直接完成的小范围开发，优先考虑陪伴开发模式；只有在需要编排、恢复、多人 / 多轮续推或复杂交接时再升级为 task。**
 9. **当前 task / truth 默认与其他 task、其他 truth 隔离；只有被明确授权时，才可参考其他 truth 或引入别的 task 待办。**
 10. **不要依赖短期记忆维持进度感；凡是会影响恢复、回归或下一步判断的内容，优先落成显式状态、truth item 或恢复入口。**
 11. **宁可把对象写成 `partial` / `unknown`，也不要把意图、半成品或未验证结果写成“已经成立”。**

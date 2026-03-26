@@ -39,8 +39,14 @@
 - 该对象更像系统中的结构单元，而不是一次性话题
 
 默认形态：
-- 模块目录最小包含：`current-truth.md`、`knowledge/`、`submodule-*.md`
+- 模块目录最小包含：`current-truth.md`、`knowledge/`
+- 按需可继续包含 `submodule-*.md` 或 `submodule-*/`
 - 模块目录中的主入口固定为 `current-truth.md`
+
+子模块选型建议：
+- **默认子模块 = 轻量子模块** → 使用 `submodule-*.md`
+- 只有在当前上下文被显式说明为 **目录子模块** 时，才使用 `submodule-*/` 目录
+- 目录子模块目录的主入口固定为 `current-truth.md`
 
 命名建议：
 - 模块目录名优先使用简洁明确的中文标题
@@ -139,7 +145,8 @@
 - 稳定对象入口：`current-truth.md`
 - task 入口：`task.md`
 - 子任务：`subtask-*.md`
-- 子模块 truth：`submodule-*.md`
+- 轻量子模块 truth：`submodule-*.md`
+- 复杂子模块目录入口：`submodule-*/current-truth.md`
 - intake 说明：`note.md`
 
 不要重复把主题名或模块名塞进固定文件名里。
