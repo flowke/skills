@@ -1,6 +1,6 @@
 # Object Templates
 
-当 `truth-work-orchestrator` 需要创建或维护 `intake / task / module / topic / knowledge` 等对象时，优先参考这里的**轻量模板建议**。
+当 `truth-work-orchestrator` 需要创建或维护 `intake / work-item / module / topic / knowledge` 等对象时，优先参考这里的**轻量模板建议**。
 
 注意：
 - 这里提供的是**推荐结构**，不是强制 schema。
@@ -10,18 +10,18 @@
 ## General Rules
 
 - 稳定对象优先写清“当前已经成立什么”，不要把执行细节压进 `current-truth.md`。
-- 执行对象优先写清“现在要做什么、挂在哪、状态如何”，不要把 task 写成冗长日志。
+- 执行对象优先写清“现在要做什么、挂在哪、状态如何”，不要把 work-item 写成冗长日志。这里的 `work-item` 当前应理解为 work-item / 工作承接对象。
 - 共享知识优先写清“这是什么、适用于哪里”，不要强制统一所有知识文档格式。
 - 模板应默认轻量；只有当场景明确需要时，再补更重章节。
-- 代码落地 task 的流程与文档关系，优先结合 `references/code-delivery-task-flow.md` 一起使用。
-- 独立回归任务的流程与文档关系，优先结合 `references/regression-task-flow.md` 一起使用。
+- delivery work-item 的流程与文档关系，优先结合 `references/delivery-work-item-flow.md` 一起使用。
+- regression work-item 的流程与文档关系，优先结合 `references/regression-work-item-flow.md` 一起使用。
 - 可以使用 checkbox 帮助维护规划或执行进度，但 checkbox 只表示某个动作 / 检查点是否完成，**不能替代** `当前状态`、`当前进展`、`验证与回归结论` 这些主语义字段。
-- 对代码落地 task 而言，推荐把 checkbox 放在 `当前实现计划`、`下一步动作`、`implementation-plan.md` 或 `subtask-*.md` 中，而不是只靠勾选数量判断 task 是否完成。
+- 对delivery work-item 而言，推荐把 checkbox 放在 `当前实现计划`、`下一步动作`、`implementation-plan.md` 或 `subwork-*.md` 中，而不是只靠勾选数量判断 work-item 是否完成。
 
 ## 1. intake / note.md
 
 适用场景：
-- 资料先入队，尚未正式创建 task
+- 资料先入队，尚未正式创建 work-item
 
 补充说明：
 - 如果当前内容属于“待归类记忆”，也可以先复用这一对象承接
@@ -34,7 +34,7 @@
 
 ### 可选字段
 - `候选挂接对象`
-- `是否已转 task`
+- `是否已转 work-item`
 - `相关链接`
 
 ### Minimal Template
@@ -82,14 +82,14 @@
 - 
 ```
 
-## 2. tasks / task.md
+## 2. tasks / work.md
 
 适用场景：
-- 承接一次执行活动
-- 默认对应当前工作区中的 task，即放在 `docs-TWO/tasks/`
+- 承接一次完整工作推进
+- 默认对应当前工作区中的工作项，即放在 `docs-TWO/work-items/`
 
 ### 强必有
-- `任务类型`
+- `工作项类型`
 - `挂接对象`
 - `当前状态`
 
@@ -104,18 +104,18 @@
 ### 可选字段
 - `来源 intake 项`
 - `当前阻塞`
-- `相关子任务`
+- `相关子工作项`
 
 ### Minimal Template
 
 默认位置：
-- 当前 task：`docs-TWO/tasks/YYMMDD-<中文任务名>/task.md`
-- 完成归档后：`docs-TWO/archive/tasks/YYMMDD-<中文任务名>/task.md`
+- 当前 work-item：`docs-TWO/work-items/YYMMDD-<中文工作项名>/work.md`
+- 完成归档后：`docs-TWO/archive/work-items/YYMMDD-<中文工作项名>/work.md`
 
 ```md
-# Task
+# Work Item
 
-- 任务类型：
+- 工作项类型：
 - 挂接对象：
 - 当前状态：
 
@@ -142,14 +142,14 @@
 - 
 ```
 
-## 3. 代码落地 task / task.md（推荐扩展骨架）
+## 3. delivery work-item / work.md（推荐扩展骨架）
 
 适用场景：
-- 任务类型已确定为 `代码落地`
-- 需要把对齐、规划、执行承接与回写维护在同一个 task 主入口中
+- 工作项类型已确定为 `delivery`
+- 需要把对齐、规划、实施、验证与回写维护在同一个 work-item 主入口中
 
 ### 推荐字段
-- `任务类型：代码落地`
+- `工作项类型：delivery`
 - `挂接对象`
 - `当前状态`
 - `来源 intake 项`（可选）
@@ -158,9 +158,9 @@
 ### Recommended Template
 
 ```md
-# Task
+# Work Item
 
-- 任务类型：代码落地
+- 工作项类型：delivery
 - 挂接对象：
 - 当前状态：待对齐
 - 来源 intake 项：
@@ -193,7 +193,7 @@
 - [ ] 完成边界 / 异常分支处理
 - [ ] 补充或更新测试
 - [ ] 完成本地验证 / 最小回归
-- [ ] 回写 task / truth / knowledge
+- [ ] 回写 work-item / truth / knowledge
 
 ## 当前进展
 - 最近完成：
@@ -206,7 +206,7 @@
 - 不要误判为已完成的事项：
 - 相关文件：
 
-## 相关子任务
+## 相关子工作项
 - 
 
 ## 验证与回归
@@ -223,16 +223,16 @@
 ```
 
 说明：
-- 简单任务可以只维护这一份 `task.md`
-- 稍复杂任务再拆出 `implementation-plan.md`、`subtask-*.md`；只有主入口文档不足以承载复杂交接上下文时，才补 `handoff.md`
+- 简单工作项可以只维护这一份 `work.md`
+- 稍复杂任务再拆出 `implementation-plan.md`、`subwork-*.md`；只有主入口文档不足以承载复杂交接上下文时，才补 `handoff.md`
 - 如果使用 checkbox，建议优先勾掉“有状态意义的执行检查点”，而不是记录过细的动作痕迹
-- 默认把 `task.md` 当成可续推主入口，而不是任务说明 + 另一个交接文档的前置索引
-- 挂接了模块 / 子模块 / 主题的 task，回补完成前不能标记为 `已完成`；完成后应移入 `docs-TWO/archive/tasks/`
+- 默认把 `work.md` 当成可续推主入口，而不是任务说明 + 另一个交接文档的前置索引
+- 挂接了模块 / 子模块 / 主题的 work-item，回补完成前不能标记为 `已完成`；完成后应移入 `docs-TWO/archive/work-items/`
 
-## 4. tasks / implementation-plan.md
+## 4. work-items / implementation-plan.md
 
 适用场景：
-- 代码落地 task 需要单独承接实现规划
+- delivery work-item 需要单独承接实现规划
 - 任务比几条 bullet 更复杂
 
 ### 推荐最小字段
@@ -301,11 +301,11 @@
 - 
 ```
 
-## 5. tasks / handoff.md
+## 5. work-items / handoff.md
 
 适用场景：
 - 主入口文档不足以承载复杂交接上下文
-- 代码落地 task 需要给执行人 / 执行 agent / 后续接手者补一份增强型压缩说明
+- delivery work-item 需要给执行人 / 执行 agent / 后续接手者补一份增强型压缩说明
 
 ### 推荐最小字段
 - `交接目标`
@@ -342,10 +342,10 @@
 - 
 ```
 
-## 6. tasks / verification.md
+## 6. work-items / verification.md
 
 适用场景：
-- 代码落地 task 内的验证 / 回归记录较复杂
+- delivery work-item 内的验证 / 回归记录较复杂
 - 需要独立记录验证范围、验证证据、多轮复测与结论
 
 ### 推荐最小字段
@@ -386,15 +386,15 @@
 - 
 ```
 
-## 7. 回归测试 task / task.md（推荐扩展骨架）
+## 7. regression work-item / work.md（推荐扩展骨架）
 
 适用场景：
-- 当前需要一个独立的 `回归测试` task
+- 当前需要一个独立的 `regression` work-item
 - 当前重点是检查代码与 truth 是否一致，而不是继续实施代码
-- 默认对应当前工作区中的 task，即放在 `docs-TWO/tasks/`
+- 默认对应当前工作区中的工作项，即放在 `docs-TWO/work-items/`
 
 ### 推荐字段
-- `任务类型：回归测试`
+- `工作项类型：regression`
 - `挂接对象`
 - `当前状态`
 - `当前判断倾向`（可选）
@@ -403,13 +403,13 @@
 ### Recommended Template
 
 默认位置：
-- 当前 task：`docs-TWO/tasks/YYMMDD-<中文任务名>/task.md`
-- 完成归档后：`docs-TWO/archive/tasks/YYMMDD-<中文任务名>/task.md`
+- 当前 work-item：`docs-TWO/work-items/YYMMDD-<中文工作项名>/work.md`
+- 完成归档后：`docs-TWO/archive/work-items/YYMMDD-<中文工作项名>/work.md`
 
 ```md
-# Task
+# Work Item
 
-- 任务类型：回归测试
+- 工作项类型：regression
 - 挂接对象：
 - 当前状态：待回归
 - 当前判断倾向：
@@ -452,36 +452,36 @@
 ```
 
 说明：
-- 简单回归任务可以只维护这一份 `task.md`
-- 较复杂回归任务再配 `verification.md`；只有主入口文档不足以承载复杂交接上下文时，才补 `handoff.md`
-- 如果回归 task 挂接了模块 / 子模块 / 主题，且结论需要回补对象，则回补完成前不能标记为 `已完成`；完成后应移入 `docs-TWO/archive/tasks/`
+- 简单regression work-item可以只维护这一份 `work.md`
+- 较复杂regression work-item再配 `verification.md`；只有主入口文档不足以承载复杂交接上下文时，才补 `handoff.md`
+- 如果回归 work-item 挂接了模块 / 子模块 / 主题，且结论需要回补对象，则回补完成前不能标记为 `已完成`；完成后应移入 `docs-TWO/archive/work-items/`
 
-## 7. tasks / subtask-*.md
+## 8. work-items / subwork-*.md
 
 适用场景：
-- 父 task 需要拆分多个轻量子任务
+- 父 work-item 需要拆分多个轻量子工作项
 
 ### 强必有
-- `任务类型`
+- `工作项类型`
 - `挂接对象`
 - `当前状态`
 
 ### 推荐字段
-- `子任务目标`
+- `子工作项目标`
 - `执行检查清单`
-- `与父任务关系`
+- `与父工作项关系`
 - `完成后回写位置`
 
 ### Minimal Template
 
 ```md
-# Subtask
+# Subwork
 
-- 任务类型：
+- 工作项类型：
 - 挂接对象：
 - 当前状态：
 
-## 子任务目标
+## 子工作项目标
 - 
 
 ## 执行检查清单
@@ -498,7 +498,7 @@
 - 不要误判为已完成的事项：
 - 相关文件：
 
-## 与父任务关系
+## 与父工作项关系
 - 
 
 ## 完成后回写位置
@@ -522,7 +522,7 @@
 - 模块如果存在局部职责拆分，默认使用轻量子模块 `submodule-*.md`。
 - 只有在当前上下文被显式说明为 **目录子模块** 时，才使用 `submodule-*/current-truth.md`。
 - 目录子模块内部可继续包含 `knowledge/` 与下一层 `submodule-*`，形成分形结构。
-- 不要把 task 执行流水直接堆进 `current-truth.md`。
+- 不要把 work-item 执行流水直接堆进 `current-truth.md`。
 
 ## 10. modules / submodule-*.md（轻量子模块）
 
@@ -621,7 +621,7 @@ submodule-xxx/
 ## 12. Drift Handling Notes
 
 适用场景：
-- 回归测试 task 发现 code 与 truth 不一致
+- regression work-item 发现 code 与 truth 不一致
 
 ### 推荐记录字段
 - `漂移分类`

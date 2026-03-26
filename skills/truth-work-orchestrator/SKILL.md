@@ -1,16 +1,27 @@
 ---
 name: truth-work-orchestrator
-description: Truth-driven orchestration skill for explicit work modes including intake, truth stabilization, companion development, task delivery, regression, and memory backfill. Prefer explicit invocation when using this skill.
+description: Truth-driven orchestration skill for explicit work modes including intake, truth stabilization, companion development, work-item delivery, regression, and memory backfill. Prefer explicit invocation when using this skill.
 ---
 
 # Truth Work Orchestrator
 
-进入一种“以 truth 为核心，编排 intake / modules / topics / tasks / knowledge，并在执行后回写 truth”的工作模式。
+进入一种“以 truth 为核心，编排 intake / modules / topics / work-items / knowledge，并在执行后回写 truth”的工作模式。
 
-这个 skill 面向**需要维护 truth / task / knowledge / recovery 闭环的工作对象**。它不再只是“先讨论、再沉淀文档”的 skill，而是一个**truth-driven work orchestrator**：
+这个 skill 面向**需要维护 truth / work-item / knowledge / recovery 闭环的工作对象**。它不再只是“先讨论、再沉淀文档”的 skill，而是一个**truth-driven work orchestrator**：
 - 讨论只是入口动作之一
 - current truth 仍是核心锚点
 - 真正的主体职责是：**对象化、编排、承接执行、回写结果、处理漂移**
+
+## Work-item Semantics
+
+当前 skill 已完全采用 `work-item` 终态命名。这里的 `work-item` 指一个正式工作承接对象，不应再狭义理解为“执行层动作”或“待办卡片”。
+
+当前 `work-item` 的正确理解是：
+- 它是一个 **work-item / 工作承接对象**
+- 它可以承接需求进入实施、对齐、规划、执行、验证、回补与归档
+- 它服务于 truth 的推进，而不是只服务于“开始写代码”
+- 因此，“提模块需求 → 创建 work-item” 不表示把需求误降为执行动作，而表示为该需求创建一个正式工作承接对象
+
 
 ## Supported Work Modes
 
@@ -19,8 +30,8 @@ description: Truth-driven orchestration skill for explicit work modes including 
 当前支持的工作模式：
 1. **Intake 模式**：接住原始资料、链接、文件和待处理输入，判断是否进入正式对象层。
 2. **Truth 对齐模式**：对齐目标、范围、约束、定义和当前基线，稳定 `current-truth.md`。
-3. **陪伴开发模式**：skill 先提供当前 truth / knowledge 上下文，再直接陪伴开发；修改确认完成后直接回填，不默认创建 task。
-4. **代码落地 task 模式**：当需要编排、恢复、多人 / 多轮续推或多步实施时，创建并推进代码落地 task。
+3. **陪伴开发模式**：skill 先提供当前 truth / knowledge 上下文，再直接陪伴开发；修改确认完成后直接回填，不默认创建 work-item。
+4. **delivery work-item 模式**：当需要编排、恢复、多人 / 多轮续推或多步实施时，创建并推进delivery work-item。
 5. **回归模式**：基于 truth 检查当前代码是否一致，并判断是 `truth 过时`、`code 偏离` 还是 `暂时无法判断`。
 6. **记忆沉淀模式**：把 skill 外或陪伴开发后形成的稳定结论、机制、经验与约束回填到 truth / knowledge 体系。
 
@@ -32,11 +43,11 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 优先在下面场景使用本 skill：
 
-1. 当前工作不只是一次性回答，而需要维护 **truth / task / knowledge / recovery** 闭环。
-2. 当前需要在 `intake / modules / topics / tasks / knowledge` 之间判断对象落点。
-3. 当前需要进入 intake、truth 对齐、陪伴开发、代码落地 task、回归或记忆沉淀中的某一种工作模式。
+1. 当前工作不只是一次性回答，而需要维护 **truth / work-item / knowledge / recovery** 闭环。
+2. 当前需要在 `intake / modules / topics / work-items / knowledge` 之间判断对象落点。
+3. 当前需要进入 intake、truth 对齐、陪伴开发、delivery work-item、regression work-item 或记忆沉淀中的某一种工作模式。
 4. 当前需要规划代码实施路径、减少返工，并把实施结果持续回写到文档或知识层。
-5. 当前需要在已有 truth / knowledge 上下文支持下直接开发，并在完成后回填记忆，但不需要单独创建 task。
+5. 当前需要在已有 truth / knowledge 上下文支持下直接开发，并在完成后回填记忆，但不需要单独创建 work-item。
 
 推荐的显式触发方式是直接点名模式，例如：
 - “进入 intake 模式”
@@ -46,7 +57,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - “进入记忆沉淀模式”
 
 默认不要在下面场景使用本 skill：
-- 用户只要一次性答案、单次文案、单次代码片段，且不需要 truth / task / memory / recovery 闭环。
+- 用户只要一次性答案、单次文案、单次代码片段，且不需要 truth / work-item / memory / recovery 闭环。
 - 用户只是泛泛聊天或头脑风暴，没有明显对齐、编排、沉淀、实施或回写意图。
 - 任务非常局部，且用户明确不需要文档续推、对象落点或后续上下文复用。
 
@@ -67,11 +78,11 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 接收需要闭环承接的工作对象，并判断当前应进入哪一种工作模式，以及当前最该推进的焦点。
 - 引导需求对齐，明确目标、范围、约束、非目标与关键定义。
 - 主动补遗漏、查冲突、看相互影响，并在进入实施前做一致性复盘。
-- 根据当前内容性质，编排到 `intake / modules / topics / tasks / knowledge` 的合适层级。
-- 承接代码落地 task：包含实施路径选择、实施、必要验证 / 回归、结果回写与中断恢复。
-- 承接独立回归任务：包含 truth 基线读取、回归检查、drift handling 分类与后续动作建议。
+- 根据当前内容性质，编排到 `intake / modules / topics / work-items / knowledge` 的合适层级。
+- 承接delivery work-item：包含实施路径选择、实施、必要验证 / 回归、结果回写与中断恢复。
+- 承接regression work-item：包含 truth 基线读取、回归检查、drift handling 分类与后续动作建议。
 - 承接记忆回填：把 skill 外发生的实现 / 修复 / 技术判断回填为可复用上下文。
-- 承接陪伴开发模式：先提供当前 truth / knowledge 上下文，支持直接开发，并在修改确认完成后直接回填记忆，而不默认创建 task。
+- 承接陪伴开发模式：先提供当前 truth / knowledge 上下文，支持直接开发，并在修改确认完成后直接回填记忆，而不默认创建 work-item。
 - 在多轮会话中维护同一份 truth 与对象层关系，并让工作可以跨设备 / 跨会话续推。
 - 显式维护对象当前状态、关键 truth items 的实现度 / 验证度、最近一次检查结果与恢复入口，避免把意图、部分实现或未验证结果误判为当前已成立事实。
 
@@ -91,14 +102,14 @@ description: Truth-driven orchestration skill for explicit work modes including 
 **接力不是一个单独步骤，而是整个 skill 的底层哲学。**
 
 默认规则：
-- `intake`、`current-truth`、`task`、`subtask`、`verification` 等对象，主入口都应足以支持中断后续推。
+- `intake`、`current-truth`、`work-item`、`subwork`、`verification` 等对象，主入口都应足以支持中断后续推。
 - 接力信息默认内嵌在对象主文档中，而不是依赖额外的交接文件。
 - 暂停、切换会话、切换设备或切换执行者时，默认动作是更新对象状态、当前进展、下一步动作与恢复入口，而不是进入新的 handoff 阶段。
 - `handoff.md` 不是默认流程步骤；只有当主入口文档不足以承载复杂交接上下文时，才作为增强件按需创建。
 
 ### Continuity Checklist
 
-当你更新任何对象主入口（例如 `current-truth.md`、`task.md`、`subtask-*.md`、`verification.md`）时，默认快速过一遍下面检查项：
+当你更新任何对象主入口（例如 `current-truth.md`、`work.md`、`subwork-*.md`、`verification.md`）时，默认快速过一遍下面检查项：
 
 1. **当前状态是否清楚**
    - 现在到底处于哪个阶段？
@@ -129,7 +140,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 ## Truth Realization and Verification Model
 
-当需要判断某个 module / topic / task 当前到底“成立到什么程度”时，默认使用下面两层视角：
+当需要判断某个 module / topic / work-item 当前到底“成立到什么程度”时，默认使用下面两层视角：
 
 ### 1. 对象推进状态
 回答“当前这个对象推进到哪里了”：
@@ -137,8 +148,8 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - `truth_unstable`
 - `truth_stable`
 - `ready_for_companion_dev`
-- `ready_for_task`
-- `in_task`
+- `ready_for_work-item`
+- `in_work-item`
 - `in_regression`
 - `pending_backfill`
 - `stable`
@@ -177,9 +188,9 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 哪些已经验证、哪些还没验证？
 - 如果现在继续，第一步该做什么？
 
-当需要细化文档结构、对象模板、落点规则、代码落地 task、独立回归任务或记忆回填时，按需读取 `references/` 下对应文件；不要一次性加载全部 references。
+当需要细化文档结构、对象模板、落点规则、delivery work-item、regression work-item或记忆回填时，按需读取 `references/` 下对应文件；不要一次性加载全部 references。
 
-常用文件包括：`document-structures.md`、`facilitation-patterns.md`、`object-templates.md`、`output-model.md`、`document-location.md`、`code-delivery-task-flow.md`、`regression-task-flow.md`、`memory-backfill-flow.md`。
+常用文件包括：`document-structures.md`、`facilitation-patterns.md`、`object-templates.md`、`output-model.md`、`document-location.md`、`delivery-work-item-flow.md`、`regression-work-item-flow.md`、`memory-backfill-flow.md`。
 
 ## Standard Workflow Skeleton
 
@@ -191,11 +202,11 @@ description: Truth-driven orchestration skill for explicit work modes including 
    - 明确目标、范围、约束、非目标、关键定义与当前基线。
 2. **做一致性复盘并选择路径**
    - 在进入实施前，检查冲突、影响、遗漏和待决策点，并选择更稳妥的推进路径。
-3. **判断对象落点并按需承接 task**
-   - 判断资料、稳定对象、执行对象和知识内容应落到哪一层；对象落点不等于必须创建 task，当工作适合在当前会话内直接完成时，可跳过 task，直接走陪伴开发闭环。
+3. **判断对象落点并按需承接 work-item**
+   - 判断资料、稳定对象、执行对象和知识内容应落到哪一层；对象落点不等于必须创建 work-item，当工作适合在当前会话内直接完成时，可跳过 work-item，直接走陪伴开发闭环。
 4. **进入实施、验证或独立回归**
-   - 对代码落地 task，默认承接实现、验证、修正与回写。
-   - 对独立回归任务，默认承接检查、分类、建议动作与续推恢复。
+   - 对delivery work-item，默认承接实现、验证、修正与回写。
+   - 对regression work-item，默认承接检查、分类、建议动作与续推恢复。
 5. **回写稳定结果与可复用上下文**
    - 把稳定结果写回 truth / knowledge，并把 skill 外发生的有效上下文补回体系中。
    - 回写时同步更新对象状态、关键 truth items 的实现度 / 验证度、最近一次检查结果与恢复入口；不要只更新 prose，而让恢复状态失真。
@@ -210,7 +221,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 当当前工作已经有足够上下文、改动范围相对明确，且目标是在当前会话内直接完成代码修改时，可进入**陪伴开发模式**。
 
 这个模式下：
-- 默认**不创建 task**
+- 默认**不创建 work-item**
 - 优先由 skill 提供当前 truth / knowledge / 约束 / 边界上下文
 - 在必要时只做轻量对齐
 - 直接进入开发
@@ -225,11 +236,11 @@ description: Truth-driven orchestration skill for explicit work modes including 
 默认流程：
 1. 读取当前 truth / knowledge，并提炼本轮开发所需上下文
 2. 轻量确认本轮目标、边界、非目标与关键风险
-3. 直接进入开发，不默认创建 task
+3. 直接进入开发，不默认创建 work-item
 4. 在开发过程中持续补充必要上下文与边界提醒
 5. 当修改确认完成后，直接回填到 `current-truth.md`、模块 `knowledge/`、顶层 `knowledge/` 或 `intake/`
 
-以下情况优先改用 task：
+以下情况优先改用 work-item：
 - 改动范围明显外扩
 - 需要跨会话 / 跨设备续推
 - 需要多人 / 多轮续推，且仅靠当前主对象更新难以承载
@@ -237,42 +248,42 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 需要多步实施规划
 - truth 本身仍明显不稳
 
-如果陪伴开发过程中出现范围外扩、依赖增多、需要中断恢复、需要多人 / 多轮接力续推，或需要独立验证，则应及时切换到 task 模式，而不是继续用轻模式硬撑。
+如果陪伴开发过程中出现范围外扩、依赖增多、需要中断恢复、需要多人 / 多轮接力续推，或需要独立验证，则应及时切换到 work-item 模式，而不是继续用轻模式硬撑。
 
-## Task / Truth Isolation Rule
+## Work-item / Truth Isolation Rule
 
-**当前正在推进的 task / truth 默认必须与其他 task、其他 truth 的待处理事项和未授权上下文隔离，不能相互串用、相互偷带需求。**
+**当前正在推进的 work-item / truth 默认必须与其他 work-item、其他 truth 的待处理事项和未授权上下文隔离，不能相互串用、相互偷带需求。**
 
 默认规则：
-- 当前 task 只能基于**当前 task 自己的目标、范围、truth、已确认输入和显式依赖**来推进。
+- 当前 work-item 只能基于**当前 work-item 自己的目标、范围、truth、已确认输入和显式依赖**来推进。
 - 默认**不要参考其他 truth**；除非用户或当前上下文**明确说明**“可以参考某个 truth”或“可以参考其他 truth”，才允许引入。
-- 其他 task 的 `todo`、`next step`、`待处理事项`、`顺手一起做`，默认都**不是**当前 task 的实现依据。
-- 即使两个 task 处于同一模块、同一会话或同一轮开发里，也不要因为“看起来顺手”就把另一个 task 的需求一起实现。
-- 陪伴开发模式下同样遵守隔离原则；不能因为不创建 task，就默认把别处未完成事项或其他 truth 的内容当作当前目标的一部分。
-- 如果确实存在跨 task / cross-truth 依赖，必须先显式说明关系：例如“当前 task 可以参考 truth B 的某个结论”“当前 task 依赖 task B 的某个前置结论”或“用户明确要求把 task A 和 task B 合并处理”，再继续推进。
+- 其他 work-item 的 `todo`、`next step`、`待处理事项`、`顺手一起做`，默认都**不是**当前 work-item 的实现依据。
+- 即使两个 work-item 处于同一模块、同一会话或同一轮开发里，也不要因为“看起来顺手”就把另一个 work-item 的需求一起实现。
+- 陪伴开发模式下同样遵守隔离原则；不能因为不创建 work-item，就默认把别处未完成事项或其他 truth 的内容当作当前目标的一部分。
+- 如果确实存在跨 work-item / cross-truth 依赖，必须先显式说明关系：例如“当前 work-item 可以参考 truth B 的某个结论”“当前 work-item 依赖 work-item B 的某个前置结论”或“用户明确要求把 work-item A 和 work-item B 合并处理”，再继续推进。
 
 发现可能串线时，默认这样处理：
-1. 先停下来，重新声明**当前正在服务的是哪个 task / truth**。
-2. 区分“当前 task 的明确范围”与“另一个 task / truth 的内容”。
+1. 先停下来，重新声明**当前正在服务的是哪个 work-item / truth**。
+2. 区分“当前 work-item 的明确范围”与“另一个 work-item / truth 的内容”。
 3. 如果另一个 truth 只是潜在相关背景，但没有获得明确授权，则**不要引用它作为当前判断或实现依据**。
-4. 如果另一个 task / truth 的内容确实应该处理或参考，先征得用户确认，并把它显式转成：
-   - 当前 task 的新增范围，或
-   - 一个单独 task，或
-   - 一个明确的跨 task 依赖 / 阻塞关系，或
+4. 如果另一个 work-item / truth 的内容确实应该处理或参考，先征得用户确认，并把它显式转成：
+   - 当前 work-item 的新增范围，或
+   - 一个单独 work-item，或
+   - 一个明确的跨 work-item 依赖 / 阻塞关系，或
    - 一个被授权可引用的 truth 依赖。
-5. 在未完成上述显式确认前，不要把其他 task / truth 的需求混入代码实现、回写结论或验收口径。
+5. 在未完成上述显式确认前，不要把其他 work-item / truth 的需求混入代码实现、回写结论或验收口径。
 
 简单判断标准：
-- **能做** 不等于 **应该在这个 task 里做**。
+- **能做** 不等于 **应该在这个 work-item 里做**。
 - **相关** 不等于 **属于当前范围**。
-- **另一个 task 还没做**，不等于 **当前 task 可以顺手补上**。
-- **另一个 truth 看起来有帮助**，不等于 **当前 task 可以直接引用它**。
+- **另一个 work-item 还没做**，不等于 **当前 work-item 可以顺手补上**。
+- **另一个 truth 看起来有帮助**，不等于 **当前 work-item 可以直接引用它**。
 
 ## Default Discussion Loop
 
 按下面顺序循环推进：
 
-1. **先定焦**：判断当前更像在聊目标、范围、约束、方案、优先级、定义，还是在决定对象落点、task 关系、knowledge 边界。
+1. **先定焦**：判断当前更像在聊目标、范围、约束、方案、优先级、定义，还是在决定对象落点、work-item 关系、knowledge 边界。
 2. **再推进 1–3 个关键问题**：默认优先推进 1 个问题；当多个问题高度相关、一起推进更高效时，可在同一轮推进 2–3 个问题。避免问卷式连环提问，也避免把不相关问题硬塞进同一轮。
 3. **做阶段总结**：在自然节点收一下“已确认 / 待确认 / 未决”。
 4. **更新 truth 与对象状态**：把稳定内容写入 truth，把临时倾向放入待确认项，并在需要时更新对象层落点。
@@ -288,7 +299,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 ## Consistency Review Rule
 
-进入代码落地规划前，默认先做一轮一致性复盘；可以轻量，但不要省略到完全没有检查。
+进入delivery规划前，默认先做一轮一致性复盘；可以轻量，但不要省略到完全没有检查。
 
 至少看四件事：
 - 有没有冲突
@@ -302,7 +313,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 这里的“回归”保留工程语义：指代码实现后的技术验证与检查，不指泛化的返场讨论或重新需求对齐。
 
-当回归目标已经独立、范围明显外扩时，按需转入独立回归任务；具体流程见 `references/regression-task-flow.md`。
+当回归目标已经独立、范围明显外扩时，按需转入 regression work-item；具体流程见 `references/regression-work-item-flow.md`。
 
 ## Distillation Rules
 
@@ -364,7 +375,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 默认一次推动 1 个关键问题；当多个问题高度相关且一起推进更高效时，可在同一轮推动 2–3 个相关问题。
 - 在必要时轻微打断发散并拉回主线。
 - 在卡住时给出结构化切入方式。
-- 在收敛足够时主动建议切换到对象定稿、task 创建、陪伴开发、truth 回写或实现准备。
+- 在收敛足够时主动建议切换到对象定稿、work-item 创建、陪伴开发、truth 回写或实现准备。
 
 避免这样做：
 - 把对话变成问卷或审讯。
@@ -375,11 +386,11 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 ## Document Location
 
-默认把产出放在 `docs-TWO/`，并按对象类型落到 `intake/`、`modules/`、`topics/`、`tasks/`、`knowledge/` 五层结构中。
+默认把产出放在 `docs-TWO/`，并按对象类型落到 `intake/`、`modules/`、`topics/`、`work-items/`、`knowledge/` 五层结构中。
 
 原则上：
 - 稳定对象进入 `modules/` 或 `topics/`
-- 执行活动进入 `tasks/`；完成后转入 `archive/tasks/`
+- 执行活动进入 `work-items/`；完成后转入 `archive/work-items/`
 - 原始资料进入 `intake/`
 - 共享知识进入 `knowledge/`
 
@@ -390,11 +401,11 @@ description: Truth-driven orchestration skill for explicit work modes including 
 **必须声明：如果引用的是项目内文件或目录，一律使用相对于项目根目录的路径，不要使用绝对路径。**
 
 默认规则：
-- 项目内路径统一写成相对项目根目录的形式，例如 `src/app/page.tsx`、`docs-TWO/tasks/260326-示例任务/task.md`。
+- 项目内路径统一写成相对项目根目录的形式，例如 `src/app/page.tsx`、`docs-TWO/work-items/260326-示例任务/work.md`。
 - 不要把项目内文件写成 `/Users/...` 这类绝对路径，因为项目可能在不同电脑、不同用户名或不同挂载目录下运行。
 - 只有在引用**项目外**的本机资源时，才使用绝对路径；例如用户主目录下的 skill、系统临时文件或明确依赖本机环境的位置。
 - 如果当前还没完全确认项目根目录，先根据仓库 / workspace 上下文判断根目录，再输出相对路径；不要在未确认时退化为绝对路径。
-- 在 truth、task、subtask、verification、knowledge、recovery 等对象文档里，只要目标是项目内文件，都继续遵守这条规则；如果按需存在 `handoff.md`，也同样遵守。
+- 在 truth、work-item、subwork、verification、knowledge、recovery 等对象文档里，只要目标是项目内文件，都继续遵守这条规则；如果按需存在 `handoff.md`，也同样遵守。
 
 ## Document Display and Continuity
 
@@ -435,7 +446,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 满足下面任一条件时，主动建议结束本轮讨论或切换阶段：
 - 当前 truth 已经足够支持实现、写作、拆解任务或正式成稿
-- 当前 truth 已经足够稳定，可以进入 task 创建、陪伴开发、执行承接或回归回写
+- 当前 truth 已经足够稳定，可以进入 work-item 创建、陪伴开发、执行承接或回归回写
 - 对象层关系已经稳定，继续泛聊收益不高
 - 回归结果已经被沉淀，后续只剩执行层动作
 - 当前主题已经完成，适合转入新的更聚焦讨论
@@ -445,7 +456,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 转成正式文档
 - 转成实现规划
 - 转成任务拆解
-- 创建或更新 task
+- 创建或更新 work-item
 - 进入陪伴开发或实际编码
 - 在回归结果基础上重新开启一轮更聚焦讨论
 
@@ -460,7 +471,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 5. **当讨论已经够清楚时，主动结束讨论模式或切换阶段。**
 6. **只要写了下一步，就把建议推进方案直接附在该条目下面。**
 7. **进入规划前，默认做一致性复盘；进入回归后，默认回写结果与偏差。**
-8. **能直接完成的小范围开发，优先考虑陪伴开发模式；只有在需要编排、恢复、多人 / 多轮续推或复杂交接时再升级为 task。**
-9. **当前 task / truth 默认与其他 task、其他 truth 隔离；只有被明确授权时，才可参考其他 truth 或引入别的 task 待办。**
+8. **能直接完成的小范围开发，优先考虑陪伴开发模式；只有在需要编排、恢复、多人 / 多轮续推或复杂交接时再升级为 work-item。**
+9. **当前 work-item / truth 默认与其他 work-item、其他 truth 隔离；只有被明确授权时，才可参考其他 truth 或引入别的 work-item 待办。**
 10. **不要依赖短期记忆维持进度感；凡是会影响恢复、回归或下一步判断的内容，优先落成显式状态、truth item 或恢复入口。**
 11. **宁可把对象写成 `partial` / `unknown`，也不要把意图、半成品或未验证结果写成“已经成立”。**

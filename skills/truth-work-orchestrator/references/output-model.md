@@ -1,6 +1,6 @@
 # Output Model
 
-`truth-work-orchestrator` 当前管理的产出采用“模块 + 主题 + task + 知识”模型。
+`truth-work-orchestrator` 当前管理的产出采用“模块 + 主题 + work-item + 知识”模型。
 
 ## 顶层结构
 
@@ -10,22 +10,22 @@
 - `intake/`：待处理队列
 - `modules/`：模块树
 - `topics/`：主题树
-- `tasks/`：当前仍在推进、挂起或待回写的 task
+- `work-items/`：当前仍在推进、挂起或待回补的工作项
 - `knowledge/`：共享知识层
-- `archive/`：归档层（当前主要承接已完成 task）
+- `archive/`：归档层（当前主要承接已完成工作项）
 
 ## 0. 待处理队列
 
 位置：`docs-TWO/intake/`
 
 用途：
-- 承接尚未正式进入 task 的原始资料
+- 承接尚未正式进入 work-item 的原始资料
 - 接收文字描述、文件、URL 等待处理输入
-- 作为 task 之前的独立承接层
+- 作为 work-item 之前的独立承接层
 
 说明：
-- `加入待处理` 与 `正式创建 task` 是两个不同动作。
-- 待处理队列是独立顶层产物，不属于 task 生命周期内部的隐藏阶段。
+- `加入待处理` 与 `正式创建 work-item` 是两个不同动作。
+- 待处理队列是独立顶层产物，不属于 work-item 生命周期内部的隐藏阶段。
 - 顶层目录名已确定为 `intake/`。
 - 每个 intake 项是目录级对象。
 - 每个 intake 项当前最小包含：`note.md` 与 `attachments/`。
@@ -38,7 +38,7 @@
 用途：
 - 承接稳定的软件模块对象
 - 记录模块本身的结论、边界、判断与待决状态
-- 作为后续知识沉淀与 task 引用的对象层
+- 作为后续知识沉淀与 work-item 引用的对象层
 
 ### 模块目录的最小形态
 
@@ -77,7 +77,7 @@
 用途：
 - 承接不明确属于某个软件模块的讨论对象
 - 作为与模块并列的另一类稳定对象
-- 可作为 task 的派生源或沉淀宿主
+- 可作为 work-item 的派生源或沉淀宿主
 
 ### 主题目录的最小形态
 
@@ -101,68 +101,71 @@
 - 当前只定义位置与职责，不预设固定正文格式；如需轻量建议结构，可参考 `references/object-templates.md`。
 - 共享知识默认推荐补充轻量元信息：`来源`、`更新时间`、`适用范围`、`相关对象`，但这些字段不是必填项。
 
-## 5. Task 树
+## 5. Work-item 树
 
-位置：`docs-TWO/tasks/`
+> 注：这里的 `work-item` 当前已采用新命名；这里的 **work-item / 工作承接对象** 不应被理解为狭义执行动作。
+
+位置：`docs-TWO/work-items/`
 
 默认理解：
-- `docs-TWO/tasks/` 只承接当前仍在推进、挂起或待回写的 task
-- 已完成 task 转入 `docs-TWO/archive/tasks/`
+- `docs-TWO/work-items/` 只承接当前仍在推进、挂起或待回补的工作项
+- 已完成 work-item 转入 `docs-TWO/archive/work-items/`
 
 用途：
-- 承接围绕模块或主题发起的一次执行活动
-- 也允许 task 从待处理队列中的资料正式启动后创建
-- 允许 task 先独立创建，后续再挂接对象并沉淀结果
+- 承接围绕模块、主题或子模块发起的一次完整工作推进
+- 也允许 work-item 从待处理队列中的资料正式启动后创建
+- 允许 work-item 先独立创建，后续再挂接对象并沉淀结果
 
 核心模型：
-- task 可以先独立创建
-- task 后续可以挂接到模块或主题
-- task 完成后可以把结果沉淀到模块 / 主题 / 知识层
-- 对挂接对象的 task 而言，只有在回补对象完成后，才可视为真正完成
-- 已完成 task 不继续留在 `tasks/`，而应转入 `archive/tasks/`
-- 不是所有执行活动都必须先创建 task；当工作适合在当前会话内直接完成时，可直接走陪伴开发模式，并在完成后回填到模块 / 主题 / 知识层
+- work-item 可以先独立创建
+- work-item 后续可以挂接到模块或主题
+- work-item 完成后可以把结果沉淀到模块 / 主题 / 知识层
+- work-item 可以从模块需求进入实施开始承接，而不应只在“开始执行代码”时才被理解为存在
+- 对挂接对象的 work-item 而言，只有在回补对象完成后，才可视为真正完成
+- 已完成 work-item 不继续留在 `work-items/`，而应转入 `archive/work-items/`
+- 不是所有执行活动都必须先创建 work-item；当工作适合在当前会话内直接完成时，可直接走陪伴开发模式，并在完成后回填到模块 / 主题 / 知识层
 
 说明：
-- task 是执行层对象，不是稳定对象本体。
-- 当前先定义 task 的位置与角色，不预设固定内部模板；如需轻量建议结构，可参考 `references/object-templates.md`。
-- task 采用“类型 + 挂接方式”双维度模型。
-- 第一版任务类型当前先收为：`代码落地`、`回归测试`。
+- work-item 当前采用新名，语义上即 **工作承接对象（work-item）**，不是狭义执行动作，也不是稳定对象本体。
+- 当前先定义 work-item 的位置与角色，不预设固定内部模板；如需轻量建议结构，可参考 `references/object-templates.md`。
+- work-item 采用“类型 + 挂接方式”双维度模型。
+- 第一版工作项类型当前先收为：`delivery`、`regression`。
 - 第一版挂接方式至少包含：`独立创建`、`挂模块`、`挂主题`、`挂子模块`。
-- `直接创建任务` 不再作为任务类型，而归入挂接方式。
-- 父任务 / 子任务首先是逻辑上的任务编排关系。
-- 父 task 仍然是目录级对象；子 task 不单独起目录，而在父 task 目录内以 `subtask-*.md` 文件表达。
-- 子任务使用 `subtask-` 前缀命名，以保持可读性与轻量性。
-- `subtask-*.md` 沿用与 `task.md` 相同的最小字段集合：`任务类型`、`挂接对象`、`当前状态`。
-- task 目录命名规则采用：`YYMMDD-<中文任务名>/`。
-- 新创建 task 默认放在 `docs-TWO/tasks/`。
-- 任务完成并收口后，目录移动到 `docs-TWO/archive/tasks/`。
-- `任务类型` 与 `挂接方式` 不编码进目录名，而放入 task 内容字段中。
-- 每个 task 目录至少包含一个入口文件：`task.md`。
-- `task.md` 的最小字段包括：`任务类型`、`挂接对象`、`当前状态`。
+- `直接创建任务` 不再作为工作项类型，而归入挂接方式。
+- 父工作项 / 子工作项首先是逻辑上的任务编排关系。
+- 父 work-item 仍然是目录级对象；子 work-item 不单独起目录，而在父 work-item 目录内以 `subwork-*.md` 文件表达。
+- 子工作项使用 `subwork-` 前缀命名，以保持可读性与轻量性。
+- `subwork-*.md` 沿用与 `work.md` 相同的最小字段集合：`工作项类型`、`挂接对象`、`当前状态`。
+- work-item 目录命名规则采用：`YYMMDD-<中文任务名>/`。
+- 新创建 work-item 默认放在 `docs-TWO/work-items/`。
+- 任务完成并收口后，目录移动到 `docs-TWO/archive/work-items/`。
+- `工作项类型` 与 `挂接方式` 不编码进目录名，而放入 work-item 内容字段中。
+- 每个 work-item 目录至少包含一个入口文件：`work.md`。
+- `work.md` 的最小字段包括：`工作项类型`、`挂接对象`、`当前状态`。
 - `挂接方式` 当前不作为最小必选字段；多数场景下可由 `挂接对象` 推导。
-- `来源 intake 项` 不作为必选字段，但正式作为可选字段保留，用于承接从 intake 到 task 的追溯链。
-- task 的更具体内容字段与内部结构，按类型继续细化；代码落地 task 的流程与推荐文档集合，见 `references/code-delivery-task-flow.md`。
-- 对代码落地 task 而言，除 `task.md` 外，可按需补 `implementation-plan.md`、`subtask-*.md`、`verification.md` 等内部文档；`handoff.md` 仅在主入口文档不足以承载复杂交接上下文时，作为增强件按需补充。
-- 对代码落地 task 而言，规划文档如果需要保留，应放在 task 目录内，例如 `implementation-plan.md`；不要把模块 / 主题层的 `planning.md` 当作默认结构恢复。
-- 对代码落地 task 而言，代码完成后的验证与必要回归，默认应在同一个 task 内闭环完成；不再默认外拆独立回归测试 task。
-- 对代码落地 task 而言，`task.md` 及按需存在的 `subtask-*.md` 默认都需要支持中断后续推；至少应能从主入口文档中恢复当前路径选择、当前进展、接力入口与下一步动作。
-- 对独立 `回归测试` task 而言，其流程、文档集合与恢复规则，见 `references/regression-task-flow.md`。
+- `来源 intake 项` 不作为必选字段，但正式作为可选字段保留，用于承接从 intake 到 work-item 的追溯链。
+- work-item 的更具体内容字段与内部结构，按类型继续细化；delivery work-item 的流程与推荐文档集合，见 `references/delivery-work-item-flow.md`。
+- 对delivery work-item 而言，除 `work.md` 外，可按需补 `implementation-plan.md`、`subwork-*.md`、`verification.md` 等内部文档；`handoff.md` 仅在主入口文档不足以承载复杂交接上下文时，作为增强件按需补充。
+- 对delivery work-item 而言，规划文档如果需要保留，应放在 work-item 目录内，例如 `implementation-plan.md`；不要把模块 / 主题层的 `planning.md` 当作默认结构恢复。
+- 对delivery work-item 而言，代码完成后的验证与必要回归，默认应在同一个 work-item 内闭环完成；不再默认外拆独立regression work-item。
+- 对delivery work-item 而言，`work.md` 及按需存在的 `subwork-*.md` 默认都需要支持中断后续推；至少应能从主入口文档中恢复当前路径选择、当前进展、接力入口与下一步动作。
+- 对独立 `regression` work-item 而言，其流程、文档集合与恢复规则，见 `references/regression-work-item-flow.md`。
 
 ## 5.1 Archive 归档层
 
 位置：`docs-TWO/archive/`
 
 当前默认结构：
-- `docs-TWO/archive/tasks/`：已完成并退出当前工作区的 task
+- `docs-TWO/archive/work-items/`：已完成并退出当前工作区的 work-item
 
 说明：
-- archive 是顶层归档分类，不再把归档层塞在 `tasks/` 内部。
-- 当前默认只归档 task；未来如果出现其他稳定的归档需求，再按对象类型扩展子目录。
+- archive 是顶层归档分类，不再把归档层塞在 `work-items/` 内部。
+- 当前默认只归档 work-item；未来如果出现其他稳定的归档需求，再按对象类型扩展子目录。
 - archive 表示退出当前工作区，不表示删除。
 
-## 6. 回归测试 Task 的 Drift Handling
+## 6. Regression Work-item 的 Drift Handling
 
-当回归测试 task 发现“代码与 truth 不一致”时，当前采用轻量三分法：
+当regression work-item 发现“代码与 truth 不一致”时，当前采用轻量三分法：
 - `truth 过时`：代码合理，但 truth 没有同步更新
 - `code 偏离`：truth 仍然成立，但代码跑偏了
 - `暂时无法判断`：当前证据不足，不能立即判断该改 truth 还是改 code
@@ -206,7 +209,7 @@
 ## 边界规则
 
 - 模块与主题都是稳定对象，但前者偏软件模块，后者偏非软件模块型讨论对象。
-- task 层承接围绕对象发起的一次执行活动；共享知识层承接跨对象复用知识。
+- work-item 层承接围绕对象发起的一次完整工作推进；共享知识层承接跨对象复用知识。
 - `current-truth.md` 放结论；`knowledge/` 放支撑这些结论的知识资料。
 - 子模块支持轻量文件与目录两种形态：默认使用 `submodule-*.md`。
 - 只有被显式说明为 **目录子模块** 时，才使用 `submodule-*/current-truth.md`。

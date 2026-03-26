@@ -1,4 +1,4 @@
 interface:
   display_name: "Truth Work Orchestrator"
   short_description: "Explicit work modes for truth alignment, companion development, regression, and memory backfill"
-  default_prompt: "Use $truth-work-orchestrator in an explicit work mode such as intake, truth alignment, companion development, task delivery, regression, or memory backfill, then maintain one evolving source of truth through execution and post-code updates."
+  default_prompt: "Use $truth-work-orchestrator in an explicit work mode such as intake, truth alignment, companion development, delivery work-item, regression, or memory backfill, then maintain one evolving source of truth through execution and post-code updates."

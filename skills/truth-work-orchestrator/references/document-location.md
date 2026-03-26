@@ -5,8 +5,8 @@
 ## Default Rules
 
 - 固定目录：`docs-TWO/`
-- 顶层结构：`intake/`、`modules/`、`topics/`、`tasks/`、`knowledge/`、`archive/`
-- `archive/` 当前默认承接已完成 task，即 `archive/tasks/`
+- 顶层结构：`intake/`、`modules/`、`topics/`、`work-items/`、`knowledge/`、`archive/`
+- `archive/` 当前默认承接已完成工作项，即 `archive/work-items/`
 - 默认按**对象性质**落点，而不是按对话轮次落点
 - 默认先判断当前内容属于：待处理资料、稳定对象、执行对象，还是共享知识
 - 用户明确指定路径时，优先遵循用户指定
@@ -36,7 +36,7 @@
 
 适用场景：
 - 当前讨论对象是稳定的软件模块
-- 后续会持续承接 truth、模块内知识或围绕该对象的 task
+- 后续会持续承接 truth、模块内知识或围绕该对象的 work-item
 - 该对象更像系统中的结构单元，而不是一次性话题
 
 默认形态：
@@ -61,7 +61,7 @@
 适用场景：
 - 当前讨论对象不明确属于某个软件模块
 - 它是一个稳定话题，但不需要模块式的内部结构
-- 后续可能从该主题派生 task，或接收 task 的沉淀结果
+- 后续可能从该主题派生 work-item，或接收 work-item 的沉淀结果
 
 默认形态：
 - 每个主题目录最小包含：`current-truth.md`
@@ -70,44 +70,44 @@
 - 目录名采用：`YYMMDD-<中文主题>/`
 - 日期表示该主题首次建立日期，而不是最后更新时间
 
-### 4. `tasks/`
+### 4. `work-items/`
 
-位置：`docs-TWO/tasks/`
+位置：`docs-TWO/work-items/`
 
 默认理解：
-- `docs-TWO/tasks/` 只承接当前仍在推进、挂起或待回写的 task
-- 已完成 task 转入 `docs-TWO/archive/tasks/`
+- `docs-TWO/work-items/` 只承接当前仍在推进、挂起或待回补的工作项
+- 已完成 work-item 转入 `docs-TWO/archive/work-items/`
 
 适用场景：
-- 当前需要承接一次执行活动，而不是继续只停留在稳定对象 truth
+- 当前需要承接一次完整工作推进，而不是继续只停留在稳定对象 truth
 - 任务可能来自 intake，也可能直接独立创建
 - 任务可能挂接模块、主题或子模块，也可能暂时不挂接任何对象
 
 默认形态：
-- 新 task 默认创建在 `docs-TWO/tasks/` 下
-- 每个 task 是目录级对象
-- 目录至少包含：`task.md`
-- 子任务不单独建目录，统一以 `subtask-*.md` 形式放在父 task 目录内
-- 已完成 task 立即从 `tasks/` 移到 `archive/tasks/`，不继续留在当前 task 区
+- 新 work-item 默认创建在 `docs-TWO/work-items/` 下
+- 每个 work-item 是目录级对象
+- 目录至少包含：`work.md`
+- 子工作项不单独建目录，统一以 `subwork-*.md` 形式放在父 work-item 目录内
+- 已完成 work-item 立即从 `work-items/` 移到 `archive/work-items/`，不继续留在当前 work-item 区
 
 命名建议：
-- task 目录名采用：`YYMMDD-<中文任务名>/`
-- 不把任务类型或挂接方式编码进目录名
-- 任务类型、挂接对象、当前状态写入 `task.md`
+- work-item 目录名采用：`YYMMDD-<中文任务名>/`
+- 不把工作项类型或挂接方式编码进目录名
+- 工作项类型、挂接对象、当前状态写入 `work.md`
 
 ### 4.1 `archive/`
 
 位置：`docs-TWO/archive/`
 
 当前默认结构：
-- `docs-TWO/archive/tasks/`：已完成并退出当前工作区的 task
+- `docs-TWO/archive/work-items/`：已完成并退出当前工作区的 work-item
 
 适用场景：
-- 某个 task 已经完成收口，不希望继续与当前 task 混放
-- 需要保留 task 以支持追溯、恢复与证据链查看，但不希望它留在当前工作区
+- 某个 work-item 已经完成收口，不希望继续与当前 work-item 混放
+- 需要保留 work-item 以支持追溯、恢复与证据链查看，但不希望它留在当前工作区
 
 默认形态：
-- 当前顶层归档分类先收敛为 `archive/tasks/`
+- 当前顶层归档分类先收敛为 `archive/work-items/`
 - archive 表示归档，不表示删除
 
 ### 5. `knowledge/`
@@ -128,7 +128,7 @@
 优先用下面的判断来区分应该落到哪里：
 
 - 如果是在描述“这个对象目前成立的结论、边界、判断与未决” → 优先落到 `modules/` 或 `topics/`
-- 如果是在承接“围绕某对象发起的一次执行活动” → 优先落到 `tasks/`
+- 如果是在承接“围绕某对象发起的一次完整工作推进” → 优先落到 `work-items/`
 - 如果只是“先接收资料，稍后再决定是否处理” → 优先落到 `intake/`
 - 如果是在记录“可跨对象复用的依据型知识” → 优先落到 `knowledge/`
 
@@ -138,15 +138,15 @@
 - 讨论对象没有变化，只是在继续收敛
 - 现有 `current-truth.md` 仍然是本轮讨论的主入口
 - 当前只是为已有模块 / 主题补知识、补边界、补未决项
-- 当前只是继续推进已有 task，而不是发起新的一次执行活动
+- 当前只是继续推进已有 work-item，而不是发起新的一次完整工作推进
 
 ## New Object Rule
 
 满足下面条件时，优先新建对象：
 - 讨论对象明显切换，已不属于原模块 / 主题
-- 需要承接一次新的执行活动，且不应混入旧 task
+- 需要承接一次新的完整工作推进，且不应混入旧 work-item
 - 用户明确要求新开一份
-- 当前输入只是待处理资料，还不适合直接转入已有 task
+- 当前输入只是待处理资料，还不适合直接转入已有 work-item
 - 当前输入属于“值得记住，但还未确定最终归属”的待归类记忆
 
 ## Naming Guidance
@@ -165,8 +165,8 @@
 
 默认固定文件名如下：
 - 稳定对象入口：`current-truth.md`
-- task 入口：`task.md`
-- 子任务：`subtask-*.md`
+- work-item 入口：`work.md`
+- 子工作项：`subwork-*.md`
 - 轻量子模块 truth：`submodule-*.md`
 - 复杂子模块目录入口：`submodule-*/current-truth.md`
 - intake 说明：`note.md`
