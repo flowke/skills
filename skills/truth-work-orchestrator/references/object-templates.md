@@ -16,7 +16,7 @@
 - delivery work-item 的流程与文档关系，优先结合 `references/delivery-work-item-flow.md` 一起使用。
 - regression work-item 的流程与文档关系，优先结合 `references/regression-work-item-flow.md` 一起使用。
 - 可以使用 checkbox 帮助维护规划或执行进度，但 checkbox 只表示某个动作 / 检查点是否完成，**不能替代** `当前状态`、`当前进展`、`验证与回归结论` 这些主语义字段。
-- 对delivery work-item 而言，推荐把 checkbox 放在 `当前实现计划`、`下一步动作`、`implementation-plan.md` 或 `subwork-*.md` 中，而不是只靠勾选数量判断 work-item 是否完成。
+- 对delivery work-item 而言，推荐把 checkbox 放在 `当前实现计划`、`下一步动作`、`implementation-plan.md` 或 `sub-*.md` 中，而不是只靠勾选数量判断 work-item 是否完成。
 
 ## 1. intake / note.md
 
@@ -224,7 +224,7 @@
 
 说明：
 - 简单工作项可以只维护这一份 `work.md`
-- 稍复杂任务再拆出 `implementation-plan.md`、`subwork-*.md`；只有主入口文档不足以承载复杂交接上下文时，才补 `handoff.md`
+- 稍复杂任务再拆出 `implementation-plan.md`、`sub-*.md`；只有主入口文档不足以承载复杂交接上下文时，才补 `handoff.md`
 - 如果使用 checkbox，建议优先勾掉“有状态意义的执行检查点”，而不是记录过细的动作痕迹
 - 默认把 `work.md` 当成可续推主入口，而不是任务说明 + 另一个交接文档的前置索引
 - 挂接了模块 / 子模块 / 主题的 work-item，回补完成前不能标记为 `已完成`；完成后应移入 `docs-TWO/archive/work-items/`
@@ -456,10 +456,11 @@
 - 较复杂regression work-item再配 `verification.md`；只有主入口文档不足以承载复杂交接上下文时，才补 `handoff.md`
 - 如果回归 work-item 挂接了模块 / 子模块 / 主题，且结论需要回补对象，则回补完成前不能标记为 `已完成`；完成后应移入 `docs-TWO/archive/work-items/`
 
-## 8. work-items / subwork-*.md
+## 8. work-items / sub-*.md
 
 适用场景：
 - 父 work-item 需要拆分多个轻量子工作项
+- `sub-*` 在 work-item 目录内默认表示子工作项
 
 ### 强必有
 - `工作项类型`
@@ -475,7 +476,7 @@
 ### Minimal Template
 
 ```md
-# Subwork
+# Sub
 
 - 工作项类型：
 - 挂接对象：
@@ -519,15 +520,16 @@
 
 ### Notes
 - 模块与主题共用同一 truth 骨架即可。
-- 模块如果存在局部职责拆分，默认使用轻量子模块 `submodule-*.md`。
-- 只有在当前上下文被显式说明为 **目录子模块** 时，才使用 `submodule-*/current-truth.md`。
-- 目录子模块内部可继续包含 `knowledge/` 与下一层 `submodule-*`，形成分形结构。
+- 模块如果存在局部职责拆分，默认使用轻量子模块 `sub-*.md`。
+- 只有在当前上下文被显式说明为 **目录子模块** 时，才使用 `sub-*/current-truth.md`。
+- 目录子模块内部可继续包含 `knowledge/` 与下一层 `sub-*`，形成分形结构。
 - 不要把 work-item 执行流水直接堆进 `current-truth.md`。
 
-## 10. modules / submodule-*.md（轻量子模块）
+## 10. modules / sub-*.md（轻量子模块）
 
 适用场景：
 - 模块内部需要独立维护一个子模块 truth
+- `sub-*` 在模块目录内默认表示子模块对象
 - 子模块当前还比较轻，不需要独立知识层
 - 子模块暂时不需要继续拆下一层
 
@@ -541,7 +543,7 @@
 ### Minimal Template
 
 ```md
-# Submodule Truth
+# Sub
 
 - 子模块职责：
 
@@ -558,34 +560,34 @@
 - 
 ```
 
-## 10.1 modules / submodule-*/（目录子模块，支持分形）
+## 10.1 modules / sub-*/（目录子模块，支持分形）
 
 适用场景：
 - 当前已被显式说明为 **目录子模块**
 - 子模块已经需要独立知识层
 - 子模块需要继续拆下一层子模块
-- 子模块会长期演化，单个 `submodule-*.md` 已经承载不下
+- 子模块会长期演化，单个 `sub-*.md` 已经承载不下
 
 ### 推荐最小结构
 - `current-truth.md`
 - `knowledge/`（按需）
-- 下一层 `submodule-*`（按需，可为文件或目录）
+- 下一层 `sub-*`（按需，可为文件或目录）
 
 ### 推荐目录形态
 
 ```text
-submodule-xxx/
+sub-xxx/
 ├── current-truth.md
 ├── knowledge/
-├── submodule-aaa.md
-└── submodule-bbb/
+├── sub-aaa.md
+└── sub-bbb/
     ├── current-truth.md
     └── knowledge/
 ```
 
 ### Notes
 - 目录子模块的主入口固定为 `current-truth.md`。
-- 目录子模块目录内部继续遵守与模块类似的规则：`current-truth.md` 放结论，`knowledge/` 放知识，下一层 `submodule-*` 按需出现。
+- 目录子模块目录内部继续遵守与模块类似的规则：`current-truth.md` 放结论，`knowledge/` 放知识，下一层 `sub-*` 按需出现。
 - 默认优先保持轻量；只有被显式说明为 **目录子模块** 且复杂度真的外扩时，才把轻量子模块升级为目录结构。
 
 ## 11. knowledge /

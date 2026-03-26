@@ -45,30 +45,30 @@
 每个模块目录当前最小包含：
 - `current-truth.md`
 - `knowledge/`
-- 按需包含 `submodule-*`（可以是 `submodule-*.md` 文件，也可以是 `submodule-*/` 目录）
+- 按需包含 `sub-*`（可以是 `sub-*.md` 文件，也可以是 `sub-*/` 目录）
 
 说明：
 - `current-truth.md` 记录模块本身当前已经确认的结论、边界、判断与待决状态。
 - `knowledge/` 承接只服务当前模块或主要服务当前模块的知识资料。
-- 子模块支持轻量文件形态与复杂目录形态，两者都统一使用 `submodule-` 前缀命名。
+- 子模块支持轻量文件形态与复杂目录形态，两者都统一使用 `sub-` 前缀命名。
 
 ## 2. 子模块 Truth
 
 位置：模块目录内部，例如：
-- `docs-TWO/modules/<module>/submodule-xxx.md`
-- `docs-TWO/modules/<module>/submodule-xxx/current-truth.md`
+- `docs-TWO/modules/<module>/sub-xxx.md`
+- `docs-TWO/modules/<module>/sub-xxx/current-truth.md`
 
 规则：
 - 子模块支持两种形态：
-  - **轻量子模块**：`submodule-xxx.md`
-  - **目录子模块**：`submodule-xxx/` 目录
+  - **轻量子模块**：`sub-xxx.md`
+  - **目录子模块**：`sub-xxx/` 目录
 - **默认子模块一律按轻量子模块处理。**
 - 只有在当前上下文中被显式说明为 **“目录子模块”** 时，才创建目录结构子模块。
 - 轻量子模块适合局部 truth 较少、暂时不需要独立知识层或下一层拆分的场景。
 - 目录子模块适合已经需要独立 `knowledge/`、需要继续拆下一层子模块，或需要长期演化的场景。
-- 目录子模块最小包含 `current-truth.md`；按需可继续包含 `knowledge/` 与下一层 `submodule-*`。
+- 目录子模块最小包含 `current-truth.md`；按需可继续包含 `knowledge/` 与下一层 `sub-*`。
 - 目录子模块支持分形展开：目录子模块内部可以继续出现轻量子模块或目录子模块。
-- 子模块 truth 统一使用 `submodule-` 前缀命名，无论是文件还是目录。
+- 子模块 truth 统一使用 `sub-` 前缀命名，无论是文件还是目录。
 
 ## 3. 主题树
 
@@ -86,7 +86,7 @@
 
 说明：
 - 主题当前只承接一个 truth 文件。
-- 主题不引入模块式的 `knowledge/` 与 `submodule-*` 分形结构。
+- 主题不引入模块式的 `knowledge/` 与 `sub-*` 分形结构。
 
 ## 4. 共享知识层
 
@@ -133,9 +133,10 @@
 - 第一版挂接方式至少包含：`独立创建`、`挂模块`、`挂主题`、`挂子模块`。
 - `直接创建任务` 不再作为工作项类型，而归入挂接方式。
 - 父工作项 / 子工作项首先是逻辑上的任务编排关系。
-- 父 work-item 仍然是目录级对象；子 work-item 不单独起目录，而在父 work-item 目录内以 `subwork-*.md` 文件表达。
-- 子工作项使用 `subwork-` 前缀命名，以保持可读性与轻量性。
-- `subwork-*.md` 沿用与 `work.md` 相同的最小字段集合：`工作项类型`、`挂接对象`、`当前状态`。
+- 父 work-item 仍然是目录级对象；子 work-item 不单独起目录，而在父 work-item 目录内以 `sub-*.md` 文件表达。
+- 子工作项使用 `sub-` 前缀命名，以保持可读性与轻量性。
+- `sub-*.md` 沿用与 `work.md` 相同的最小字段集合：`工作项类型`、`挂接对象`、`当前状态`。
+- `sub-*` 的语义由父目录上下文决定，不再依赖更长前缀区分。
 - work-item 目录命名规则采用：`YYMMDD-<中文任务名>/`。
 - 新创建 work-item 默认放在 `docs-TWO/work-items/`。
 - 任务完成并收口后，目录移动到 `docs-TWO/archive/work-items/`。
@@ -145,10 +146,10 @@
 - `挂接方式` 当前不作为最小必选字段；多数场景下可由 `挂接对象` 推导。
 - `来源 intake 项` 不作为必选字段，但正式作为可选字段保留，用于承接从 intake 到 work-item 的追溯链。
 - work-item 的更具体内容字段与内部结构，按类型继续细化；delivery work-item 的流程与推荐文档集合，见 `references/delivery-work-item-flow.md`。
-- 对delivery work-item 而言，除 `work.md` 外，可按需补 `implementation-plan.md`、`subwork-*.md`、`verification.md` 等内部文档；`handoff.md` 仅在主入口文档不足以承载复杂交接上下文时，作为增强件按需补充。
+- 对delivery work-item 而言，除 `work.md` 外，可按需补 `implementation-plan.md`、`sub-*.md`、`verification.md` 等内部文档；`handoff.md` 仅在主入口文档不足以承载复杂交接上下文时，作为增强件按需补充。
 - 对delivery work-item 而言，规划文档如果需要保留，应放在 work-item 目录内，例如 `implementation-plan.md`；不要把模块 / 主题层的 `planning.md` 当作默认结构恢复。
 - 对delivery work-item 而言，代码完成后的验证与必要回归，默认应在同一个 work-item 内闭环完成；不再默认外拆独立regression work-item。
-- 对delivery work-item 而言，`work.md` 及按需存在的 `subwork-*.md` 默认都需要支持中断后续推；至少应能从主入口文档中恢复当前路径选择、当前进展、接力入口与下一步动作。
+- 对delivery work-item 而言，`work.md` 及按需存在的 `sub-*.md` 默认都需要支持中断后续推；至少应能从主入口文档中恢复当前路径选择、当前进展、接力入口与下一步动作。
 - 对独立 `regression` work-item 而言，其流程、文档集合与恢复规则，见 `references/regression-work-item-flow.md`。
 
 ## 5.1 Archive 归档层
@@ -211,7 +212,7 @@
 - 模块与主题都是稳定对象，但前者偏软件模块，后者偏非软件模块型讨论对象。
 - work-item 层承接围绕对象发起的一次完整工作推进；共享知识层承接跨对象复用知识。
 - `current-truth.md` 放结论；`knowledge/` 放支撑这些结论的知识资料。
-- 子模块支持轻量文件与目录两种形态：默认使用 `submodule-*.md`。
-- 只有被显式说明为 **目录子模块** 时，才使用 `submodule-*/current-truth.md`。
-- 目录子模块支持继续嵌套下一层 `submodule-*`，形成分形结构；但默认不为了结构而递归。
+- 子模块支持轻量文件与目录两种形态：默认使用 `sub-*.md`。
+- 只有被显式说明为 **目录子模块** 时，才使用 `sub-*/current-truth.md`。
+- 目录子模块支持继续嵌套下一层 `sub-*`，形成分形结构；但默认不为了结构而递归。
 - 当前只定义产物的**位置、职责与边界**，不预设固定正文格式。

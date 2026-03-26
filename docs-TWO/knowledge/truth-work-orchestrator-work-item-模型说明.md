@@ -66,7 +66,7 @@
 默认要求：
 - `current-truth.md`
 - `work.md`
-- `subwork-*.md`
+- `sub-*.md`
 - `verification.md`
 
 这些主入口文档本身就应足以支持恢复。
@@ -79,8 +79,9 @@
 ## 子模块结构
 
 当前子模块采用双形态模型：
-- 默认：**轻量子模块** → `submodule-xxx.md`
-- 显式说明“目录子模块”时：**目录子模块** → `submodule-xxx/current-truth.md`
+- 默认：**轻量子模块** → `sub-xxx.md`
+- 显式说明“目录子模块”时：**目录子模块** → `sub-xxx/current-truth.md`
+- `sub-*` 的语义由父目录上下文决定：在模块目录下表示子模块对象，在 work-item 目录下表示子工作项。
 
 目录子模块支持继续分形展开。
 
@@ -121,7 +122,7 @@ docs-TWO/work-items/YYMMDD-<中文工作项名>/
 ├── work.md
 ├── implementation-plan.md        # 按需
 ├── verification.md               # 按需
-├── subwork-*.md                  # 按需
+├── sub-*.md                  # 按需
 ├── handoff.md                    # 仅在主入口不足时按需
 └── attachments/                  # 按需
 ```
@@ -133,5 +134,5 @@ docs-TWO/work-items/YYMMDD-<中文工作项名>/
 - 当前工作目录统一为 `work-items/`
 - 归档目录统一为 `archive/work-items/`
 - 入口文件统一为 `work.md`
-- 子工作项统一为 `subwork-*.md`
+- 子工作项统一为 `sub-*.md`
 - 类型统一为 `delivery` / `regression`

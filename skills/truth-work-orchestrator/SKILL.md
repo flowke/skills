@@ -102,14 +102,14 @@ description: Truth-driven orchestration skill for explicit work modes including 
 **接力不是一个单独步骤，而是整个 skill 的底层哲学。**
 
 默认规则：
-- `intake`、`current-truth`、`work-item`、`subwork`、`verification` 等对象，主入口都应足以支持中断后续推。
+- `intake`、`current-truth`、`work-item`、`sub`、`verification` 等对象，主入口都应足以支持中断后续推。
 - 接力信息默认内嵌在对象主文档中，而不是依赖额外的交接文件。
 - 暂停、切换会话、切换设备或切换执行者时，默认动作是更新对象状态、当前进展、下一步动作与恢复入口，而不是进入新的 handoff 阶段。
 - `handoff.md` 不是默认流程步骤；只有当主入口文档不足以承载复杂交接上下文时，才作为增强件按需创建。
 
 ### Continuity Checklist
 
-当你更新任何对象主入口（例如 `current-truth.md`、`work.md`、`subwork-*.md`、`verification.md`）时，默认快速过一遍下面检查项：
+当你更新任何对象主入口（例如 `current-truth.md`、`work.md`、`sub-*.md`、`verification.md`）时，默认快速过一遍下面检查项：
 
 1. **当前状态是否清楚**
    - 现在到底处于哪个阶段？
@@ -405,7 +405,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 - 不要把项目内文件写成 `/Users/...` 这类绝对路径，因为项目可能在不同电脑、不同用户名或不同挂载目录下运行。
 - 只有在引用**项目外**的本机资源时，才使用绝对路径；例如用户主目录下的 skill、系统临时文件或明确依赖本机环境的位置。
 - 如果当前还没完全确认项目根目录，先根据仓库 / workspace 上下文判断根目录，再输出相对路径；不要在未确认时退化为绝对路径。
-- 在 truth、work-item、subwork、verification、knowledge、recovery 等对象文档里，只要目标是项目内文件，都继续遵守这条规则；如果按需存在 `handoff.md`，也同样遵守。
+- 在 truth、work-item、sub、verification、knowledge、recovery 等对象文档里，只要目标是项目内文件，都继续遵守这条规则；如果按需存在 `handoff.md`，也同样遵守。
 
 ## Document Display and Continuity
 

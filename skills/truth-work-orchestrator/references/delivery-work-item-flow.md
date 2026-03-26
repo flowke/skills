@@ -69,7 +69,7 @@ delivery work-item 允许并推荐使用 checkbox 来表达规划或执行中的
 - checkbox **不能替代** `当前状态`、`当前进展`、`验证与回归结论` 这些主语义字段
 - 勾掉某个执行项，不等于整个 work-item 已完成；只有在状态、验证和回写都更新后，work-item 才能视为真正收口
 - 优先勾掉“有状态意义的检查点”，例如完成主逻辑修改、补测试、完成最小验证、完成回写；不要把 checkbox 细化成过多碎动作，制造假进度
-- 如果 work-item 较复杂，推荐：`implementation-plan.md` 维护规划 checklist，`work.md` 维护执行 checklist，`subwork-*.md` 维护子工作项 checklist
+- 如果 work-item 较复杂，推荐：`implementation-plan.md` 维护规划 checklist，`work.md` 维护执行 checklist，`sub-*.md` 维护子工作项 checklist
 
 ### 阶段 1：创建与挂接
 
@@ -145,13 +145,13 @@ delivery work-item 允许并推荐使用 checkbox 来表达规划或执行中的
 
 可能的承接方式：
 - 直接进入实现
-- 拆分为多个 `subwork-*.md`
-- 把关键承接信息直接写回 `work.md` / `subwork-*.md` 主入口
+- 拆分为多个 `sub-*.md`
+- 把关键承接信息直接写回 `work.md` / `sub-*.md` 主入口
 - 仅在主入口文档不足以承载复杂交接上下文时，再补 `handoff.md`
 
 文档策略：
-- 需要轻量拆分时，使用 `subwork-*.md`
-- 默认优先更新 `work.md` / `subwork-*.md`，让它们自己可接力
+- 需要轻量拆分时，使用 `sub-*.md`
+- 默认优先更新 `work.md` / `sub-*.md`，让它们自己可接力
 - 只有复杂交接说明难以内嵌进主入口时，才使用 `handoff.md`
 
 ### 阶段 6：执行中回填
@@ -240,7 +240,7 @@ delivery work-item 允许并推荐使用 checkbox 来表达规划或执行中的
 
 ### 按需添加
 - `implementation-plan.md`
-- `subwork-*.md`
+- `sub-*.md`
 - `verification.md`
 - `attachments/`
 - `handoff.md`（仅在主入口文档不足以承载复杂交接上下文时）
@@ -268,8 +268,9 @@ delivery work-item 允许并推荐使用 checkbox 来表达规划或执行中的
 - 存在明显风险 / 依赖
 - 需要对子工作项进行统一编排
 
-#### `subwork-*.md`
+#### `sub-*.md`
 用于轻量拆分父 work-item，不单独升级为目录；默认也应能独立表达当前状态、执行检查点、当前进展与接力入口。
+- 在 `docs-TWO/work-items/<work-item>/` 下，`sub-*` 默认表示该父 work-item 的子工作项。
 
 #### `handoff.md`
 作为增强型交接说明，推荐只在下面情况创建：
@@ -302,8 +303,8 @@ docs-TWO/work-items/YYMMDD-<中文工作项名>/
 ├── work.md
 ├── implementation-plan.md
 ├── verification.md
-├── subwork-ui.md
-├── subwork-data.md
+├── sub-ui.md
+├── sub-data.md
 └── attachments/
 ```
 
@@ -314,8 +315,8 @@ docs-TWO/work-items/YYMMDD-<中文工作项名>/
 ├── work.md
 ├── implementation-plan.md
 ├── verification.md
-├── subwork-ui.md
-├── subwork-data.md
+├── sub-ui.md
+├── sub-data.md
 ├── handoff.md
 └── attachments/
 ```
@@ -335,10 +336,10 @@ docs-TWO/archive/work-items/YYMMDD-<中文工作项名>/
 优先遵守下面规则：
 
 1. `work.md` 必须始终能回答四个问题：**现在在做什么、为什么这么做、已经做到哪里、下一步做什么**。
-2. `subwork-*.md` 如果存在，也应默认能独立回答：**自己负责什么、做到哪里、接下来做什么**。
+2. `sub-*.md` 如果存在，也应默认能独立回答：**自己负责什么、做到哪里、接下来做什么**。
 3. 每当实施路径、范围、顺序、阻塞发生变化时，优先先更新主入口文档，再继续推进实现。
 4. 小任务至少回填 `work.md` 的 `当前状态`、`当前进展`、`接力入口`、`下一步动作`。
-5. 中大型任务在准备切换设备、切换会话或暂停时，优先补全 `work.md` / `subwork-*.md` 的接力信息；只有主入口明显承载不下时，才补 `handoff.md`。
+5. 中大型任务在准备切换设备、切换会话或暂停时，优先补全 `work.md` / `sub-*.md` 的接力信息；只有主入口明显承载不下时，才补 `handoff.md`。
 6. work-item 一旦完成收口，应退出 `work-items/` 并转入 `archive/work-items/`，不要让已完成 work-item 混在当前工作区里。
 7. 文档应默认服务于“另一台电脑上的自己”也能接上；不要把关键上下文只留在聊天里。
 
@@ -370,7 +371,7 @@ docs-TWO/archive/work-items/YYMMDD-<中文工作项名>/
 遇到下面情况时，建议补 `handoff.md`：
 - 主入口文档难以承载复杂交接上下文
 - 执行交接成本高，额外压缩说明明显更省成本
-- 只看 `work.md` / `subwork-*.md` 仍难以直接接上工作
+- 只看 `work.md` / `sub-*.md` 仍难以直接接上工作
 
 遇到下面情况时，建议补 `verification.md`：
 - 验证 / 回归步骤明显复杂

@@ -41,13 +41,14 @@
 
 默认形态：
 - 模块目录最小包含：`current-truth.md`、`knowledge/`
-- 按需可继续包含 `submodule-*.md` 或 `submodule-*/`
+- 按需可继续包含 `sub-*.md` 或 `sub-*/`
 - 模块目录中的主入口固定为 `current-truth.md`
 
 子模块选型建议：
-- **默认子模块 = 轻量子模块** → 使用 `submodule-*.md`
-- 只有在当前上下文被显式说明为 **目录子模块** 时，才使用 `submodule-*/` 目录
+- **默认子模块 = 轻量子模块** → 使用 `sub-*.md`
+- 只有在当前上下文被显式说明为 **目录子模块** 时，才使用 `sub-*/` 目录
 - 目录子模块目录的主入口固定为 `current-truth.md`
+- `sub-*` 在 `docs-TWO/modules/<module>/` 下默认表示子模块对象。
 
 命名建议：
 - 模块目录名优先使用简洁明确的中文标题
@@ -87,7 +88,8 @@
 - 新 work-item 默认创建在 `docs-TWO/work-items/` 下
 - 每个 work-item 是目录级对象
 - 目录至少包含：`work.md`
-- 子工作项不单独建目录，统一以 `subwork-*.md` 形式放在父 work-item 目录内
+- 子工作项不单独建目录，统一以 `sub-*.md` 形式放在父 work-item 目录内
+- `sub-*` 在 `docs-TWO/work-items/<work-item>/` 下默认表示父 work-item 内的子工作项。
 - 已完成 work-item 立即从 `work-items/` 移到 `archive/work-items/`，不继续留在当前 work-item 区
 
 命名建议：
@@ -166,9 +168,10 @@
 默认固定文件名如下：
 - 稳定对象入口：`current-truth.md`
 - work-item 入口：`work.md`
-- 子工作项：`subwork-*.md`
-- 轻量子模块 truth：`submodule-*.md`
-- 复杂子模块目录入口：`submodule-*/current-truth.md`
+- 子工作项：`sub-*.md`
+- 轻量子模块 truth：`sub-*.md`
+- 复杂子模块目录入口：`sub-*/current-truth.md`
+- `sub-*` 的语义由父目录上下文决定，不再依赖更长前缀区分。
 - intake 说明：`note.md`
 
 不要重复把主题名或模块名塞进固定文件名里。
