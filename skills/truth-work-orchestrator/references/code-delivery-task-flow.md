@@ -6,6 +6,16 @@
 - 让代码落地 task 从“只是一个任务目录”升级为“有明确推进骨架的执行对象”
 - 保持 task 文档轻量，但足够支撑对齐、规划、执行承接与回写
 - 明确代码落地 task 与独立回归任务的边界，并保持实施 / 验证 / 回写闭环
+- 让 active task 区始终保持可读：完成 task 退出 active，进入 archive
+
+## Module Demand → Task-first Rule
+
+当用户在某个模块 / 子模块上提出**足够明确、明显会进入实施**的新需求或改需求时，默认推荐：
+1. **立即创建挂接该对象的 task**，作为执行承接对象
+2. **同时在模块 / 子模块 truth 中留一条极轻量的 `intent` / `declared` 痕迹**，避免模块对象失真
+3. task 完成后，把稳定结果回补到挂接对象
+4. **如果 task 挂接了模块 / 子模块 / 主题，则回补完成前不能标记为 `已完成`**
+5. 已完成 task 不继续留在 `active/`，而是立即转入 `archive/`
 
 ## 1. 核心目标
 
@@ -70,9 +80,10 @@
 - 当前目标：这次代码落地到底要解决什么
 
 默认动作：
-- 创建 task 目录
+- 在 `docs-TWO/tasks/active/` 下创建 task 目录
 - 建立 `task.md`
 - 如果 task 来自 intake，可补 `来源 intake 项`
+- 如果 task 挂接到模块 / 子模块 / 主题，默认同步在对应 truth 中留一条极轻量的 `intent` / `declared` 痕迹
 
 ### 阶段 2：任务对齐
 
@@ -191,6 +202,16 @@
 - 如果验证中发现 truth 过时，应更新 truth
 - 如果验证中发现 code 偏离，应继续在当前 task 中修正并完成闭环
 
+### 阶段 8.1 完成定义与归档
+
+默认遵守下面规则：
+- **挂接了模块 / 子模块 / 主题的 task，只有在回补挂接对象完成后，才可标记为 `已完成`**。
+- 如果代码与验证已经收口，但挂接对象尚未更新，正确状态应是 `待回写`，而不是 `已完成`。
+- `已完成` 是 task 的语义终态，但不应长期停留在 `active/`。
+- task 一旦标记 `已完成`，应尽快从 `docs-TWO/tasks/active/` 移动到 `docs-TWO/tasks/archive/`。
+- archive 表示退出当前工作区，不表示删除；默认保留 task 以支持追溯、恢复和证据链查看。
+
+
 ## 4. 推荐状态集合
 
 当前建议代码落地 task 使用下面这些状态：
@@ -206,7 +227,8 @@
 
 说明：
 - 不要求所有 task 都严格走完每一个状态
-- 但尽量避免只用“进行中 / 已完成”两种过粗状态
+- `待回写` 是一个重要收口状态：对挂接对象的 task 来说，回补完成前不应跳到 `已完成`
+- `已完成` 是终态，默认应很快转入 archive，而不是长期停留在 active
 - 建议把验证 / 回归纳入同一个状态机中，而不是默认外拆成新 task
 
 ## 5. 代码落地 task 的推荐文档集合
@@ -264,17 +286,17 @@
 
 ## 6. 推荐目录形态
 
-### 最小形态
+### active 最小形态
 
 ```text
-YYMMDD-<中文任务名>/
+docs-TWO/tasks/active/YYMMDD-<中文任务名>/
 ├── task.md
 ```
 
-### 常见扩展形态
+### active 常见扩展形态
 
 ```text
-YYMMDD-<中文任务名>/
+docs-TWO/tasks/active/YYMMDD-<中文任务名>/
 ├── task.md
 ├── implementation-plan.md
 ├── verification.md
@@ -283,10 +305,10 @@ YYMMDD-<中文任务名>/
 └── attachments/
 ```
 
-### 按需增强交接形态
+### active 按需增强交接形态
 
 ```text
-YYMMDD-<中文任务名>/
+docs-TWO/tasks/active/YYMMDD-<中文任务名>/
 ├── task.md
 ├── implementation-plan.md
 ├── verification.md
@@ -294,6 +316,16 @@ YYMMDD-<中文任务名>/
 ├── subtask-data.md
 ├── handoff.md
 └── attachments/
+```
+
+### archive 归档形态
+
+```text
+docs-TWO/tasks/archive/YYMMDD-<中文任务名>/
+├── task.md
+├── implementation-plan.md
+├── verification.md
+└── ...
 ```
 
 ## 7. 可中断重启规则
@@ -305,7 +337,8 @@ YYMMDD-<中文任务名>/
 3. 每当实施路径、范围、顺序、阻塞发生变化时，优先先更新主入口文档，再继续推进实现。
 4. 小任务至少回填 `task.md` 的 `当前状态`、`当前进展`、`接力入口`、`下一步动作`。
 5. 中大型任务在准备切换设备、切换会话或暂停时，优先补全 `task.md` / `subtask-*.md` 的接力信息；只有主入口明显承载不下时，才补 `handoff.md`。
-6. 文档应默认服务于“另一台电脑上的自己”也能接上；不要把关键上下文只留在聊天里。
+6. task 一旦完成收口，应退出 `active/` 并转入 `archive/`，不要让已完成 task 混在当前工作区里。
+7. 文档应默认服务于“另一台电脑上的自己”也能接上；不要把关键上下文只留在聊天里。
 
 ## 8. 回写规则
 
@@ -316,6 +349,7 @@ YYMMDD-<中文任务名>/
 3. 共享知识应进入 `knowledge/` 或模块内 `knowledge/`，不要把可复用知识长期堆在 task 目录里。
 4. 如果实现发现 truth 不稳，应先修 truth，再继续推进 task。
 5. 如果实现已经完成但仍需验证是否符合 truth，默认继续在当前代码落地 task 中完成验证与回归闭环；不要机械外拆成新 task。
+6. 如果 task 挂接了模块 / 子模块 / 主题，则回补完成前不能标记为 `已完成`。
 
 ## 9. 轻量判断规则
 

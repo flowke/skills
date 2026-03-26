@@ -379,7 +379,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 
 原则上：
 - 稳定对象进入 `modules/` 或 `topics/`
-- 执行活动进入 `tasks/`
+- 执行活动进入 `tasks/active/`；完成后转入 `tasks/archive/`
 - 原始资料进入 `intake/`
 - 共享知识进入 `knowledge/`
 
@@ -390,7 +390,7 @@ description: Truth-driven orchestration skill for explicit work modes including 
 **必须声明：如果引用的是项目内文件或目录，一律使用相对于项目根目录的路径，不要使用绝对路径。**
 
 默认规则：
-- 项目内路径统一写成相对项目根目录的形式，例如 `src/app/page.tsx`、`docs-TWO/tasks/xxx.md`。
+- 项目内路径统一写成相对项目根目录的形式，例如 `src/app/page.tsx`、`docs-TWO/tasks/active/260326-示例任务/task.md`。
 - 不要把项目内文件写成 `/Users/...` 这类绝对路径，因为项目可能在不同电脑、不同用户名或不同挂载目录下运行。
 - 只有在引用**项目外**的本机资源时，才使用绝对路径；例如用户主目录下的 skill、系统临时文件或明确依赖本机环境的位置。
 - 如果当前还没完全确认项目根目录，先根据仓库 / workspace 上下文判断根目录，再输出相对路径；不要在未确认时退化为绝对路径。
