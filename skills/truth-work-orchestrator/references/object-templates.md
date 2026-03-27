@@ -14,8 +14,7 @@
 - 共享知识优先写清“这是什么、适用于哪里”，不要强制统一所有知识文档格式。
 - 模板应默认轻量；只有当场景明确需要时，再补更重章节。
 - delivery work-item 的流程与文档关系，优先结合 `references/delivery-work-item-flow.md` 一起使用。
-- regression work-item 的流程与文档关系，优先结合 `references/regression-work-item-flow.md` 一起使用。
-- 可以使用 checkbox 帮助维护规划或执行进度，但 checkbox 只表示某个动作 / 检查点是否完成，**不能替代** `当前状态`、`当前进展`、`验证与回归结论` 这些主语义字段。
+- 可以使用 checkbox 帮助维护规划或执行进度，但 checkbox 只表示某个动作 / 检查点是否完成，**不能替代** `当前状态`、`当前进展`、`验证与检查结论` 这些主语义字段。
 - 对delivery work-item 而言，推荐把 checkbox 放在 `当前实现计划`、`下一步动作`、`implementation-plan.md` 或 `sub-*.md` 中，而不是只靠勾选数量判断 work-item 是否完成。
 
 ## 1. intake / note.md
@@ -192,7 +191,7 @@
 - [ ] 完成主逻辑修改
 - [ ] 完成边界 / 异常分支处理
 - [ ] 补充或更新测试
-- [ ] 完成本地验证 / 最小回归
+- [ ] 完成本地验证 / 最小检查
 - [ ] 回写 work-item / truth / knowledge
 
 ## 当前进展
@@ -209,7 +208,7 @@
 ## 相关子工作项
 - 
 
-## 验证与回归
+## 验证与检查
 - 验证范围：
 - 验证方式：
 - 当前结论：
@@ -345,7 +344,7 @@
 ## 6. work-items / verification.md
 
 适用场景：
-- delivery work-item 内的验证 / 回归记录较复杂
+- delivery work-item 内的验证 / 检查记录较复杂
 - 需要独立记录验证范围、验证证据、多轮复测与结论
 
 ### 推荐最小字段
@@ -386,77 +385,7 @@
 - 
 ```
 
-## 7. regression work-item / work.md（推荐扩展骨架）
-
-适用场景：
-- 当前需要一个独立的 `regression` work-item
-- 当前重点是检查代码与 truth 是否一致，而不是继续实施代码
-- 默认对应当前工作区中的工作项，即放在 `docs-TWO/work-items/`
-
-### 推荐字段
-- `工作项类型：regression`
-- `挂接对象`
-- `当前状态`
-- `当前判断倾向`（可选）
-- `当前阻塞`（可选）
-
-### Recommended Template
-
-默认位置：
-- 当前 work-item：`docs-TWO/work-items/YYMMDD-<中文工作项名>/work.md`
-- 完成归档后：`docs-TWO/archive/work-items/YYMMDD-<中文工作项名>/work.md`
-
-```md
-# Work Item
-
-- 工作项类型：regression
-- 挂接对象：
-- 当前状态：待回归
-- 当前判断倾向：
-- 当前阻塞：
-
-## 当前目标
-- 
-
-## truth 基线
-- 
-
-## 回归范围
-- 本轮覆盖：
-- 本轮不覆盖：
-
-## 回归方式
-- 
-
-## 当前发现
-- 
-
-## 当前进展
-- 最近完成：
-- 当前停留点：
-
-## 接力入口
-- 当前责任点：
-- 如果现在继续，先做什么：
-- 不要误判为已完成的事项：
-- 相关文件：
-
-## 漂移分类
-- 
-
-## 推荐动作
-- 
-
-## 下一步动作
-- 
-```
-
-说明：
-- 简单regression work-item可以只维护这一份 `work.md`
-- 较复杂regression work-item再配 `verification.md`；只有主入口文档不足以承载复杂交接上下文时，才补 `handoff.md`
-- 如果回归 work-item 挂接了模块 / 子模块 / 主题，且结论需要回补对象，则回补完成前不能标记为 `已完成`；完成后应移入 `docs-TWO/archive/work-items/`
-
-## 8. work-items / sub-*.md
+## 7. work-items / sub-*.md
 
 适用场景：
 - 父 work-item 需要拆分多个轻量子工作项
@@ -506,7 +435,7 @@
 - 
 ```
 
-## 9. modules / topics / current-truth.md
+## 8. modules / topics / current-truth.md
 
 适用场景：
 - 记录稳定对象的当前真相
@@ -525,7 +454,7 @@
 - 目录子模块内部可继续包含 `knowledge/` 与下一层 `sub-*`，形成分形结构。
 - 不要把 work-item 执行流水直接堆进 `current-truth.md`。
 
-## 10. modules / sub-*.md（轻量子模块）
+## 9. modules / sub-*.md（轻量子模块）
 
 适用场景：
 - 模块内部需要独立维护一个子模块 truth
@@ -560,7 +489,7 @@
 - 
 ```
 
-## 10.1 modules / sub-*/（目录子模块，支持分形）
+## 9.1 modules / sub-*/（目录子模块，支持分形）
 
 适用场景：
 - 当前已被显式说明为 **目录子模块**
@@ -590,7 +519,7 @@ sub-xxx/
 - 目录子模块目录内部继续遵守与模块类似的规则：`current-truth.md` 放结论，`knowledge/` 放知识，下一层 `sub-*` 按需出现。
 - 默认优先保持轻量；只有被显式说明为 **目录子模块** 且复杂度真的外扩时，才把轻量子模块升级为目录结构。
 
-## 11. knowledge /
+## 10. knowledge /
 
 适用场景：
 - 记录可跨对象复用的协议、机制、约束、长期约定等知识
@@ -620,10 +549,10 @@ sub-xxx/
 - 
 ```
 
-## 12. Drift Handling Notes
+## 11. Drift Handling Notes
 
 适用场景：
-- regression work-item 发现 code 与 truth 不一致
+- 检查过程中发现 code 与 truth 不一致
 
 ### 推荐记录字段
 - `漂移分类`

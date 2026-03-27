@@ -129,7 +129,7 @@
 - work-item 当前采用新名，语义上即 **工作承接对象（work-item）**，不是狭义执行动作，也不是稳定对象本体。
 - 当前先定义 work-item 的位置与角色，不预设固定内部模板；如需轻量建议结构，可参考 `references/object-templates.md`。
 - work-item 采用“类型 + 挂接方式”双维度模型。
-- 第一版工作项类型当前先收为：`delivery`、`regression`。
+- 第一版工作项类型当前先收为：`delivery`。
 - 第一版挂接方式至少包含：`独立创建`、`挂模块`、`挂主题`、`挂子模块`。
 - `直接创建任务` 不再作为工作项类型，而归入挂接方式。
 - 父工作项 / 子工作项首先是逻辑上的任务编排关系。
@@ -148,9 +148,8 @@
 - work-item 的更具体内容字段与内部结构，按类型继续细化；delivery work-item 的流程与推荐文档集合，见 `references/delivery-work-item-flow.md`。
 - 对delivery work-item 而言，除 `work.md` 外，可按需补 `implementation-plan.md`、`sub-*.md`、`verification.md` 等内部文档；`handoff.md` 仅在主入口文档不足以承载复杂交接上下文时，作为增强件按需补充。
 - 对delivery work-item 而言，规划文档如果需要保留，应放在 work-item 目录内，例如 `implementation-plan.md`；不要把模块 / 主题层的 `planning.md` 当作默认结构恢复。
-- 对delivery work-item 而言，代码完成后的验证与必要回归，默认应在同一个 work-item 内闭环完成；不再默认外拆独立regression work-item。
+- 对 delivery work-item 而言，代码完成后的验证与必要检查，默认应在同一个 work-item 内闭环完成。
 - 对delivery work-item 而言，`work.md` 及按需存在的 `sub-*.md` 默认都需要支持中断后续推；至少应能从主入口文档中恢复当前路径选择、当前进展、接力入口与下一步动作。
-- 对独立 `regression` work-item 而言，其流程、文档集合与恢复规则，见 `references/regression-work-item-flow.md`。
 
 ## 5.1 Archive 归档层
 
@@ -164,23 +163,7 @@
 - 当前默认只归档 work-item；未来如果出现其他稳定的归档需求，再按对象类型扩展子目录。
 - archive 表示退出当前工作区，不表示删除。
 
-## 6. Regression Work-item 的 Drift Handling
-
-当regression work-item 发现“代码与 truth 不一致”时，当前采用轻量三分法：
-- `truth 过时`：代码合理，但 truth 没有同步更新
-- `code 偏离`：truth 仍然成立，但代码跑偏了
-- `暂时无法判断`：当前证据不足，不能立即判断该改 truth 还是改 code
-
-默认动作：
-- `truth 过时` → 更新 truth，不直接改代码
-- `code 偏离` → 修正代码，不直接改 truth
-- `暂时无法判断` → 挂起为待确认冲突，不自动改 truth，也不自动宣判代码错误
-
-鲁棒性原则：
-- 先分类，再动作
-- 在证据不足时，不自动回写 truth，也不自动修正代码
-
-## 6.1 记忆回填（Memory Backfill）
+## 6. 记忆回填（Memory Backfill）
 
 默认理解：
 - 记忆回填是一条流程，不是新的顶层对象类型

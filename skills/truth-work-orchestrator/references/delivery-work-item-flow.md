@@ -7,7 +7,7 @@
 目标：
 - 让delivery work-item 从“只是一个工作项目录”升级为“有明确推进骨架的工作承接对象”
 - 保持 work-item 文档轻量，但足够支撑对齐、规划、执行承接与回写
-- 明确delivery work-item 与regression work-item的边界，并保持实施 / 验证 / 回写闭环
+- 明确 delivery work-item 自身负责实施 / 验证 / 回写闭环，不再额外引入单独的检查类 work-item。
 - 让当前 work-item 区始终保持可读：完成 work-item 退出 `work-items/`，进入顶层 `archive/work-items/`
 
 ## Module Demand → Work-item-first Rule
@@ -41,8 +41,8 @@ delivery work-item 用于承接：
 默认理解：
 - **模块 / 主题 / 子模块** 负责维护稳定 truth
 - **delivery work-item** 负责承接一次交付型工作推进，而不是只承接执行动作
-- **delivery work-item** 默认覆盖对齐、规划、实现、验证、必要回归与结果收口
-- **regression work-item** 仅在验证目标明显独立、范围明显外扩时按需使用
+- **delivery work-item** 默认覆盖对齐、规划、实现、验证、必要检查与结果收口
+- 默认不要外拆独立的检查类 work-item；验证与检查优先在当前 delivery work-item 内闭环完成。
 
 ## 3. 标准流程骨架
 
@@ -66,7 +66,7 @@ delivery work-item 用于承接：
 
 delivery work-item 允许并推荐使用 checkbox 来表达规划或执行中的检查点，但默认遵守下面边界：
 - checkbox 主要用于表达“某个规划动作 / 执行动作 / 验证动作是否完成”
-- checkbox **不能替代** `当前状态`、`当前进展`、`验证与回归结论` 这些主语义字段
+- checkbox **不能替代** `当前状态`、`当前进展`、`验证与检查结论` 这些主语义字段
 - 勾掉某个执行项，不等于整个 work-item 已完成；只有在状态、验证和回写都更新后，work-item 才能视为真正收口
 - 优先勾掉“有状态意义的检查点”，例如完成主逻辑修改、补测试、完成最小验证、完成回写；不要把 checkbox 细化成过多碎动作，制造假进度
 - 如果 work-item 较复杂，推荐：`implementation-plan.md` 维护规划 checklist，`work.md` 维护执行 checklist，`sub-*.md` 维护子工作项 checklist
@@ -168,9 +168,9 @@ delivery work-item 允许并推荐使用 checkbox 来表达规划或执行中的
 - 先更新 `work.md` 的当前状态 / 当前阻塞 / 下一步动作
 - 如果影响稳定对象边界，再回写对应 `current-truth.md` 或相关 knowledge
 
-### 阶段 7：验证与回归
+### 阶段 7：验证与检查
 
-目标：在代码实施完成后，直接在同一个 work-item 内完成必要验证与回归。
+目标：在代码实施完成后，直接在同一个 work-item 内完成必要验证与检查。
 
 此阶段至少要明确：
 - 验证范围
@@ -182,7 +182,7 @@ delivery work-item 允许并推荐使用 checkbox 来表达规划或执行中的
 说明：
 - 默认不为这类验证再新起一个 work-item
 - delivery work-item 应直接承接“实现 → 验证 → 修正 → 再验证”的闭环
-- 只有在验证目标明显独立、范围明显外扩时，才按需考虑单独的regression work-item
+- 默认在当前 work-item 内完成验证与检查；不要机械外拆新的 work-item。
 
 ### 阶段 8：完成收口与回写
 
@@ -190,7 +190,7 @@ delivery work-item 允许并推荐使用 checkbox 来表达规划或执行中的
 
 至少收口：
 - 本次完成了什么
-- 验证 / 回归结论是什么
+- 验证 / 检查结论是什么
 - 哪些未完成 / 明确不做
 - 产出落到了哪里
 - 是否还有后续待跟进事项
@@ -200,7 +200,7 @@ delivery work-item 允许并推荐使用 checkbox 来表达规划或执行中的
 - 模块内或顶层 knowledge
 
 边界说明：
-- **delivery work-item 默认自己闭环，不再默认外拆验证 / 回归 work-item**
+- **delivery work-item 默认自己闭环，不再默认外拆验证 / 检查对象**
 - 如果验证中发现 truth 过时，应更新 truth
 - 如果验证中发现 code 偏离，应继续在当前 work-item 中修正并完成闭环
 
@@ -231,7 +231,7 @@ delivery work-item 允许并推荐使用 checkbox 来表达规划或执行中的
 - 不要求所有 work-item 都严格走完每一个状态
 - `待回写` 是一个重要收口状态：对挂接对象的 work-item 来说，回补完成前不应跳到 `已完成`
 - `已完成` 是终态，默认应很快转入 `archive/work-items/`，而不是长期停留在 `work-items/`
-- 建议把验证 / 回归纳入同一个状态机中，而不是默认外拆成新的 work-item
+- 建议把验证 / 检查纳入同一个状态机中，而不是默认外拆成新的 work-item
 
 ## 5. delivery work-item 的推荐文档集合
 
@@ -259,7 +259,7 @@ delivery work-item 允许并推荐使用 checkbox 来表达规划或执行中的
 - 接力入口 / 恢复入口
 - 下一步动作（可使用 checkbox）
 - 输出去向
-- 验证与回归结论
+- 验证与检查结论
 
 #### `implementation-plan.md`
 用于承接较复杂任务的实现规划，推荐在下面情况创建：
@@ -279,7 +279,7 @@ delivery work-item 允许并推荐使用 checkbox 来表达规划或执行中的
 - 需要把复杂背景、风险提醒或接手约束集中写给新的执行者
 
 #### `verification.md`
-用于承接较复杂任务的验证 / 回归记录，推荐在下面情况创建：
+用于承接较复杂任务的验证记录，推荐在下面情况创建：
 - 验证范围较大
 - 存在多轮修正与复测
 - 需要把验证证据、结果与结论独立记录
@@ -351,7 +351,7 @@ docs-TWO/archive/work-items/YYMMDD-<中文工作项名>/
 2. 工作项过程中出现的稳定结论，应回写到对应模块 / 主题 / 子模块，而不是长期滞留在 work-item 内。
 3. 共享知识应进入 `knowledge/` 或模块内 `knowledge/`，不要把可复用知识长期堆在 work-item 目录里。
 4. 如果实现发现 truth 不稳，应先修 truth，再继续推进该 work-item。
-5. 如果实现已经完成但仍需验证是否符合 truth，默认继续在当前delivery work-item 中完成验证与回归闭环；不要机械外拆成新的 work-item。
+5. 如果实现已经完成但仍需验证是否符合 truth，默认继续在当前 delivery work-item 中完成验证与检查闭环；不要机械外拆成新的 work-item。
 6. 如果 work-item 挂接了模块 / 子模块 / 主题，则回补完成前不能标记为 `已完成`。
 
 ## 9. 轻量判断规则
@@ -374,6 +374,6 @@ docs-TWO/archive/work-items/YYMMDD-<中文工作项名>/
 - 只看 `work.md` / `sub-*.md` 仍难以直接接上工作
 
 遇到下面情况时，建议补 `verification.md`：
-- 验证 / 回归步骤明显复杂
+- 验证 / 检查步骤明显复杂
 - 存在多轮修正与复测
 - 需要把验证证据与最终结论分开记录
