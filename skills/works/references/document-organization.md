@@ -109,6 +109,23 @@ docs-works/
 - `shared.md`
 - `materials.md`
 
+### delivery 目录
+- `deliveries/<delivery-name>/`
+- 使用短、稳定、可读的 kebab-case
+- 优先体现“这轮交付的对象 + 动作”
+- 不要只写技术动作，不要丢掉对象语义
+- 不要用过泛名字，如 `fixes`、`update`、`iteration-1`
+
+推荐：
+- `comment-permission-phase-1`
+- `teacher-dashboard-layout`
+- `course-detail-loading-optimization`
+
+不推荐：
+- `fix`
+- `update`
+- `delivery-1`
+
 ## 8. 最小可用版本
 
 如果只做最小结构，默认只需要：
@@ -157,3 +174,100 @@ docs-works/
         └── materials.md
 ```
 
+
+## 11. Delivery brief
+
+当用户主动要求对某个 topic / 子 topic 进行代码落地时，先创建或更新一份 `delivery-brief.md` 来锁定本轮范围。
+
+模板：
+- `references/delivery-brief-template.md`
+
+## 12. Delivery 文档结构
+
+当某个 discussion 进入 Delivery 后，代码落地默认使用独立目录组织，类似 work-items：
+
+```text
+<discussion-root>/
+├── index.md
+├── topics/
+├── shared.md
+├── materials.md
+└── deliveries/
+    ├── <delivery-name>/
+    │   ├── brief.md
+    │   ├── progress.md      # 可选
+    │   └── acceptance.md    # 可选
+    └── ...
+```
+
+### 说明
+- `deliveries/<delivery-name>/brief.md`：必需，用来锁定本轮范围
+- `deliveries/<delivery-name>/progress.md`：当本轮实现跨度较大、持续时间较长时再建
+- `deliveries/<delivery-name>/acceptance.md`：需要正式验收记录时再建
+
+默认原则：
+- 每一轮代码落地对应一个独立的 delivery 目录
+- 先有 `brief.md`
+- 需要持续跟踪时，再补 `progress.md`
+- 需要正式验收记录时，再补 `acceptance.md`
+- `discussion/index.md` 负责总览，具体交付状态下沉到 `deliveries/`
+
+## 13. Delivery progress
+
+当某一轮 delivery 跨度较大、会持续多轮推进时，再创建：
+- `deliveries/<delivery-name>/progress.md`
+
+模板：
+- `references/delivery-progress-template.md`
+
+## 14. Delivery acceptance
+
+当某一轮 delivery 需要正式验收记录时，再创建：
+- `deliveries/<delivery-name>/acceptance.md`
+
+模板：
+- `references/delivery-acceptance-template.md`
+
+## 15. Memory 目录结构
+
+长期记忆不放在 `discussions/` 里，而是单独放在 `docs-works/memory/` 下。
+
+推荐结构：
+
+```text
+docs-works/
+├── discussions/
+│   └── ...
+└── memory/
+    ├── decisions/
+    ├── constraints/
+    ├── patterns/
+    └── facts/
+```
+
+说明：
+- `decisions/`：稳定决策
+- `constraints/`：可复用约束
+- `patterns/`：可复用做法与经验
+- `facts/`：已确认事实
+
+原则：
+- discussion 产出记忆候选
+- memory 承接最终沉淀
+- 不把讨论过程直接写入 memory
+
+## 16. Memory 规则
+
+进入 memory 前，先按下面规则筛选：
+- `references/memory-mode.md`
+
+## 17. Memory 条目模板
+
+当某条内容通过 memory 筛选后，默认使用：
+- `references/memory-entry-template.md`
+
+适用位置：
+- `docs-works/memory/decisions/*.md`
+- `docs-works/memory/constraints/*.md`
+- `docs-works/memory/patterns/*.md`
+- `docs-works/memory/facts/*.md`

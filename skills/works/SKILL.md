@@ -7,7 +7,7 @@ description: Orchestrate project work from discussion through delivery and memor
 
 进入一种面向项目工作的编排模式。
 
-当前先优先做好一件事：**Discuss**。
+当前优先完善三件事：**Discuss**、**Delivery** 和 **Memory**。
 
 ## Overview
 
@@ -19,8 +19,8 @@ description: Orchestrate project work from discussion through delivery and memor
 
 当前版本先聚焦 `Discuss`，其余模式后续再补：
 - `Discuss`：接需求、接材料、整理讨论结构、支持后续按主题重组
-- `Delivery`：暂未展开
-- `Memory`：暂未展开
+- `Delivery`：锁定本轮交付范围，推进代码落地，并为验收提供基线
+- `Memory`：把 discussion / delivery 中稳定、可复用的内容沉淀到 `docs-works/memory/`
 
 ## Discuss
 
@@ -62,3 +62,9 @@ description: Orchestrate project work from discussion through delivery and memor
 - `references/discuss-mode.md`
 - `references/document-organization.md`
 - `references/unified-discussion-template.md`
+- `references/delivery-brief-template.md`
+- `references/delivery-mode.md`
+- `references/delivery-progress-template.md`
+- `references/delivery-acceptance-template.md`
+- `references/memory-mode.md`
+- `references/memory-entry-template.md`
