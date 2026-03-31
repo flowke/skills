@@ -1,0 +1,4 @@
+interface:
+  display_name: "Works"
+  short_description: "Project delivery orchestration"
+  default_prompt: "Use $works to organize a project discussion, keep one evolving discussion page, and restructure it by module when the boundaries become clear."
