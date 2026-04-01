@@ -1,5 +1,7 @@
 # Document Organization
 
+默认以下路径都相对于当前 workspace 根目录。
+
 ## 推荐结构
 
 ```text
@@ -177,7 +179,7 @@ docs-works/
 
 ## 11. Delivery brief
 
-当用户主动要求对某个 topic / 子 topic 进行代码落地时，先创建或更新一份 `delivery-brief.md` 来锁定本轮范围。
+当用户主动要求对某个 topic / 子 topic 进行代码落地时，先创建或更新 `deliveries/<delivery-name>/brief.md` 来锁定本轮范围。
 
 模板：
 - `references/delivery-brief-template.md`

@@ -1,4 +1,4 @@
 interface:
   display_name: "Works"
   short_description: "Project delivery orchestration"
-  default_prompt: "Use $works to organize a project discussion, keep one evolving discussion page, and restructure it by module when the boundaries become clear."
+  default_prompt: "Use $works to route the work into Discuss, Delivery, or Memory mode. Default to Discuss when the request is still ambiguous, keep one evolving discussion page, restructure by topic only when boundaries become clear, lock delivery scope before implementation, and backfill only stable reusable memory."
