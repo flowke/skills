@@ -6,12 +6,23 @@
 
 ## Default trigger
 
-默认由用户主动触发，尽量不自动触发，例如：
+默认由用户主动触发，例如：
 - 进入记忆
 - 沉淀一下
 - 把这轮值得记住的收一下
 
 没有这个触发时，不主动进入 Memory。
+
+## Minimal structure
+
+```text
+docs-works/
+└── memory/
+    ├── decisions/
+    ├── constraints/
+    ├── patterns/
+    └── facts/
+```
 
 ## Memory filter
 
@@ -23,25 +34,10 @@
 
 ## Suitable content
 
-### decisions/
-- 最终方案取舍
-- 稳定命名约定
-- 已定边界规则
-
-### constraints/
-- 技术限制
-- 业务约束
-- 不可突破规则
-
-### patterns/
-- 已验证做法
-- 常见坑与对应处理方式
-- 可复用工作模式
-
-### facts/
-- 已确认现状
-- 已验证系统事实
-- 稳定结构认知
+- `decisions/`：最终方案取舍、稳定命名约定、已定边界规则
+- `constraints/`：技术限制、业务约束、不可突破规则
+- `patterns/`：已验证做法、常见坑与对应处理方式、可复用工作模式
+- `facts/`：已确认现状、已验证系统事实、稳定结构认知
 
 ## Unsuitable content
 
@@ -63,6 +59,14 @@
 - 如果发现新信息与旧条目存在冲突，先不要写入 memory
 - 这类冲突应先回到 discussion / delivery 中确认，确认后再更新已有条目或新增条目
 
+## Reply shape
+
+每轮 Memory 回复默认包含：
+1. 本轮已落文档内容
+2. 当前筛选结论
+3. 是否更新旧条目或新建条目
+4. 下一步建议
+
 ## Reply example
 
 示例：
@@ -70,6 +74,30 @@
 - 其中 1 条更适合补充到已有 constraint，而不是单独新建
 - 另 1 条仍有冲突，先留在 discussion，不进入 memory
 - 下一步建议：先更新已有条目，再确认冲突项
+
+## Minimal template
+
+```md
+# <memory-title>
+
+## 1. 结论
+- 
+
+## 2. 类型
+- decision / constraint / pattern / fact
+
+## 3. 适用范围
+- 
+
+## 4. 依据
+- 
+
+## 5. 内容
+- 
+
+## 6. 注意事项（可选）
+- 
+```
 
 ## Core rule
 
