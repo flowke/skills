@@ -59,6 +59,17 @@ topic 页默认使用 `references/topic-template.md`。
 - 先稳定记录统一讨论页
 - 保持内容可重组
 
+## Topic creation threshold
+
+默认先只更新 `index.md`，不要急着创建 `topics/*.md`。
+
+只有当某一部分已经能独立承接下面三件事时，才创建 topic 页：
+- 独立目标
+- 独立问题 / 结论 / 材料
+- 后续独立推进
+
+如果一个部分还不能独立承接“目标 + 问题 + 后续推进”，就先留在 `index.md`。
+
 ## Triggers for modular reorganization
 
 从统一页切到分主题页，我的默认判断是：**当统一页已经不足以低成本承接讨论时，就切。**
@@ -169,6 +180,16 @@ topic 页默认使用 `references/topic-template.md`。
 - `主题导航`：只有已经出现多个主题时才更新
 - `来源说明`：只有这个 discussion 是拆出来的新 discussion 时才写
 - `跨板块问题`：只有真的出现跨主题约束、依赖或全局问题时才更新
+
+## Reply example
+
+示例：
+- 已把本轮新增需求和待确认问题落到 discussion 的 `index.md`
+- 当前先聚焦范围和边界，不急着讨论实现细节
+- 现在还差 1-2 个关键确认点
+- 下一步建议：
+  - 选项 1：先确认边界（推荐）
+  - 选项 2：先补现状材料
 
 ## End condition
 
