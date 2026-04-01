@@ -1,6 +1,6 @@
 ---
 name: works
-description: Orchestrate project work from discussion through delivery and memory backfill. Use when Codex needs to accept ambiguous or concrete requirements, organize user-provided materials into one evolving discussion document, restructure discussion by topic or object when boundaries become clear, and progressively turn project conversation into actionable delivery context.
+description: Orchestrate project work from discussion through delivery and memory backfill. Prefer explicit invocation. Use when Codex needs to accept ambiguous or concrete requirements, organize user-provided materials into one evolving discussion document, restructure discussion by topic or object when boundaries become clear, and progressively turn project conversation into actionable delivery context.
 ---
 
 # works
@@ -13,13 +13,15 @@ description: Orchestrate project work from discussion through delivery and memor
 
 用这个 skill 承接项目需求讨论，不把内容按聊天时间顺序堆积，而是整理成一个可持续演化的讨论文档。
 
+默认优先显式触发，不主动自动进入。
+
 默认先维护一个统一讨论页；当用户明确要求分主题，或内容已经自然形成边界时，再把已有内容重组为主题化结构，而不是从头重写。
 
 ## Current Scope
 
 当前版本先聚焦 `Discuss`，其余模式后续再补：
 - `Discuss`：接需求、接材料、整理讨论结构、支持后续按主题重组
-- `Delivery`：锁定本轮交付范围，推进代码落地，并为验收提供基线
+- `Delivery`：先查相关 memory，再锁定本轮交付范围，推进代码落地，并为验收提供基线
 - `Memory`：把 discussion / delivery 中稳定、可复用的内容沉淀到 `docs-works/memory/`
 
 ## Discuss
@@ -62,6 +64,8 @@ description: Orchestrate project work from discussion through delivery and memor
 - `references/discuss-mode.md`
 - `references/document-organization.md`
 - `references/unified-discussion-template.md`
+- `references/topic-template.md`
+- `references/migration-rules.md`
 - `references/delivery-brief-template.md`
 - `references/delivery-mode.md`
 - `references/delivery-progress-template.md`

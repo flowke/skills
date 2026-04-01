@@ -271,3 +271,20 @@ docs-works/
 - `docs-works/memory/constraints/*.md`
 - `docs-works/memory/patterns/*.md`
 - `docs-works/memory/facts/*.md`
+
+## 18. Topic 模板
+
+当某个 topic 从总页摘要长出来后，默认使用：
+- `references/topic-template.md`
+
+适用位置：
+- `docs-works/discussions/<discussion-name>/topics/<topic-name>.md`
+
+## 19. 拆分迁移规则
+
+当发生下面动作时，优先参考：
+- `references/migration-rules.md`
+
+适用动作：
+- `index.md -> topics/<topic-name>.md`
+- `topics/<topic-name>.md -> new <discussion-root>`

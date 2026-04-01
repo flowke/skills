@@ -6,7 +6,7 @@
 
 ## Default trigger
 
-默认由用户主动触发，例如：
+默认由用户主动触发，尽量不自动触发，例如：
 - 对某个 topic / 子 topic 进行代码落地
 - 开始做这一块
 - 进入交付 / 实现
@@ -22,9 +22,30 @@
 
 这样可以把 discussion 和交付执行分开。
 
+## Memory check
+
+进入 Delivery 时，默认先做一次相关 memory 检索，再开始 Lock / Build。
+
+检索范围只限与当前功能相关的 memory 条目，优先看：
+- `docs-works/memory/decisions/`
+- `docs-works/memory/constraints/`
+- `docs-works/memory/patterns/`
+- `docs-works/memory/facts/`
+
+不要全量扫 memory，只提取和当前交付直接相关的内容。
+
+回复时简短说明：
+- 已查到哪些相关 memory
+- 本轮会遵守哪些约束 / 复用哪些模式
+
+如果没查到相关 memory，就直接进入本轮 Delivery，不必强行补充。
+
 ## Round workflow
 
 每轮 Delivery 默认按下面节奏推进：
+
+### 0. Memory Check
+先查与当前交付直接相关的 memory。
 
 ### 1. Lock
 先锁定本轮交付范围。

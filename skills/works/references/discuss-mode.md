@@ -8,6 +8,11 @@
 
 先统一承接，必要时再按主题重组。
 
+## Invocation preference
+
+默认优先显式触发 Discuss，不主动自动进入。
+只有当用户已经明显在当前 discussion 语境内持续推进时，才顺势延续。
+
 ## Facilitation style
 
 Discuss 不只整理内容，还要承担轻度主持职责：
@@ -34,6 +39,8 @@ Discuss 不只整理内容，还要承担轻度主持职责：
 优先按讨论对象组织内容；如果对象边界还不清楚，再先按较粗粒度整理。
 
 统一讨论页默认使用 `references/unified-discussion-template.md`。
+topic 页默认使用 `references/topic-template.md`。
+拆分迁移时优先参考 `references/migration-rules.md`。
 文档组织结构优先参考 `references/document-organization.md`。
 
 统一讨论页至少应包含：
