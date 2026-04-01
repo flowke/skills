@@ -29,32 +29,31 @@ docs-works/
 - `index.md`：总页，负责承接全局背景、当前理解、待确认问题和下一步
 - `topics/*.md`：子页，只在某个部分已经足够独立时才创建
 
-默认不额外创建 `shared.md`、`materials.md` 等文件。
-
 ## Naming
 
 - discussion 目录：`docs-works/discussions/<discussion-name>/`
 - topic 子页：`docs-works/discussions/<discussion-name>/topics/<topic-name>.md`
 - 名称使用短、稳定、可读的 kebab-case
 
+## Default discussion loop
+
+采用**中强主持**，但保持自然对话感。
+
+默认按下面顺序循环推进：
+1. **先定焦**：判断当前最该聊的是哪个问题或哪个层次。
+2. **再推进 1-3 个关键问题**：默认优先推进 1 个问题；当多个问题高度相关、一起推进更高效时，可在同一轮推进 2-3 个问题。
+3. **做阶段总结**：在自然节点收一下当前理解、待确认问题和未决点。
+4. **更新讨论文档**：把稳定内容写入当前 discussion / topic，把暂时未定的内容放入待确认问题。
+5. **给出下一步聚焦**：指出下一轮最值得继续推进的问题，并附 1-3 条具体建议。
+
 ## How to work
 
-默认按下面方式推进：
-1. 先更新当前 discussion 的 `index.md`
-2. 不按聊天时间顺序堆积内容，而是按讨论对象组织
-3. 当对象边界还不清楚时，先按较粗粒度整理
-4. 当某一部分已经能独立承接“目标 + 问题 + 后续推进”时，再创建 topic 页
-5. 保留跨主题问题，不要把它们硬塞进某个 topic
-
-## What goes in index.md
-
-`index.md` 默认至少包含：
-- 讨论目标
-- 当前输入
-- 当前理解
-- 当前板块
-- 待确认问题
-- 下一步建议
+默认按下面方式落结构：
+1. 先用 `index.md` 承接当前 discussion
+2. 新输入先落到总页，不急着拆 topic
+3. 当某一部分已经能独立承接“目标 + 问题 + 后续推进”时，再创建 topic 页
+4. topic 创建后，总页保留总览，topic 承接细节
+5. 只有用户明确要求“拆成新的”时，才把 topic 升级成新的 discussion
 
 ## Topic creation threshold
 
@@ -75,31 +74,6 @@ docs-works/
 - 原 discussion 删除与该 topic 相关的内容
 - 默认不保留摘要、入口或关系说明
 - 新 discussion 继续使用同样的最小结构
-
-## Documentation rhythm
-
-- 边讨论边落文档
-- 每轮默认优先更新 `index.md`
-- 每轮回复开头先简短说明本轮哪些内容已经落入文档
-- 只说明已落文档的内容，不展开过程
-
-## Reply shape
-
-每轮 Discuss 回复默认包含：
-1. 本轮已落文档内容
-2. 当前理解或阶段性结论
-3. 待确认问题
-4. 下一步建议
-
-## Reply example
-
-示例：
-- 已把本轮新增需求和待确认问题落到 discussion 的 `index.md`
-- 当前先聚焦范围和边界，不急着讨论实现细节
-- 现在还差 1-2 个关键确认点
-- 下一步建议：
-  - 选项 1：先确认边界（推荐）
-  - 选项 2：先补现状材料
 
 ## Minimal templates
 

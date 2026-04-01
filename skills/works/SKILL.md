@@ -36,9 +36,8 @@ description: Orchestrate project work from discussion through delivery and memor
 1. 先判断当前所处模式（Discuss / Delivery / Memory）
 2. 在当前 workspace 根目录下定位或创建 `docs-works/` 相关结构
 3. 只读取和本轮模式直接相关的文档
-4. 只更新本轮最必要的 1-2 个文件，避免一次建太多页
-5. 回复开头先用一句话说明本轮已落文档内容
-6. 然后只给当前结论和下一步建议，不展开长过程
+4. 回复开头先用一句话说明本轮已落文档内容
+5. 然后只给当前结论和下一步建议，不展开长过程
 
 ## References
 
