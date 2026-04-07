@@ -29,16 +29,16 @@ docs-works/
 - `progress.md`：本轮跨度较大或持续多轮时再建
 - `acceptance.md`：需要正式验收记录时再建
 
-## Memory check
+## Context check
 
-进入 Delivery 时，默认先做一次相关 memory 检索，再开始 Lock / Build。
+进入 Delivery 时，默认先查当前 discussion / topic 下与本轮直接相关的内容，再开始 Lock / Build。
 
-只提取和当前交付直接相关的内容；如果没查到，就直接进入本轮 Delivery。
+如果没有现成上下文，就直接进入本轮 Delivery。
 
 ## Round workflow
 
-### 0. Memory Check
-先查与当前交付直接相关的 memory。
+### 0. Context Check
+先查当前 discussion / topic 中与本轮交付直接相关的内容。
 
 ### 1. Lock
 先锁定本轮交付范围，优先创建或更新 `deliveries/<delivery-name>/brief.md`。
@@ -86,7 +86,7 @@ docs-works/
 
 每轮 Delivery 回复默认包含：
 1. 本轮已落文档内容
-2. 当前处于 Lock / Build / Check / Accept 哪一阶段
+2. 当前处于 Context Check / Lock / Build / Check / Accept 哪一阶段
 3. 当前进展或结论
 4. 下一步建议
 
