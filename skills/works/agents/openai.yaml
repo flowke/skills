@@ -1,4 +1,4 @@
 interface:
   display_name: "Works"
-  short_description: "Project delivery orchestration"
-  default_prompt: "Use $works to route the work into Discuss or Delivery mode. Default to Discuss when the request is still ambiguous, keep one evolving discussion page, restructure by topic only when boundaries become clear, and lock delivery scope before implementation."
+  short_description: "Project implementation orchestration"
+  default_prompt: "Use $works to route the work into Discuss or Implement mode. Default to Discuss when the request is still ambiguous, keep one evolving discussion page, restructure by topic only when boundaries become clear, and lock implement scope before implementation."

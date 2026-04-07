@@ -1,47 +1,54 @@
-# Delivery Mode
+# Implement Mode
 
 ## Goal
 
-把某一轮实现控制在明确边界内，持续推进，并在结束时具备可验收状态。
+把某项实现工作组织成可持续推进的交付单元：先接住需求来源，再按轮次锁定范围、推进实现、自检，并在需要时验收。
 
 ## Default trigger
 
 默认由用户主动触发，例如：
 - 开始做这一块
 - 对某个 topic 进行代码落地
+- 已经有 PRD / issue / 设计稿，直接进入实现
 - 进入交付 / 实现
 
 ## Minimal structure
 
 ```text
 docs-works/
-└── discussions/
-    └── <discussion-name>/
-        └── deliveries/
-            └── <delivery-name>/
-                ├── brief.md
-                ├── progress.md      # 可选
-                └── acceptance.md    # 可选
+└── implements/
+    └── <implement-name>/
+        ├── brief.md
+        ├── progress.md      # 可选
+        └── acceptance.md    # 可选
 ```
 
 说明：
-- `brief.md`：必需，用来锁定本轮范围
+- `Implement` 默认可独立创建，不要求先存在 `Discuss`
+- 如果它来自某个 discussion / topic，只在文档里记录关联来源，不强依赖目录层级
+- `brief.md`：必需，用来锁定当前阶段范围，并记录需求来源
 - `progress.md`：本轮跨度较大或持续多轮时再建
 - `acceptance.md`：需要正式验收记录时再建
 
 ## Context check
 
-进入 Delivery 时，默认先查当前 discussion / topic 下与本轮直接相关的内容，再开始 Lock / Build。
+进入 Implement 时，默认先查当前最直接的需求来源，再开始 Lock / Build。
 
-如果没有现成上下文，就直接进入本轮 Delivery。
+需求来源可以是：
+- 当前 discussion / topic
+- 外部需求文档 / PRD
+- issue / ticket
+- 设计稿 / 代码评审意见 / 现有缺陷描述
+
+如果没有成型上下文，就直接根据用户当前指令建立一个 Implement。
 
 ## Round workflow
 
 ### 0. Context Check
-先查当前 discussion / topic 中与本轮交付直接相关的内容。
+先查本轮实现最直接相关的需求来源，并整理成可执行上下文。
 
 ### 1. Lock
-先锁定本轮交付范围，优先创建或更新 `deliveries/<delivery-name>/brief.md`。
+先锁定当前推进阶段的范围，优先创建或更新 `implements/<implement-name>/brief.md`。
 
 至少明确：
 - 本轮目标
@@ -65,7 +72,7 @@ docs-works/
 
 ## Scope change rule
 
-如果本轮 `In Scope` / `Out of Scope` / 验收标准发生实质变化，先更新 `deliveries/<delivery-name>/brief.md`，再继续 Build。
+如果当前推进阶段的 `In Scope` / `Out of Scope` / 验收标准发生实质变化，先更新 `implements/<implement-name>/brief.md`，再继续 Build。
 
 说明：
 - 小的实现细节调整，不必回写 brief
@@ -84,7 +91,7 @@ docs-works/
 
 ## Reply shape
 
-每轮 Delivery 回复默认包含：
+每轮 Implement 回复默认包含：
 1. 本轮已落文档内容
 2. 当前处于 Context Check / Lock / Build / Check / Accept 哪一阶段
 3. 当前进展或结论
@@ -93,9 +100,9 @@ docs-works/
 ## Reply example
 
 示例：
-1. 已把本轮范围锁到 `deliveries/<delivery-name>/brief.md`
+1. 已把当前阶段范围锁到 `implements/<implement-name>/brief.md`
 2. 当前处于 Build 阶段，先完成 In Scope 的最小闭环
-3. 新发现 1 个相关问题，但先不纳入本轮
+3. 新发现 1 个相关问题，但先不纳入当前阶段
 4. 下一步建议：先完成主路径，然后做一次自检
 
 ## Minimal templates
@@ -103,13 +110,14 @@ docs-works/
 ### `brief.md`
 
 ```md
-# <delivery-title>
+# <implement-title>
 
 ## 1. 本轮目标
 - 
 
-## 2. 对应 discussion / topic
-- 
+## 2. 需求来源
+- 可填写 discussion / topic、外部 PRD、issue、设计稿、口头需求等
+
 
 ## 3. In Scope
 - 
@@ -127,7 +135,7 @@ docs-works/
 ### `progress.md`
 
 ```md
-# <delivery-title>
+# <implement-title>
 
 ## 1. 当前状态
 - 未开始 / 进行中 / 待验收 / 已完成
@@ -151,7 +159,7 @@ docs-works/
 ### `acceptance.md`
 
 ```md
-# <delivery-title>
+# <implement-title>
 
 ## 1. 验收结论
 - 通过 / 有条件通过 / 不通过
@@ -174,7 +182,11 @@ docs-works/
 
 ## End condition
 
-当满足以下条件时，本轮 Delivery 可以结束：
-- In Scope 内容已完成
+当满足以下条件时，当前阶段 Implement 可以结束：
+- 当前阶段 In Scope 内容已完成
 - 已经过自检
 - 需要独立验收的，已完成验收或明确遗留项
+
+说明：
+- 一个 Implement 可以包含多轮推进
+- 是否结束 Implement，取决于该实现目标是否已经整体收口，而不是只看单次编码动作是否结束
