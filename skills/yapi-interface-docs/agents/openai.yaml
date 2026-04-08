@@ -1,0 +1,4 @@
+interface:
+  display_name: "YAPI Interface Docs"
+  short_description: "Fetch YAPI interface docs by link or ID and summarize request/response details"
+  default_prompt: "Use $yapi-interface-docs to fetch a YAPI interface document from a page URL or interface ID, summarize its method/path/params/response, and diagnose cookie or permission issues before assuming the interface is missing."
