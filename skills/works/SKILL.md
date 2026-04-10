@@ -25,7 +25,8 @@ description: Orchestrate project work from discussion through implementation. Pr
 
 调用 `$works` 时，先判断当前最适合进入哪一种模式：
 - 如果用户还在描述需求、补材料、补限制，或问题仍然偏发散，进入 `Discuss`
-- 如果用户已经明确要开始实现、落地、修某一块，或已经有现成需求材料并要进入代码推进，进入 `Implement`
+- 如果当前仍存在会影响下一步动作的关键待确认问题，或 discussion / topic 仍处于 `待确认`、`已暂停` 等未收口状态，默认继续停留在 `Discuss`
+- 如果用户已经明确要开始实现、落地、修某一块，且本轮目标、范围边界和主要约束已经足够清晰，进入 `Implement`
 - 如果信号不明确，默认先进入 `Discuss`
 
 ## Execution loop
