@@ -26,6 +26,7 @@ description: Orchestrate project work from discussion through implementation. Pr
 调用 `$works` 时，先判断当前最适合进入哪一种模式：
 - 如果用户还在描述需求、补材料、补限制，或问题仍然偏发散，进入 `Discuss`
 - 如果当前仍存在会影响下一步动作的**关键待确认问题**，或 discussion / topic 仍处于 `待确认`、`已暂停` 等未收口状态，默认继续停留在 `Discuss`
+- 如果 `Discuss` 下已经存在多个 topic，默认先判断当前是否已经可进入 `Implement Lock`；如果还不能，就继续推进 `Discuss`，不必为了选 topic 额外建立复杂优先级机制
 - 如果剩余问题已经被明确降级为**非阻塞假设、默认实现约定或后续版本项**，且本轮目标、范围边界和主要约束已经足够清晰，可以进入 `Implement` 先做 `Lock`
 - 如果用户已经明确要开始实现、落地、修某一块，且需求来源足以支撑本轮 `Lock`，进入 `Implement`
 - 如果信号不明确，默认先进入 `Discuss`
@@ -54,6 +55,7 @@ description: Orchestrate project work from discussion through implementation. Pr
 - 如果当前仍有关键阻塞项，回复中的下一步建议应优先体现继续收敛、补确认、解除阻塞或缩小范围
 - 如果下一步已经收敛到某个可直接拍板的关键问题，默认在同一条回复里直接给出 1 个推荐方案，必要时附 1-2 个备选，而不是只预告“如果你愿意，下一条我再给方案”
 - 在 `Discuss` 中，若已能形成推荐方案，回复默认压缩成固定骨架：已落文档 + 当前阶段/状态 + 当前唯一关键结论或阻塞 + 下一步建议（推荐 / 备选 / 一句确认）
+- 如果 discussion 下存在多个 topic，而本轮继续推进其中一个，默认只需说明它与“暂不能进入 `Implement Lock`”之间的关系；不必展开复杂排序理由
 - 如果建议进入 `Implement Lock` 或 `Build`，应确保前置条件已在对应文档中成立
 - 如果某项新确认的内容会影响多个 topic 或多个板块，默认只在同一个父 topic / 父板块范围内做同轮联动更新，并同步必要的总页字段；不要自动跨到其他父 topic，除非用户主动要求
 
