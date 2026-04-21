@@ -39,6 +39,101 @@ Use `general` when the user does not specify a module.
 
 Preserve the module name the user gives unless the user explicitly asks to rename or normalize it. Create the module directory immediately if it does not exist.
 
+## Detect context-dependent assertions before storing shared memory
+
+Treat this as a general pattern, not a repo-only special case. Before saving memory, check whether the statement depends on a hidden `current ...` context that would become ambiguous when reused in another workspace, machine, app state, or conversation.
+
+Common risky patterns include claims about:
+
+- the current repository, workspace, project, or branch
+- the current page, selected node, open file, or focused app
+- the current account, tenant, environment, or permission context
+- the local machine, local downloads, local screenshots, or local tool installation
+- the current conversation state or temporary user intent
+
+### Recognize the bad pattern
+
+Watch for wording such as:
+
+- `当前仓库是 ...`
+- `当前项目是 ...`
+- `这里就是 ...`
+- `这个页面对应 ...`
+- `当前账号有权限 ...`
+- `本地已经安装了 ...`
+- `当前选择的是 ...`
+
+The problem is not the domain. The problem is that the claim relies on hidden context and would be misleading once copied into shared memory.
+
+### Repair the pattern
+
+When you detect this pattern, do one of these before storing the memory:
+
+1. **Anchor the claim** with explicit context facts.
+2. **Downgrade the claim** into a tentative or scoped statement.
+3. **Split the memory** into durable facts plus context-specific evidence.
+4. **Ask for or gather missing anchors** when the distinction matters.
+
+Examples:
+
+- Instead of `当前仓库对应的项目是 超级教研` → `项目“超级教研”的资料如下；是否对应当前仓库，需根据 repo 名、remote、README 或目录线索确认。`
+- Instead of `这个页面就是发布页` → `当前浏览器页面疑似发布页；建议补充页面标题、URL 或系统名称后再固化为共享记忆。`
+- Instead of `当前账号可以发线上` → `已知在某次会话中使用的账号具备发线上能力；若要沉淀为共享记忆，应补充账号身份、系统范围和权限证据。`
+- Instead of `本地已经装了某工具` → `在某台电脑上已安装某工具；若要复用，应记录机器标识、安装位置或安装验证方式。`
+
+### Use the right storage shape
+
+When a claim mixes durable knowledge with volatile context, separate them:
+
+- durable fact → store in `topics/` or `sops/`
+- context anchor or evidence → store alongside it as scoped notes, links, or explicit caveats
+- machine-specific detail → keep clearly marked as machine-scoped
+
+Do not promote a context-bound observation into a global shared fact unless the necessary anchors are present.
+
+
+## Model shared memory with explicit scope
+
+Treat shared memory as portable context, not as an implicit snapshot of the currently opened workspace. Before writing repo-related, machine-related, or environment-related facts, identify the scope of the memory.
+
+Use these scope buckets:
+
+- **shared durable facts**: people, SOPs, domain knowledge, project facts that remain meaningful outside one repo
+- **repo-scoped facts**: repository identity, remote URL, default branch, repo-specific scripts, release rules tied to one concrete repo
+- **machine-scoped facts**: local absolute paths, downloaded files, desktop screenshots, host-specific tool locations
+
+Do not mix these scopes casually in one sentence.
+
+### Never use deictic repo wording without an anchor
+
+Avoid phrases like:
+
+- `当前仓库对应的项目是 ...`
+- `这个仓库就是 ...`
+- `这里的项目是 ...`
+
+unless the memory also names the concrete repository identity that justifies the claim.
+
+Prefer anchored wording such as:
+
+- `仓库 \`skills\`（remote: \`https://github.com/flowke/skills.git\`）是一个 skills 管理仓库。`
+- `项目“超级教研”的发布资料记录如下；是否为当前打开仓库，需根据 repo root、remote、目录名或 README 再确认。`
+
+### Build repo context before writing repo conclusions
+
+When a memory mentions a repository, collect and record the repo context first whenever possible:
+
+1. repo name or directory name
+2. remote URL
+3. default branch or current branch when relevant
+4. repo root or other identifying clues
+5. whether the conclusion is confirmed, inferred, or still unknown
+
+Prefer storing repo identity in a dedicated collection such as `topics/repos/`. Then let project or SOP notes refer to that repo context instead of claiming that the current workspace automatically matches the project.
+
+When the repo binding is not known, say so explicitly.
+
+
 ## Determine the target module
 
 Follow this priority order:
@@ -280,6 +375,9 @@ python scripts/rebuild_index.py --root /Users/flowkehurly/Documents/AAA/skills/.
 
 - Determine the module.
 - Ensure the module exists.
+- Determine the scope: shared, repo-scoped, machine-scoped, account-scoped, app-scoped, or other context-scoped.
+- Run a context-dependency check: does this statement rely on hidden `current` context?
+- If yes, anchor it, downgrade it, split it, or gather the missing context before storing it as shared memory.
 - Run a quick remodeling check and surface any strong organization suggestion.
 - Check whether the content belongs in an existing topic or collection.
 - Route the content to `logs/`, `topics/`, `sops/`, or `tools/`.
@@ -315,5 +413,7 @@ Do not keep adding top-level topic files when a clear collection such as `people
 Do not miss obvious opportunities to tell the user that the knowledge model should be upgraded.
 Do not silently move or rename large existing structures unless the user asked for that change or the change is trivially safe.
 Do not use absolute paths in ordinary memory confirmations when a relative path would be clear enough.
+Do not write context-scoped conclusions as if they were globally true when the needed anchors have not been captured.
+Do not use phrases like `当前仓库就是...`, `当前项目是...`, `这个页面就是...`, or `当前账号可以...` in shared memory unless the underlying context is explicitly identified and the claim is justified.
 Do not leave images or attachments loose when they can be grouped next to the relevant topic or entity.
 Do not leave indexes stale after major topic, SOP, or tool changes.
