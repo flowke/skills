@@ -1,13 +1,13 @@
 ---
 name: memory-manager
-description: Structured memory capture, retrieval, update, and organization using the unified filesystem memory root at /Users/flowkehurly/.memory-data. Use when Codex needs to record memory into a specific module, default unspecified memory to general, decide whether content belongs in logs, topics, sops, or tools, create module directories on demand, maintain per-module index.md files, retrieve existing memory, or write SOP documents and helper scripts such as Python tools into a module directory.
+description: Structured memory capture, retrieval, update, and organization using the unified filesystem memory root at /Users/flowkehurly/Documents/AAA/skills/.memory-data. Use when Codex needs to record memory into a specific module, default unspecified memory to general, decide whether content belongs in logs, topics, sops, or tools, create module directories on demand, maintain per-module index.md files, retrieve existing memory, or write SOP documents and helper scripts such as Python tools into a module directory.
 ---
 
 # Memory Manager
 
 ## Overview
 
-Manage long-term memory under `/Users/flowkehurly/.memory-data`.
+Manage long-term memory under `/Users/flowkehurly/Documents/AAA/skills/.memory-data`.
 Organize memory by module. Create new modules on demand. Route each item into `logs/`, `topics/`, `sops/`, or `tools/` instead of dumping everything into one file. When new information clearly belongs to an existing category, entity set, or durable structure, organize it immediately instead of creating another flat standalone note.
 
 Use bundled scripts when they simplify filesystem setup or index maintenance:
@@ -22,7 +22,7 @@ Read `references/layout-and-templates.md` when you need the canonical directory 
 
 Use this fixed memory root:
 
-- `/Users/flowkehurly/.memory-data`
+- `/Users/flowkehurly/Documents/AAA/skills/.memory-data`
 
 Use this standard module layout for every module:
 
@@ -217,6 +217,30 @@ Keep logs light. Prefer entries like:
 
 Do not force heavy metadata into every log entry.
 
+
+## Prefer portable path references in replies
+
+When describing where memory was written or should be updated, do not default to absolute filesystem paths in the final reply.
+
+Prefer path styles like:
+
+- `工作/topics/杜涔涔.md`
+- `topics/同事/杜涔涔.md`
+- `sops/知音楼给同事发消息流程.md`
+
+Use the smallest path that is still unambiguous in context.
+Prefer paths relative to the memory root or relative to the current module.
+
+Only use an absolute path when the location is meaningfully machine-specific and the exact host path matters. In that case, explicitly say that the path is machine-specific before giving it.
+
+Examples:
+
+- Preferred: `已记录到 工作/topics/同事/杜涔涔.md`
+- Preferred: `建议把它整理到 topics/同事/index.md + 每位同事一个文档`
+- Machine-specific exception: `这张图片位于这台电脑的本地目录，因此我用绝对路径说明：/Users/.../Screenshots/profile.png`
+
+Do not clutter normal memory capture confirmations with absolute paths.
+
 ## Work efficiently with the bundled scripts
 
 ### Initialize the root
@@ -226,7 +250,7 @@ Run `scripts/bootstrap_memory_root.py` when the root is missing or when you want
 Example:
 
 ```bash
-python scripts/bootstrap_memory_root.py --root /Users/flowkehurly/.memory-data --modules general,工作,生活
+python scripts/bootstrap_memory_root.py --root /Users/flowkehurly/Documents/AAA/skills/.memory-data --modules general,工作,生活
 ```
 
 ### Ensure a module exists
@@ -236,7 +260,7 @@ Run `scripts/ensure_module.py` before writing into a new module or when a module
 Example:
 
 ```bash
-python scripts/ensure_module.py --root /Users/flowkehurly/.memory-data --module 客户A
+python scripts/ensure_module.py --root /Users/flowkehurly/Documents/AAA/skills/.memory-data --module 客户A
 ```
 
 ### Rebuild a module index
@@ -246,8 +270,8 @@ Run `scripts/rebuild_index.py` after multiple file changes, migrations, or manua
 Examples:
 
 ```bash
-python scripts/rebuild_index.py --root /Users/flowkehurly/.memory-data --module 工作
-python scripts/rebuild_index.py --root /Users/flowkehurly/.memory-data --all
+python scripts/rebuild_index.py --root /Users/flowkehurly/Documents/AAA/skills/.memory-data --module 工作
+python scripts/rebuild_index.py --root /Users/flowkehurly/Documents/AAA/skills/.memory-data --all
 ```
 
 ## Handle common requests
@@ -260,6 +284,7 @@ python scripts/rebuild_index.py --root /Users/flowkehurly/.memory-data --all
 - Check whether the content belongs in an existing topic or collection.
 - Route the content to `logs/`, `topics/`, `sops/`, or `tools/`.
 - Update the index when needed.
+- In the final reply, prefer relative or module-scoped paths instead of absolute paths unless the location is machine-specific.
 
 ### Retrieve memory
 
@@ -289,5 +314,6 @@ Do not create a new topic when an existing durable topic should be updated.
 Do not keep adding top-level topic files when a clear collection such as `people/`, `clients/`, or `projects/` has emerged.
 Do not miss obvious opportunities to tell the user that the knowledge model should be upgraded.
 Do not silently move or rename large existing structures unless the user asked for that change or the change is trivially safe.
+Do not use absolute paths in ordinary memory confirmations when a relative path would be clear enough.
 Do not leave images or attachments loose when they can be grouped next to the relevant topic or entity.
 Do not leave indexes stale after major topic, SOP, or tool changes.

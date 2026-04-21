@@ -3,7 +3,7 @@
 ## Canonical directory layout
 
 ```text
-/Users/flowkehurly/.memory-data/
+/Users/flowkehurly/Documents/AAA/skills/.memory-data/
   general/
     index.md
     logs/
@@ -151,3 +151,16 @@ Examples:
 - 某类流程重复出现并伴随脚本 → 建议拆成 `sops/` + `tools/` 配套结构
 
 Use the proposal-first style for remodels that would move, rename, split, or merge existing files.
+
+
+## Path wording in replies
+
+When confirming memory writes, prefer concise relative references instead of absolute paths.
+
+Examples:
+
+- `已记录到 工作/topics/杜涔涔.md`
+- `已追加到 工作/logs/2026/2026-04.md`
+- `建议迁移到 topics/同事/index.md + 每位同事一个文档`
+
+Use an absolute path only when the file location depends on this specific computer and the exact machine path matters. When doing so, say that explicitly.
