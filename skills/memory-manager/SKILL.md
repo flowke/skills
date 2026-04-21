@@ -8,7 +8,7 @@ description: Structured memory capture, retrieval, update, and organization usin
 ## Overview
 
 Manage long-term memory under `/Users/flowkehurly/.memory-data`.
-Organize memory by module. Create new modules on demand. Route each item into `logs/`, `topics/`, `sops/`, or `tools/` instead of dumping everything into one file.
+Organize memory by module. Create new modules on demand. Route each item into `logs/`, `topics/`, `sops/`, or `tools/` instead of dumping everything into one file. When new information clearly belongs to an existing category, entity set, or durable structure, organize it immediately instead of creating another flat standalone note.
 
 Use bundled scripts when they simplify filesystem setup or index maintenance:
 
@@ -49,9 +49,84 @@ Follow this priority order:
 
 If you default or infer, say so briefly in the reply.
 
+## Run a lightweight remodeling check during capture
+
+Before writing new memory, quickly check whether the incoming information reveals a better organization model. Treat this as part of memory capture, not as a separate cleanup task.
+
+Look for signals such as:
+
+- several flat topic files that obviously belong to the same class
+- one topic accumulating many distinct entities
+- repeated attachments or images that need adjacency to the related note
+- repeated updates that would be easier to manage as a collection plus per-entity files
+- a topic that has outgrown a single markdown file and should become a folder
+
+When a clearer structure is apparent, proactively say so in the reply. Keep the suggestion short and concrete. Example: "This looks like the start of a colleagues collection. I recommend moving from `topics/杜涔涔.md` to `topics/同事/index.md` + one file per colleague."
+
+Prefer proposing remodeling before executing it when the change would move or rename existing files. You may silently apply no-regret structure fixes only when they do not change meaning and do not risk surprising the user.
+
 ## Route content to the correct location
 
 Choose the destination by content type.
+
+
+## Organize proactively when structure is obvious
+
+Do not treat every new memory as an isolated file. When the new memory clearly belongs inside an existing structure, organize it during capture.
+
+Use these rules:
+
+1. If the memory belongs to an existing topic, update that topic instead of creating a sibling file.
+2. If repeated items belong to the same entity class, create a collection directory and index for that class.
+3. If one entity is likely to accumulate more facts over time, give that entity its own file.
+4. If multiple entities are tiny and unlikely to grow, they may temporarily live in one collection note, but prefer splitting them once the category becomes important.
+5. Prefer shallow, interpretable structure over many unrelated top-level markdown files.
+
+### Use collection-plus-entity structure for recurring entities
+
+For recurring entity types such as colleagues, people, clients, projects, or vendors, prefer this pattern under `topics/`:
+
+```text
+topics/
+  people/
+    index.md
+    杜涔涔.md
+    张三.md
+```
+
+Or use another clear category name such as `topics/同事/`, `topics/clients/`, or `topics/projects/`.
+
+Use `index.md` in that collection directory to summarize and link the entity files.
+Use one file per durable entity when that entity can reasonably accumulate profile, preferences, relationships, images, or history.
+
+### Handle images and other attachments without breaking structure
+
+If a memory includes images or other supporting files, keep them adjacent to the organized topic or collection instead of leaving them loose at the module root.
+
+Prefer patterns like:
+
+```text
+topics/
+  people/
+    index.md
+    杜涔涔.md
+    杜涔涔.assets/
+      profile.png
+```
+
+Or, when a topic becomes large enough to justify its own folder:
+
+```text
+topics/
+  people/
+    杜涔涔/
+      index.md
+      profile.png
+      notes.md
+```
+
+Choose the simpler shape first. Promote a single markdown file into a dedicated folder only when attachments or scale make that worthwhile.
+
 
 ### Use `logs/` for time-based or transient capture
 
@@ -66,8 +141,9 @@ Prefer appending a dated bullet or short subsection instead of creating many tin
 Write stable preferences, project background, client facts, reusable decisions, and other long-lived knowledge to:
 
 - `topics/<topic>.md`
+- `topics/<collection>/index.md` plus `topics/<collection>/<entity>.md` for recurring entity sets
 
-Prefer updating an existing topic file when the new information clearly belongs there.
+Prefer updating an existing topic file when the new information clearly belongs there. When several memories belong to the same class of durable entities, prefer a collection directory with an index and one file per entity over many unrelated top-level files.
 
 ### Use `sops/` for repeatable procedures
 
@@ -180,6 +256,8 @@ python scripts/rebuild_index.py --root /Users/flowkehurly/.memory-data --all
 
 - Determine the module.
 - Ensure the module exists.
+- Run a quick remodeling check and surface any strong organization suggestion.
+- Check whether the content belongs in an existing topic or collection.
 - Route the content to `logs/`, `topics/`, `sops/`, or `tools/`.
 - Update the index when needed.
 
@@ -208,4 +286,8 @@ Do not put everything into `general` when the user explicitly named a module.
 Do not create one-off markdown files at the module root except `index.md`.
 Do not store executable code in `sops/`.
 Do not create a new topic when an existing durable topic should be updated.
+Do not keep adding top-level topic files when a clear collection such as `people/`, `clients/`, or `projects/` has emerged.
+Do not miss obvious opportunities to tell the user that the knowledge model should be upgraded.
+Do not silently move or rename large existing structures unless the user asked for that change or the change is trivially safe.
+Do not leave images or attachments loose when they can be grouped next to the relevant topic or entity.
 Do not leave indexes stale after major topic, SOP, or tool changes.
