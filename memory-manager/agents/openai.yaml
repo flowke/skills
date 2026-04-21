@@ -1,0 +1,4 @@
+interface:
+  display_name: "Memory Manager"
+  short_description: "Module-based memory capture and retrieval"
+  default_prompt: "Use $memory-manager to record, organize, or retrieve structured memory from my module-based memory store."
