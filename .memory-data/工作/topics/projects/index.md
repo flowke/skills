@@ -3,7 +3,7 @@ title: 项目信息索引
 module: 工作
 type: topic
 tags: [项目, 索引, 仓库, 发布入口]
-updated_at: 2026-04-21
+updated_at: 2026-04-22
 ---
 
 # 项目信息索引
@@ -36,6 +36,9 @@ updated_at: 2026-04-21
 - 仓库地址：`https://git.100tal.com/wangxiao_xueyan_suyang_fe/ai-ppt`
 - 仓库身份锚点：`topics/repos/ai-ppt.md`
 - 测试发布页：[cloud-test 发布页](https://cloud-test.tal.com/k8s-fe/appManage/appManageCenter/appDetail/imageManage?id=2826932)
+- 未来课件子应用测试发布页：[cloud-test 发布页](https://cloud-test.tal.com/k8s-fe/appManage/appManageCenter/appDetail/imageManage?id=2827456)
+- 未来课件子应用灰度发布页：[cloud 灰度发布页](https://cloud.tal.com/k8s-fe/appManage/appManageCenter/appDetail/imageManage?id=35125)
+- 未来课件子应用子应用发布页：[cloud 发布页](https://cloud.tal.com/k8s-fe/appManage/appManageCenter/appDetail/imageManage?id=35121)
 - 灰度发布页：[cloud 灰度发布页](https://cloud.tal.com/k8s-fe/appManage/appManageCenter/appDetail/imageManage?id=34527)
 - 线上发布页：[cloud 线上发布页](https://cloud.tal.com/k8s-fe/appManage/appManageCenter/releaseDetail?id=33556&cd_id=721588)
 - 项目差异：当前未记录
@@ -49,4 +52,4 @@ updated_at: 2026-04-21
 - 测试发布页：[cloud-test 发布页](https://cloud-test.tal.com/k8s-fe/appManage/appManageCenter/appDetail/imageManage?id=1011606)
 - 灰度发布页：[cloud 灰度发布页](https://cloud.tal.com/k8s-fe/appManage/appManageCenter/appDetail/imageManage?id=26435)
 - 线上发布页：[cloud 线上发布页](https://cloud.tal.com/k8s-fe/appManage/appManageCenter/appDetail/imageManage?id=26440)
-- 项目差异：当前未记录
+- 项目差异：万物生成器相关修改默认优先从共享源头链路入手，见 `topics/repos/edu-content-studio.md`
