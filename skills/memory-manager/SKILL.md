@@ -1,6 +1,6 @@
 ---
 name: memory-manager
-description: Structured memory capture, retrieval, update, and organization using the unified filesystem memory root at /Users/flowkehurly/Documents/AAA/skills/.memory-data. Use when Codex needs to record memory into a specific module, default unspecified memory to general, decide whether content belongs in logs, topics, sops, or tools, create module directories on demand, maintain per-module index.md files, retrieve existing memory, or write SOP documents and helper scripts such as Python tools into a module directory.
+description: Dual-mode memory skill for structured capture and retrieval/application using the unified filesystem memory root at /Users/flowkehurly/Documents/AAA/skills/.memory-data. Use when Codex needs to record memory into a specific module, or retrieve existing memory/SOPs/tools as working context for the current task without writing new memory by default.
 ---
 
 # Memory Manager
@@ -8,6 +8,14 @@ description: Structured memory capture, retrieval, update, and organization usin
 ## Overview
 
 Manage long-term memory under `/Users/flowkehurly/Documents/AAA/skills/.memory-data`.
+This skill has **two equal operating modes**:
+
+1. **Capture mode**: record, organize, update, and remodel memory
+2. **Recall/apply mode**: retrieve memory, SOPs, and tools as context for the current task, and optionally execute the workflow the user asked for
+
+Do **not** assume that enabling this skill means the user wants to write memory.
+When the user asks to solve a task, answer a question, follow an existing SOP, or provide remembered context, prefer **recall/apply mode** unless the user clearly asked to store or update memory.
+
 Organize memory by module. Create new modules on demand. Route each item into `logs/`, `topics/`, `sops/`, or `tools/` instead of dumping everything into one file. When new information clearly belongs to an existing category, entity set, or durable structure, organize it immediately instead of creating another flat standalone note.
 
 Use bundled scripts when they simplify filesystem setup or index maintenance:
@@ -38,6 +46,218 @@ Use this standard module layout for every module:
 Use `general` when the user does not specify a module.
 
 Preserve the module name the user gives unless the user explicitly asks to rename or normalize it. Create the module directory immediately if it does not exist.
+
+## Choose the operating mode before acting
+
+Always classify the user's intent **before** doing any filesystem write.
+The first job of this skill is not "store memory". The first job is "decide whether this turn is about capture or about recall/application."
+
+### Mode A — Capture / store / update memory
+
+Use capture mode only when the user clearly wants to persist or reshape memory. Typical cues:
+
+- `记一下` / `记住` / `存一下` / `帮我沉淀`
+- `写入 memory` / `更新记忆` / `补充到模块`
+- `把这个流程整理成 SOP`
+- `把这个脚本沉淀到 tools`
+- `把这条信息长期保存`
+
+In this mode, writing files is expected.
+
+### Mode B — Recall / use / execute from memory
+
+Use recall/apply mode when the user wants existing memory, SOPs, or tools to help with the current task. Typical cues:
+
+- `查一下之前记过没有`
+- `把相关背景给我` / `给 agent 提供上下文`
+- `按之前的流程做` / `调用之前的 SOP`
+- `看看这个模块里有没有现成工具`
+- `根据已有记忆继续执行`
+- `把能用的工作流提出来`
+
+In this mode, **do not create or update memory by default**.
+The goal is to fetch context, summarize it, link it to the current task, and if requested, execute the remembered workflow or tool.
+
+### Default disambiguation rule
+
+If the user intent is ambiguous, prefer **recall/apply mode** over capture mode.
+Only write memory when the user explicitly asks to persist, update, organize, or promote information into long-term memory.
+
+### Conversation heuristic: memory verbs vs direct task commands
+
+In normal conversation, treat wording like `加下...`、`记一下...`、`沉淀一下...`、`补充到...` as a strong signal for **capture mode**.
+These phrases usually mean the user wants the information written into memory.
+
+By contrast, when the user gives a **direct task command**, treat it as **recall/apply mode** by default, not as a memory-write request.
+Typical examples:
+
+- `发线上`
+- `按之前流程走`
+- `继续做这个`
+- `给我相关背景`
+- `查下有没有现成 SOP`
+
+These are usually execution or retrieval instructions.
+They mean: use remembered context, workflow, or tools **for the live task**.
+They do **not** mean: save a new memory entry.
+
+### Imperative execution rule
+
+If the user gives a short imperative instruction and it does not contain explicit memory-writing verbs, interpret it as a request to **execute** using existing memory when relevant.
+For example, `发线上` should be understood as: retrieve the relevant SOP/context if needed, then carry out the release-related workflow — not `write that the user wants to发线上` into memory.
+
+### Few-shot examples for Chinese conversational intent
+
+Use these examples as the default interpretation pattern in normal Chinese conversation.
+
+#### Example 1 — explicit memory write
+
+- User: `加下这个客户偏好：他们更喜欢周三下午开会。`
+- Interpret as: **record memory**
+- Why: `加下` is a memory-writing cue
+- Action: write or update the relevant topic/log in the correct module
+- Not this: do not merely summarize it for the live task and stop
+
+#### Example 2 — explicit memory write with “沉淀”
+
+- User: `把这次发版流程沉淀一下，后面复用。`
+- Interpret as: **record memory** or **promote into SOP**
+- Why: `沉淀一下` signals durable storage, often into `sops/` and possibly `tools/`
+- Action: organize the workflow into reusable assets
+
+#### Example 3 — direct execution command
+
+- User: `发线上`
+- Interpret as: **execute a remembered workflow/tool**
+- Why: this is a direct imperative command, not a memory-writing request
+- Action: retrieve release-related SOP/context if needed, then continue execution
+- Not this: do not create a memory entry like `用户要发线上`
+
+#### Example 4 — direct execution with implied history
+
+- User: `按之前流程走`
+- Interpret as: **execute a remembered workflow/tool**
+- Why: the user is referring to an existing remembered workflow
+- Action: find the relevant SOP/process and apply it to the live task
+
+#### Example 5 — context retrieval
+
+- User: `把这个项目相关背景给我，我要给 agent 上下文。`
+- Interpret as: **retrieve memory for context**
+- Why: the request is to fetch and summarize existing memory for current use
+- Action: gather relevant topics/SOPs/logs and present actionable context
+- Not this: do not write a new note unless separately asked
+
+#### Example 6 — retrieval plus execution
+
+- User: `查一下之前怎么发的，然后照着做。`
+- Interpret as: **retrieve first, then execute**
+- Why: the first half asks for recall, the second half asks for action
+- Action: locate the prior workflow, summarize the essential constraints, then proceed
+
+#### Example 7 — update existing memory
+
+- User: `把刚才那个 SOP 再补两条注意事项。`
+- Interpret as: **update memory**
+- Why: the user explicitly asks to modify an existing remembered asset
+- Action: update the SOP rather than creating a duplicate
+
+#### Example 8 — ambiguous short request
+
+- User: `这个也加进去`
+- Interpret as: usually **record memory**, but verify the target if unclear
+- Why: `加进去` is usually a storage/update cue, but the destination may be ambiguous
+- Action: if the target memory object is obvious, update it; otherwise ask a short clarification question
+
+### Hard rule
+
+**Using this skill is not itself permission to write memory.**
+Skill activation only means memory may be relevant. The user's instruction still determines whether the task is capture or recall/application.
+
+### Fast decision tree
+
+Use this compact decision tree before acting:
+
+1. Does the user explicitly ask to `记`, `加`, `沉淀`, `补充`, `更新记忆`, or `写入`?
+   - Yes → **capture/update memory**
+   - No → continue
+2. Does the user ask for background, prior notes, remembered constraints, SOPs, or existing tools?
+   - Yes → **retrieve memory for context**
+   - If they also ask to act, then **retrieve first, then execute**
+3. Is the message a direct imperative task command like `发线上`, `继续做`, `按流程来`, `处理一下`?
+   - Yes → **execute using remembered context if relevant**
+4. If still ambiguous:
+   - prefer **recall/apply**
+   - avoid writing memory unless the user explicitly asks for persistence
+
+## What recall/apply mode should do
+
+When operating in recall/apply mode, follow this order:
+
+1. identify the likely module or default to `general` only for search scope
+2. check `index.md` for navigation clues
+3. inspect relevant `topics/`, `sops/`, `tools/`, and recent logs
+4. extract only the memory relevant to the current task
+5. present it as actionable context, not as a dump of notes
+6. if the user asked to perform the workflow, follow the SOP or use the tool
+7. do not write back new memory unless the user separately asks to record the outcome
+
+### Response shape in recall/apply mode
+
+Prefer outputs like:
+
+- `我找到了 2 条相关记忆，核心结论如下...`
+- `相关 SOP 在 sops/...，我将按这个流程继续执行`
+- `现有 tools/... 可以直接用于这个任务，我先调用它`
+
+Avoid outputs that imply storage when the user only asked for retrieval or execution.
+
+### Output contract by mode
+
+Match the reply style to the chosen mode.
+The assistant should sound different in each mode.
+
+#### If mode = record/update memory
+
+Prefer replies like:
+
+- `已记录到 topics/...`
+- `已更新现有 SOP：sops/...`
+- `我顺手整理成了 SOP + tool，位置如下...`
+
+#### If mode = retrieve memory for context
+
+Prefer replies like:
+
+- `我找到了相关背景，核心有 3 点...`
+- `之前记过，关键约束如下...`
+- `有一份相关 SOP / topic，可以作为这次任务上下文...`
+
+Do not end with a storage confirmation in this mode.
+
+#### If mode = execute a remembered workflow/tool
+
+Prefer replies like:
+
+- `我先按之前的 SOP 检查一遍，然后继续执行。`
+- `我找到了可复用的流程，先照这个做。`
+- `现有工具可直接处理这个任务，我现在开始执行。`
+
+Do not respond as if the main result were memory retrieval only when the user asked for action.
+
+### Anti-patterns to avoid in replies
+
+Bad patterns:
+
+- User: `发线上` → Assistant: `已为你记录一条关于发线上的记忆`
+- User: `给我这个项目背景` → Assistant: `已保存项目背景到 general/logs/...`
+- User: `按之前 SOP 做` → Assistant: `我帮你沉淀了一份新的 SOP`
+
+Preferred patterns:
+
+- User: `发线上` → Assistant: `我先找相关发版 SOP / 约束，然后继续执行。`
+- User: `给我这个项目背景` → Assistant: `我找到了相关背景，关键信息如下...`
+- User: `按之前 SOP 做` → Assistant: `我定位到对应 SOP 了，接下来按它执行。`
 
 ## Detect context-dependent assertions before storing shared memory
 
@@ -371,6 +591,26 @@ python scripts/rebuild_index.py --root /Users/flowkehurly/Documents/AAA/skills/.
 
 ## Handle common requests
 
+### First: classify the request
+
+Before taking action, classify the turn into one of these buckets:
+
+1. **record memory**
+2. **retrieve memory for context**
+3. **execute a remembered workflow/tool**
+4. **update or remodel existing memory**
+
+Do not skip this classification step. It prevents accidental writes.
+
+Quick interpretation rule:
+
+- wording like `加下` / `记一下` / `沉淀` / `补充到记忆` → usually **record memory**
+- direct task imperatives like `发线上` / `继续做` / `按之前流程走` → usually **execute a remembered workflow/tool**
+- requests like `给我背景` / `查一下之前怎么做` → usually **retrieve memory for context**
+
+If one request mixes retrieval and execution, handle it in that order: **retrieve first, then execute**.
+Do not append a storage step unless the user explicitly asks for it.
+
 ### Record memory
 
 - Determine the module.
@@ -384,11 +624,22 @@ python scripts/rebuild_index.py --root /Users/flowkehurly/Documents/AAA/skills/.
 - Update the index when needed.
 - In the final reply, prefer relative or module-scoped paths instead of absolute paths unless the location is machine-specific.
 
-### Retrieve memory
+### Retrieve memory for context
 
 - Start from the user-specified module when one is given.
 - Check `index.md` first for navigation clues.
-- Search `topics/`, `sops/`, and recent logs before assuming the memory is absent.
+- Search `topics/`, `sops/`, `tools/`, and recent logs before assuming the memory is absent.
+- Summarize only the parts that are relevant to the live task.
+- Present the result as working context, recommended next steps, or candidate assets to use.
+- Do not write any new memory unless the user explicitly asks for persistence.
+
+### Execute a remembered workflow or tool
+
+- Retrieve the relevant SOP and/or tool first.
+- Tell the user briefly what remembered asset you are using.
+- Apply the SOP steps or run the tool for the current task.
+- Treat the memory as operational context, not as something to rewrite.
+- Only write back outcomes when the user explicitly asks to record the result, or when updating the memory asset itself is the requested task.
 
 ### Update memory
 
@@ -405,6 +656,12 @@ When a repeated workflow appears, split it into:
 
 ## Avoid common failures
 
+Do not treat every invocation of this skill as a memory-write request.
+Do not assume `use $memory-manager` means `store this`.
+Do not write memory in recall/apply mode unless the user explicitly asks to persist the result.
+Do not answer a retrieval or execution request with a storage confirmation.
+Do not reinterpret a direct command like `发线上` or `继续做` as `record this intent into memory`.
+Do not miss the distinction between **memory verbs** (`记一下`, `沉淀一下`) and **execution verbs** (`发线上`, `处理一下`, `按流程做`).
 Do not put everything into `general` when the user explicitly named a module.
 Do not create one-off markdown files at the module root except `index.md`.
 Do not store executable code in `sops/`.
