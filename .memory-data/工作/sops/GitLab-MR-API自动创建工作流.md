@@ -3,7 +3,7 @@ title: GitLab-MR-API自动创建工作流
 module: 工作
 type: sop
 tags: [GitLab, MR, API, 自动化, 工作流]
-updated_at: 2026-04-21
+updated_at: 2026-04-28
 related_tools:
   - tools/gitlab_create_mr.py
   - tools/create_mr_and_notify.py
@@ -146,6 +146,6 @@ git push -u origin <source_branch>
 
 1. 创建正式 MR；
 2. 给杜涔涔（工号 `113166`）发送一条 `text` 消息；
-3. 默认模板：`涔涔, 帮合并下: {mr_url}, 盼回复`。
+3. 默认模板：`涔涔, 帮合并下: {mr_url}`。
 
 如果用户临时要求发给其他人，可以通过 `--notify-work-code` 覆盖接收人工号；如需指定称呼，可额外传 `--notify-name`。

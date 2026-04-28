@@ -10,8 +10,8 @@ from pathlib import Path
 
 DEFAULT_NOTIFY_WORK_CODE = "113166"
 DEFAULT_NOTIFY_DISPLAY_NAME = "涔涔"
-DEFAULT_TEMPLATE = "{name}, 帮合并下: {mr_url}, 盼回复"
-FALLBACK_TEMPLATE = "帮合并下: {mr_url}, 盼回复"
+DEFAULT_TEMPLATE = "{name}, 帮合并下: {mr_url}"
+FALLBACK_TEMPLATE = "帮合并下: {mr_url}"
 
 MEMORY_ROOT = Path(__file__).resolve().parent.parent
 MR_TOOL = MEMORY_ROOT / "tools/gitlab_create_mr.py"
