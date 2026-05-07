@@ -102,7 +102,7 @@ implement/
    - 将相关子项改回 `[~]` 或新增修复子项
 
 2. **需求理解偏差**
-   - 回到 Discuss，更新需求细化、当前结论或待确认
+   - 回到 Discuss，更新讨论细化、当前结论或待确认
 
 3. **新增需求**
    - 不直接塞进当前实施完成项
@@ -150,7 +150,7 @@ implement/
 必须保持同步：
 - acceptance 的逐项验收范围和 progress checklist
 - acceptance 的问题项和 progress 中的阻塞 / 待确认 / 子项状态
-- acceptance 的需求理解问题和 Discuss 的待确认 / 需求细化
+- acceptance 的需求理解问题和 Discuss 的待确认 / 讨论细化
 
 禁止出现：
 - acceptance 写通过，但仍有必验项未验证且未说明

@@ -7,7 +7,7 @@
 Implement 的核心不是写交付说明，而是维护 `progress.md`：
 - 按原始需求组织实施子项
 - 用 checklist 跟踪进度
-- 承接 Discuss 阶段的需求细化、上下文和实现思路
+- 承接 Discuss 阶段的讨论细化、上下文和实现思路
 - 作为跨机器 / 跨 agent 继续工作的 handoff 文档
 
 ## Core rule
@@ -78,7 +78,7 @@ Implement 默认使用下面这组状态：
 从 Discuss 进入 Implement 时，必须承接以下内容：
 
 - 原始需求编号和原始语义
-- 需求细化中的关键边界、规则、默认行为和例外
+- 讨论细化中的关键边界、规则、默认行为和例外
 - 当前结论
 - Discuss 阶段的 `实现思路 / 方案预对齐`
 - 已消化且影响实现的 context

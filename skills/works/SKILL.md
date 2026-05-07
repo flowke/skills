@@ -17,7 +17,7 @@ description: Orchestrate project work from requirements discussion through imple
 Discuss → Implement → Acceptance
 ```
 
-- `Discuss`：整理需求来源、原始需求、需求细化、上下文资料、实现思路和关键待确认
+- `Discuss`：整理需求来源、原始需求、讨论细化、上下文资料、实现思路和关键待确认
 - `Implement`：对某个 discussion 或 topic 进行实施，维护 handoff-ready 的 `progress.md`
 - `Acceptance`：对照 progress 逐项验收，并把问题回流到 progress 或 Discuss
 
@@ -30,10 +30,10 @@ Discuss → Implement → Acceptance
 ```text
 topic（可选：页面 / 模块 / 业务域）
 └── 原始需求
-    └── 需求细化 / 上下文 / 实现思路 / 待确认 / 当前结论
+    └── 讨论细化 / 上下文 / 实现思路 / 待确认 / 当前结论
 ```
 
-默认两层：`原始需求 → 需求细化`。
+默认两层：`原始需求 → 讨论细化`。
 
 只有当需求包覆盖多个页面、模块、业务域或版本内功能区时，才拆出 topic。
 
@@ -91,6 +91,6 @@ topic（可选：页面 / 模块 / 业务域）
 按任务读取对应文件：
 
 - `references/model.md`：核心领域模型和目录结构
-- `references/discuss-mode.md`：需求讨论、需求细化、上下文和实现思路管理
+- `references/discuss-mode.md`：需求讨论、讨论细化、上下文和实现思路管理
 - `references/implement-mode.md`：实施进度、progress、handoff 和 implement context
 - `references/acceptance-mode.md`：逐项验收、验收记录和问题回流
