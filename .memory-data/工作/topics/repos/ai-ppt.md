@@ -3,7 +3,7 @@ title: ai-ppt
 module: 工作
 type: topic
 tags: [repo, GitLab, 超级教研, 发布]
-updated_at: 2026-04-21
+updated_at: 2026-05-07
 ---
 
 # 仓库身份

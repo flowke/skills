@@ -3,7 +3,7 @@ title: GitLab-线上Tag升级工作流
 module: 工作
 type: sop
 tags: [GitLab, tag, 发布, 自动化, git.100tal]
-updated_at: 2026-04-21
+updated_at: 2026-05-07
 related_tools:
   - tools/gitlab_release_tag.py
 ---
@@ -22,7 +22,8 @@ related_tools:
 4. 读取最新 `vX.Y.Z` 格式 tag。
 5. 默认按 `patch` 升级。
 6. 新 tag 默认打在 `origin/master` 的最新 merge commit 上。
-7. tag 说明优先使用用户显式给定文案；若用户未给，则默认由我根据本次工作内容总结成一句简短话；若仍缺失明显上下文，再退回到 MR 标题或目标 ref 的最新提交标题。
+7. tag 推送成功后，默认把**当前工作分支 fast-forward 到 `origin/master`**，用于同步本地分支基线；若具体项目文档另有差异说明，则以项目差异为准。
+8. tag 说明优先使用用户显式给定文案；若用户未给，则默认由我根据本次工作内容总结成一句简短话；若仍缺失明显上下文，再退回到 MR 标题或目标 ref 的最新提交标题。
 
 ## 通用工具
 
@@ -63,7 +64,7 @@ python tools/gitlab_release_tag.py push   --repo /path/to/repo   --mr-title '提
 
 1. 先完成“创建 MR + 通知协作者”；
 2. 暂停，等待同事完成合并；
-3. 当用户明确说“合并完了，继续”或同等语义时，再恢复执行 tag 升级。
+3. 当用户明确说“合并完了，继续”或同等语义时，再恢复执行 tag 升级，以及当前工作分支 fast-forward 到 `origin/master` 的收尾动作。
 
 
 ## tag 说明默认策略
