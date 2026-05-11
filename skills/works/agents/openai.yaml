@@ -1,4 +1,4 @@
 interface:
   display_name: "Works"
-  short_description: "Project implementation orchestration"
-  default_prompt: "Use $works to route the work into Discuss or Implement mode. Default to Discuss when the request is still ambiguous, keep one evolving discussion page, restructure by topic only when boundaries become clear, and lock implement scope before implementation."
+  short_description: "Project requirements, implementation, and acceptance orchestration"
+  default_prompt: "Use $works to route work into Discuss, Implement, or Acceptance. Preserve original requirements, refine requirements under them, manage contextual materials and implementation ideas, track implementation with handoff-ready progress checklists, and verify results with acceptance when requested."

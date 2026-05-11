@@ -1,0 +1,4 @@
+interface:
+  display_name: "Memory Manager"
+  short_description: "Dual-mode memory capture and recall/apply"
+  default_prompt: "Use $memory-manager to either (1) record and organize structured memory, or (2) retrieve and apply existing memory, SOPs, and tools as context for the current task without writing new memory by default."
