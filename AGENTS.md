@@ -1,0 +1,1 @@
+- skill 本地放在 skills/ 文件夹下
